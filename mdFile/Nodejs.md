@@ -95,6 +95,61 @@ server.listen(3000, function(){
   })
   ```
 
+
+## Mysql
+
+- **安装**
+
+  ```
+  npm install mysql --save
+  ```
+
+- **使用实例**
+
+  ```js
+  const { json } = require('express');
+  const mysql = require('mysql')
+  let options = {
+      host: "localhost",
+      //port:"3306", //可选，默认3306
+      user: "root",
+      password: 'dfnjkd98', // 这里改成你自己的数据库连接密码
+      database: "kublog",
+    };
+    //创建与数据库进行连接的连接对象
+    let connection = mysql.createConnection(options);
+    
+    //建立连接
+    connection.connect((err) => {
+      if (err) {
+        // 数据库连接成功
+        console.log(err);
+      } else {
+        // 数据库连接失败
+        console.log("数据库连接成功");
+      }
+    });
+  
+  
+    const sql = 'select * from article'
+    connection.query(sql, (err, res) => {
+        if(err) {
+            console.log(err)
+        }else{
+            console.log(res);
+            console.log(JSON.stringify(res));
+        }
+    })
+  
+    connection.end(err => {
+        if(err){
+            console.log(err);
+        }else{
+            console.log('成功关闭数据库');
+        }
+    })
+  ```
+
   
 
   

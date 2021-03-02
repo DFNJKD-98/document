@@ -72,6 +72,15 @@
 - 在 JavaScript 中，被称为 this 的事物，指的是拥有该 JavaScript 代码的对象。this 的值，在函数中使用时，是“拥有”该函数的对象。
 - 由我们创建但不由我们调用的函数为回调函数
 
+---
+
+### 2021/2/28学习记录
+
+- async 告诉程序这是一个异步，awiat 会暂停执行async中的代码，等待await 表达式后面的结果，跳过async 函数，继续执行后面代码
+- async 函数会返回一个Promise 对象，那么当 async 函数返回一个值时，Promise 的 resolve 方法会负责传递这个值；当 async 函数抛出异常时，Promise 的 reject 方法也会传递这个异常值
+- await 操作符用于等待一个Promise 对象，并且返回 Promise 对象的处理结果（成功把resolve 函数参数作为await 表达式的值），如果等待的不是 Promise 对象，则用 Promise.resolve(xx) 转化
+- [学习链接](https://www.cnblogs.com/longbensong/p/9384104.html)
+
 ------
 
 赶快开始新的学习吧··········
