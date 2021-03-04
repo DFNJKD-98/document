@@ -5,6 +5,7 @@
 * [CSS Grid 网格布局教程](mdFile/Grid网格布局教程)
 * [DNS介绍](mdFile/DNS介绍)
 * [Django学习记录](mdFile/Django学习记录)
+* [ES6学习记录](mdFile/Es6学习记录)
 * [Git 学习记录](mdFile/GIT学习记录)
 * [Js学习记录](mdFile/Js学习记录)
 * [Python数据分析基础学习记录](mdFile/Python数据分析基础学习)

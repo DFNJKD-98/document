@@ -259,6 +259,13 @@ div{
 }
 ```
 
+### text-align
+
+- **text-align不会作用于块级元素**
+- **text-align作用于文本**
+- **text-align作用于内联元素**
+- **text-align作用于图片**
+
 ------
 
 赶快开始新的学习吧··········

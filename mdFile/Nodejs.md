@@ -58,42 +58,149 @@ server.listen(3000, function(){
 
 ## Express
 
-- **安装**
-
-  ```
+### 安装
+```
   npm install express --save
+  npm install -g express-generator
+  // 为什么有第二条命令，因为4.x版本，把generator分离出来了，需要单独安装
+```
+
+### 使用例子
+
+```js
+const express = require('express')
+const fs = require('fs')
+const baseDir = '.'
+const port = 3000
+var app = express();
+
+   // 解决跨域问题
+app.all("/*", function(req, res, next) {
+    // 跨域处理
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By", ' 3.2.1');
+    res.header("Content-Type", "application/json;charset=utf-8");
+    next(); // 执行下一个路由
+})
+
+app.get('/', (req, res) => {
+    res.send('Index Page Show')
+})
+
+app.use('/json/', express.static('./json/'))
+
+app.listen(port, () => {
+    console.log('app is running ....')
+})
+```
+
+### 动态路由
+
+```js
+app.get("/article/:id", (req, res) => {
+    let id = req.params["id"];
+    res.send(`动态路由 ${id}`);
+})
+```
+
+### 获取 get 传值
+
+```js
+app.get("/product", (req,res) => {
+	let query = req.query;
+    console.log(query); // query为一个对象
+    res.send("product-" + query.id)
+})
+```
+
+### ejs 模板引擎
+
+- 安装
+
+  ```
+  npm install ejs --save
   ```
 
-- **使用例子**
+- Express 中 ejs 的使用
 
   ```js
   const express = require('express')
-  const fs = require('fs')
-  const baseDir = '.'
-  const port = 3000
-  var app = express();
+  let app = express();
   
-     // 解决跨域问题
-  app.all("/*", function(req, res, next) {
-      // 跨域处理
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Headers", "X-Requested-With");
-      res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-      res.header("X-Powered-By", ' 3.2.1');
-      res.header("Content-Type", "application/json;charset=utf-8");
-      next(); // 执行下一个路由
+  // 配置express的模板引擎 (不需要主动引入ejs)
+  app.set("view engine", "ejs");
+  // 使用 (默认加载模板引擎的文件夹是views)
+  res.get("/", (req, res) => {
+      let title = "hello, ejs"
+      res.render("index.ejs", {
+          title
+      })
   })
-  
-  app.get('/', (req, res) => {
-      res.send('Index Page Show')
-  })
-  
-  app.use('/json/', express.static('./json/'))
-  
-  app.listen(port, () => {
-      console.log('app is running ....')
-  })
+  app.listen(3000)
   ```
+
+  ```ejs
+  // views => index.ejs
+  <body>
+      <h2><%=title%></h2>
+  </body>
+  ```
+
+- 引入模板
+
+  ```ejs
+  <%- include ('header.ejs')%>
+  ```
+
+- 绑定数据
+
+  ```
+  <%=title%>
+  <%-title%> // 此种方式可以解析title中的html标签
+  ```
+
+- 条件判断
+
+  ```ejs
+  <%if(flag == true){%>
+  	<strong>flag=true</strong>
+  <%}else{%>
+  	<strong>flag=flase</strong>
+  <%}%>
+  ```
+
+- 循环遍历
+
+  ```ejs
+  <ul>
+      <%for(var i=0;i<list.length;i++){%>
+          <li><%=list[i]%></li>
+      <%}%>
+  </ul>
+  
+  ```
+
+- 指定模板位置，默认模板位置在views
+
+  ```js
+  app.set('views',__dirname+'/views');
+  ```
+
+- 更改模板文件的后缀
+
+  ```js
+  const ejs = require('ejs');
+  // 注册 html 模板引擎
+  app.engine('html', ejs.__express)
+  // 将模板引擎换成html
+  app.set('view engine', 'html');
+  ```
+
+  
+
+---
 
 
 ## Mysql
@@ -150,6 +257,19 @@ server.listen(3000, function(){
     })
   ```
 
-  
+
+## 热启动
+
+- **安装**
+
+  ```
+  npm install nodemon -g
+  ```
+
+- **第二选择**
+
+  ```
+  npm install supervisor  -g
+  ```
 
   
