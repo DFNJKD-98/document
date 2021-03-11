@@ -33,4 +33,35 @@
   main();
   ```
 
+
+### for 循环的使用
+
+- **let···in**
+
+  ```js
+  let books = [
+      {id: 1, name: 'a'},
+      {id: 2, name: 'b'},
+      {id: 3, name: 'c'},
+      {id: 4, name: 'd'},
+  ]
+  for(let i in books){
+      console.log(books[i]);
+  }
+  ```
+
+- **let···of**
+
+  ```js
+  let books = [
+      {id: 1, name: 'a'},
+      {id: 2, name: 'b'},
+      {id: 3, name: 'c'},
+      {id: 4, name: 'd'},
+  ]
+  for(let book of books){
+      console.log(book);
+  }
+  ```
+
   

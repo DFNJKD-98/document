@@ -26,45 +26,111 @@
 
 #### Vue基本使用方法
 
-- **v-bind**
+##### 1.1. v-bind
 
-  ```html
-  <!--  v-bind 注意 message 要加上双引号-->
-  <span :title="message">鼠标悬浮</span>
-  ```
+```html
+<!--  v-bind 注意 message 要加上双引号 -->
+<span :title="message">鼠标悬浮</span>
 
-- **v-if**
+<!--  v-bind 动态绑定class 对象语法 -->
+<div :class="{key1: value1, key2: value2}">{{message}}</div>
+<div :class="{类名1: Boolean, 类名2: Boolean}">{{message}}</div>
+<!--  boolean为true，则类名会添加到class中；Boolean为flase，则不会添加到class中 -->
+<div class="baseClass" :class="{active: isActive, line: isLine}">{{message}}</div>
+<!--  两个class都可以存在 -->
 
-  ```html
-  <!--  v-if 为假的时候，该元素直接不存在于DOM中了-->
-  <p v-if="seen">显示和隐藏</p>
-  ```
+<!--  v-bind 动态绑定class 数组语法 -->
+<div :class="[active, line, baseClass]"></div> // 这里面的是变量
+<div :class="['active', 'line', 'baseClass']"></div> //这里面的是字符串
+```
 
-- **v-for**
+##### 1.2. v-if
 
-  ```html
-  <!--  v-for 使用例子 -->
-  <ol>
-      <li v-for="todo in todos">
-      	{{ todo.text }}
-      </li>
-  </ol>
-  ```
+```html
+<!--  v-if 为假的时候，该元素直接不存在于DOM中了-->
+<p v-if="seen">显示和隐藏</p>
+```
 
-- **v-on**
+##### 1.3. v-for
 
-  ```html
-  <!--  v-on 指令添加一个事件监听器  -->
-  <button v-on:click="reverseMessage">反转消息</button>
-  <button v-on:click="showMsg">显示消息</button>
-  ```
+```html
+<!--  v-for 使用例子 -->
+<ol>
+    <li v-for="todo in todos">
+    	{{ todo.text }}
+    </li>
+</ol>
+```
 
-- **v-model**
+##### 1.4. v-on
 
-  ```html
-  <!--  v-model 指令实现表单输入和应用状态之间的双向绑定  -->
-  <input v-model="message">
-  ```
+```html
+<!--  v-on 指令添加一个事件监听器  -->
+<button v-on:click="reverseMessage">反转消息</button>
+<button v-on:click="showMsg">显示消息</button>
+```
+
+##### 1.5. v-model
+
+```html
+<!--  v-model 指令实现表单输入和应用状态之间的双向绑定  -->
+<input v-model="message">
+```
+
+#### Vue常用基本属性
+
+##### 1.1. computed
+
+```html
+<div id="app">
+    <h2>{{fullName}}</h2>
+    <!-- 这里的 fullName 后面不用加括号-->
+</div>
+<script>
+	const app = new Vue({
+        el: '#app',
+        data: {
+            firstName: 'Lebron',
+            lastName: 'James'
+        },
+        computed: {
+            fullName: () => {
+                return this.firstName + this.lastName
+            }
+        }
+    })
+</script>
+```
+
+#####  1.2. set 和 get
+
+```html
+<div id="app">
+    <h2>{{fullName}}</h2>
+    <!-- 这里的 fullName 后面不用加括号-->
+</div>
+<script>
+	const app = new Vue({
+        el: '#app',
+        data: {
+            firstName: 'Lebron',
+            lastName: 'James'
+        },
+        computed: {
+            fullName: {
+                set: function(newValue){
+                    console.log(newValue);
+                },
+                get: function(){
+                    return this.firstName + this.lastName;
+                }
+            }
+        }
+    })
+</script>
+```
+
+
 
 #### Vue生命周期函数
 
@@ -934,6 +1000,24 @@ import * as aaa from "./aaa.js";
 console.log(aaa.flag);
 ```
 
+##### 1.3. CommonJs的模块化实现
+
+```js
+// a.js
+function add(a, b){
+    return a + b;
+}
+module.exports = {
+    add
+}
+```
+
+```js
+// b.js
+const {add} = require('./a.js');
+console.log(add(3,4)); // 7
+```
+
 
 
 #### webpack的配置
@@ -1582,9 +1666,34 @@ const router = new VueRouter({
 
 ##### 1.1. Vuex概念和作用解析
 
+- **vue.prototype**可以传递变量，但是**不是响应式的**
+
+- ```mermaid
+  graph LR
+    D(State) --> C(View)
+    C --> E(Actions)
+    E --> D
+  ```
+
+- ```mermaid
+  graph TD
+  VueComponents -->|Dispatch 异步操作| Actions
+  VUeComponents -->|同步请求| Mutations
+  Actions -->|Commit| Mutations
+  Actions --> BackendAPI
+  Mutations -->|Mutate|State
+  State -->|Render| VueComponents
+  ```
+
 ##### 1.2. Vuex单界面到多界面状态管理切换
 
 - **Vuex插件的安装**
+
+  ```
+  npm install vuex --save
+  ```
+  
+- **Vuex的使用**
 
   ```js
   import Vue from 'vue'
@@ -1596,13 +1705,19 @@ const router = new VueRouter({
   // 2.创建对象
   const store = new Vuex.Store({
       state: {
+          // 定义变量
           counter: 0
       },
       mutations: {
+          // 定义方法
+          // 方法自动传入参数 state
+          // this.$store.commit('方法名')
       },
       actions: {
+          // 在这里书写异步操作
       },
       getters: {
+          // 类似于组件中的计算属性
       },
       modules: {
       }
@@ -1619,6 +1734,12 @@ const router = new VueRouter({
       store,
       render: h => h(app)
   })
+  
+  // 5.访问变量
+  // App.vue
+  <template>
+  	<div>{{ $store.state.counter }}</div>
+  </template>
   ```
 
 ##### 1.3. devtools和mutations
@@ -2078,7 +2199,7 @@ export function request(config) {
 
 ---
 
-#### Vue项目引入js文件
+#### Vue项目引入Jquery文件
 
 - **装包**
 
@@ -2114,6 +2235,30 @@ export function request(config) {
   ```
 
 - **访问链接** —— https://www.cnblogs.com/yejunm3/p/13232055.html
+
+#### FAQ
+
+##### vue-cli3 打包后本地无法查看
+
+- vue.config.js
+
+  ```js
+  module.exports = {
+      publicPath: './',
+      outputDir: 'dist',
+      assetsDir: 'static'
+  }
+  ```
+
+- router -> index.js
+
+  ```js
+  export default new Router({
+      // 修改模式为哈希模式
+      mode: 'hash',
+      routes
+  })
+  ```
 
 
 
