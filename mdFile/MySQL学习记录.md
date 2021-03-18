@@ -87,6 +87,18 @@ create database 数据库名 charset utf8;
 	——drop database 库名;
 ```
 
+### 1.4 导出数据库
+
+```mysql
+导出数据库：mysqldump -u 用户名 -p 数据库名 > 导出的文件名
+
+如::mysqldump -u root -p news > news.sql   (输入后会让你输入进入MySQL的密码)
+
+如果导出单张表的话在数据库名后面输入表名即可
+
+会看到文件news.sql自动生成到终端中的路径下   
+```
+
 ---
 
 ## 表操作

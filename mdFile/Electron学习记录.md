@@ -14,9 +14,16 @@
   ```
   npm init
   npm install electron --save-dev
+  npm install --arch=ia32 --platform=win32 electron
   npx electron -v
   ```
   
+- 加速安装技巧
+
+  ```
+  ELECTRON_MIRROR=https://cdn.npm.taobao.org/dist/electron/ npm install electron --save-dev
+  ```
+
 - vue-cli3 中 electron 环境搭建
 
   - 创建项目
@@ -98,7 +105,17 @@
   let BrowserWindow = electron.BrowserWindow
   let mainWindow = null //声明要打开的主窗口
   app.on('ready', () => {
-      mainWindow = new BrowserWindow({width: 300, height: 300})
+      mainWindow = new BrowserWindow({
+      width: 1100,
+      height: 680,
+      minHeight: 680,
+      minWidth: 1100,
+      webPreferences: {
+          nodeIntegration: true,
+          webSecurity: false,
+          enableRemoteModule: true,
+      },
+      });
       // 加载 html 页面
       mainWindow.loadFile('index.html')
       // 监听窗口的关闭事件，若关闭，则赋值为null，否则内存会占用越来越多
