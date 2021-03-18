@@ -237,7 +237,6 @@ app.get("/product", (req,res) => {
       }
     });
   
-  
     const sql = 'select * from article'
     connection.query(sql, (err, res) => {
         if(err) {
