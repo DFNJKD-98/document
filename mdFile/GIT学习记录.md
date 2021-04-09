@@ -8,29 +8,28 @@
 
 #### ```git add``` 向暂存区中添加文件
 
-> `git add '文件名称'`
->
-> `git add -A` 添加该文件夹下所有文件
+- `git add '文件名称' `
+- `git add -A` 添加该文件夹下所有文件
 
 #### ```git commit``` 保存仓库的历史记录
 
-> 在编辑器中记述提交信息的格式如下。
->
-> - 第一行：用一行文字简述提交的更改内容 
-> -  第二行：空行 
-> -  第三行以后：记述更改的原因和详细内容
+- 提交信息格式
 
->```git commit --amend``` **修改**提交信息  （提交信息是 ` git commit -m xxx`）
->
->``` git commit --am '提交信息' ``` 可以合并```git add '文件名称'``` 和 ``` git commit -m '提交信息'``` 两个步骤为一个步骤
+  > 在编辑器中记述提交信息的格式如下。
+  >
+  > - 第一行：用一行文字简述提交的更改内容 
+  > - 第二行：空行 
+  > - 第三行以后：记述更改的原因和详细内容
+
+- `git commit --amend` 修改提交信息 （提交信息的命令是 `git commit -m xxx`)
+
+- `git commit --am '提交信息'` 可以合并`git add '文件名称'` 和 ` git commit -m '提交信息'` 两个步骤为一个步骤
 
 #### ```git log``` 查看提交日志
 
-只显示提交信息的第一行：``` git log --pretty=short```
-
-只显示指定目录、文件的日志：``` git log 目录名/文件名```
-
-显示文件的改动：```git log -p 文件名```
+- 只显示提交信息的第一行：``` git log --pretty=short```
+- 只显示指定目录、文件的日志：``` git log 目录名/文件名```
+- 显示文件的改动：```git log -p 文件名```
 
 #### ```git diff``` 查看更改前后的区别
 
@@ -139,7 +138,7 @@
     `git push -u origin master -f`
     这样会使远程修改丢失，一般是不可取的，尤其是多人协作开发的时候。
 
-  - 2.push前先将远程repository修改pull下来
+  - push前先将远程repository修改pull下来
     `git pull origin master`
     `git push -u origin master`
 
@@ -147,19 +146,17 @@
     `git branch [name]`
     然后`push`
     `git push -u origin [name]`
+    
+  - **拉取远程仓库**(这个方法比较管用)
+    
+    ```
+    git pull origin master --allow-unrelated-histories
+    // --allow-unrelated-histories 允许合并不相关历史
+    git add .
+    git commit
+    git push -u origin master
+    ```
 
-- 拉取远程仓库
-
-  ```
-  git pull origin master --allow-unrelated-histories
-  // --allow-unrelated-histories 允许合并不相关历史
-  ```
-
-- 推送本地仓库
-
-  ```
-  git push -u origin master
-  ```
 
 #### 从远程仓库获取
 

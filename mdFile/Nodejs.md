@@ -271,4 +271,46 @@ app.get("/product", (req,res) => {
   npm install supervisor  -g
   ```
 
+
+## Koa-router
+
+### 路由拆分
+
+- 建立多个路由配置文件router1-3.js, 文件内容大致如下
+
+  ```js
+  const Router = require('koa-router')
+  const router = new Router()
+  
+  router.get('/', async (ctx, next) => {
+      ctx.body = 'router-1';
+      next();
+  })
+  
+  module.exports = router.routes()
+  ```
+
+- 建立总路由配置文件router.js, 用它关联其他模块的路由
+
+  ```js
+  const Router = require('koa-router')
+  const router1 = require('../routes/router1')
+  const router2 = require('../routes/router2')
+  const router3 = require('../routes/router3')
+  
+  var router = new Router()
+  router.use('/test', router1);
+  router.use('/test2', router2);
+  router.use('/test3', router3);
+  
+  module.exports = router
+  ```
+
+- 在app.js里面启动总路由
+
+  ```js
+  const router = require('./myApp/config/router')
+  app.use(router.routes()).use(router.allowedMethods());
+  ```
+
   
