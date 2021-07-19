@@ -273,6 +273,31 @@ div{
 - 解决边距合并的方法很多，最常用的是给父级设置 overflow:hidden；
 - 除了这个方法，还可以通过设置浮动，定位, 设置padding 来替代等方法来解决边距合并问题。
 
+### 输入框的属性
+
+#### placeholder
+
+- 规定帮助用户填写输入字段的提示。
+- ::placeholder可以设置占位符文本的样式
+
+#### autocomplete
+
+- on/off
+- 规定是否使用输入字段的自动完成功能。
+
+#### spellchek
+
+- true/false
+- 是否进行拼写检查
+
+---
+
+网页字体参考：<https://www.5axxw.com/tools/api/webfont.html>
+
+css2在线文档：<https://www.5axxw.com/tools/api/css2_cn.html>
+
+css3中文参考手册：<https://www.5axxw.com/tools/api/css3_cn.html>
+
 ------
 
 赶快开始新的学习吧··········

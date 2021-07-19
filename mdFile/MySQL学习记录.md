@@ -586,7 +586,11 @@ insert into employee(name,sex,age,hire_date,post,salary,office,depart_id) values
     SELECT name,salary FROM employee;
 
 #避免重复DISTINCT
-    SELECT DISTINCT post FROM employee;    
+    SELECT DISTINCT post FROM employee;
+
+#使用SELECT 列1, 列2, 列3 FROM ...时，还可以给每一列起个别名，这样，结果集的列名就可以与原表的列名不同。
+#	语法：SELECT 列1 别名1, 列2 别名2, 列3 别名3 FROM ...
+	SELECT id card_id, name FROM employee;
 
 #通过四则运算查询
     SELECT name, salary*12 FROM employee;
@@ -784,13 +788,16 @@ GROUP BY与聚合函数一起使用
 #强调：聚合函数聚合的是组的内容，若是没有分组，则默认一组
 
 #示例：
-    SELECT COUNT(*) FROM employee;
-    SELECT COUNT(*) FROM employee WHERE depart_id=1;
-    SELECT MAX(salary) FROM employee;
-    SELECT MIN(salary) FROM employee;
-    SELECT AVG(salary) FROM employee;
-    SELECT SUM(salary) FROM employee;
+    SELECT COUNT(*) FROM employee; # employee表有多少条记录
+    SELECT COUNT(*) FROM employee WHERE depart_id=1; # employee表中满足条件的有多少条记录
+    SELECT MAX(salary) FROM employee; # salary字段的最大值，可以不是数值类型
+    SELECT MIN(salary) FROM employee; # salary字段的最小值，可以不是数值类型
+    SELECT AVG(salary) FROM employee; # salary字段的平均值， 该列必须为数值类型
+    SELECT SUM(salary) FROM employee; # salary字段的和，该列必须为数值类型
     SELECT SUM(salary) FROM employee WHERE depart_id=3;
+
+# WHERE 条件不符合时，COUNT函数返回0，MAX,MIN,AVG,SUM返回NULL
+
 ```
 
 ### 1.6 having过滤
@@ -839,9 +846,9 @@ mysql> select post,group_concat(name) from emp group by post having avg(salary) 
 
 ```mysql
 # 按单列排序
-    SELECT * FROM employee ORDER BY salary;
-    SELECT * FROM employee ORDER BY salary ASC;
-    SELECT * FROM employee ORDER BY salary DESC;
+    SELECT * FROM employee ORDER BY salary; # 从低到高
+    SELECT * FROM employee ORDER BY salary ASC; # 升序： 从小到大
+    SELECT * FROM employee ORDER BY salary DESC; # 倒序
 
 # 按多列排序:先按照age排序，如果年纪相同，则按照薪资排序
     SELECT * from employee ORDER BY age, salary DESC;
@@ -858,6 +865,16 @@ SELECT * FROM employee ORDER BY salary DESC LIMIT 0,5;
 
 # 从第5开始，即先查询出第6条，然后包含这一条在内往后查5条
 SELECT * FROM employee ORDER BY salary DESC LIMIT 5,5; 
+
+# 每页三条数据(pageSize)，查询第二页数据(pageIndex)
+SELECT id, name, gender, score FROM students ORDER BY score DESC LIMIT 3 OFFSET 3;
+
+# LIMIT = pageSize
+# OFFSET = pageSize * (pageIndex - 1)
+# OFFSET 超过存储的数据容量时，得到空的结果集
+# OFFSET 是可选的，如果只写LIMIT 15，那么相当于LIMIT 15 OFFSET 0
+# LIMIT 15 OFFSET 0 还可以写成LIMIT 30,15
+
 ```
 
 ### 1.9 正则表达式查询

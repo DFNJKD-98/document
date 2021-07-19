@@ -64,6 +64,8 @@
     > 通常情况下，一个本地 git 仓库对应一个远程仓库；然而，在一些情况下，一个本地仓库需要同时关联多个远程仓库，比如同时将一个项目发布在 github 和 coding上
     >
     > 添加一个新的远程仓库，可以指定一个名字(shortname)，以便将来引用，运行
+    
+  - `git remote rm origin` 删除远程仓库origin
 
 - `git push` 将本地分支的更新，推送到远程主机
 
@@ -265,7 +267,7 @@ git init
 
 #### 3.4.1 推送至master分支
 
-``` git push -u origin master``` 
+``` git push -u origin master:master``` 
 
 > 像这样执行 git push命令，当前分支的内容就会被推送给远程仓库 origin 的 master 分支。
 >
