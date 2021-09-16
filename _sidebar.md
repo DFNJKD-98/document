@@ -1,3 +1,4 @@
+- [C++学习记录](mdFile/C++学习记录.md)
 - [CSS_Grid网格布局教程](mdFile/CSS_Grid网格布局教程.md)
 - [CSS学习记录](mdFile/CSS学习记录.md)
 - [Django学习记录](mdFile/Django学习记录.md)
@@ -15,6 +16,7 @@
 - [Python数据分析基础学习](mdFile/Python数据分析基础学习.md)
 - [QQMusicAPI文档](mdFile/QQMusicAPI文档.md)
 - [TypeScript](mdFile/TypeScript.md)
+- [Vue3学习记录](mdFile/Vue3学习记录.md)
 - [Vue学习记录](mdFile/Vue学习记录.md)
 - [好物推荐](mdFile/好物推荐.md)
 - [小知识点](mdFile/小知识点.md)
