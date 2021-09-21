@@ -9,6 +9,7 @@
 - [GIT学习记录](mdFile/GIT学习记录.md)
 - [HTML学习记录](mdFile/HTML学习记录.md)
 - [Js学习记录](mdFile/Js学习记录.md)
+- [Linux实验记录](mdFile/Linux实验记录.md)
 - [MySQL存储引擎](mdFile/MySQL存储引擎.md)
 - [MySQL学习记录](mdFile/MySQL学习记录.md)
 - [Nodejs学习记录](mdFile/Nodejs学习记录.md)
