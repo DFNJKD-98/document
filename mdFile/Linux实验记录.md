@@ -1,4 +1,15 @@
+## 历史知识
+
+### GNU是什么，和LInux是什么关系
+
+![image-20211007112302300](Linux实验记录.assets/image-20211007112302300.png)
+
+### [gcc、make、makefile、cmake、qmake](https://www.zhihu.com/question/27455963)
+
+![image-20211007122110642](Linux实验记录.assets/image-20211007122110642.png)
+
 ## 配置深色主题
+
   - setting -> 外观 -> dark
   - 使用GNOME扩展安装Yaru深色shell主题
     ```shell
@@ -12,9 +23,100 @@
   - 打开GNOME调整工具，进入外观部分，切换Shell主题
 
 ## 安装软件
-### 什么是软件源
-  - 在使用Debian或者Ubuntu的apt-get工具来安装需要的软件时，其实就是从服务器获取需要安装的软件并把它安装在本地计算机的过程。所谓的软件源，就是我们获取软件的来源，它是定义在/etc/apt/sources.list文件里的
+
+> 大多数现代类 Unix 操作系统都提供了一个集中的软件包管理机制，以帮助用户搜索、安装和管理软件。而**软件通常以「包」的形式存储在仓库「repository」中**，对软件包的使用和管理被称为包管理。而 Linux 包的基本组成部分通常有：共享库、应用程序、服务和文档。
+>
+> 包管理通常不仅限于软件的一次性安装，还包括了对已安装软件包进行升级的工具。「包仓库」有助于确保代码已经在你使用的系统上进行了审核，并由软件开发者或包维护者进行管理。
+>
+> 大多数包管理系统是建立在包文件上的集合，包文件通常包含编译好的二进制文件和其它资源组成的：软件、安装脚本、元数据及其所需的依赖列表。
+
+### [包管理工具](https://www.sysgeek.cn/linux-package-management/)
+
+|  系统  | 格式 |             工具              |
+| :----: | :--: | :---------------------------: |
+| Debian | .deb | apt, apt-cache、apt-get、dpkg |
+| Ubuntu | .deb | apt、apt-cache、apt-get、dpkg |
+| CentOS | .rpm |              yum              |
+| Fedora | .rpm |              dnf              |
+
+- Debian 及其衍生产品如：Ubuntu、Linux Mint 和 Raspbian 的包格式为.deb文件，APT 是最常见包操作命令，可：搜索库、安装包及其依赖和管理升级。而要**直接安装现成.deb包时需要使用dpkg命令**。
+- CentOS、Fedora 及 Red Hat 系列 Linux 使用RPM包文件，并使用yum命令管理包文件及与软件库交互。
+- 在最新的 Fedora 版本中，yum命令已被dnf取代进行包管理。
+
+### [apt、apt-get、apt-cache](https://www.sysgeek.cn/apt-vs-apt-get/)
+
+  - Advanced Packaging Tool（apt）是Linux下的一款安装包管理工具
+
+  - APT由几个名字以“apt-”打头的程序组成。apt-get、apt-cache 和apt-cdrom是处理软件包的命令行工具。
+
+  - 作为操作的一部分，APT使用一个文件列出可获得软件包的镜像站点地址，这个文件就是/etc/apt/sources.list
+
+  - 虽然 apt 与 apt-get 有一些类似的命令选项，但它并不能完全向下兼容 apt-get 命令。也就是说，可以用 apt 替换部分 apt-get 系列命令，但不是全部。
+
+### [apt和dpkg](https://blog.csdn.net/dgreh/article/details/83655658)
+
+> 最初只有.tar.gz的打包文件，用户必须编译每个他想在GNU/Linux上运行的软件。用户们普遍认为系统很有必要提供一种方法来管理这些安装在机器上的软件包，当Debian诞生时，这样一个管理工具也就应运而生，它被命名为dpkg。从而著名的“package”概念第一次出现在GNU/Linux系统中，稍后Red Hat才决定开发自己的“rpm”包管理系统。
+>
+> 很快一个新的问题难倒了GNU/Linux制作者，他们需要一个快速、实用、高效的方法来安装软件包，当软件包更新时，这个工具应该能自动管理关联文件和维护已有配置文件。Debian再次率先解决了这个问题，APT(Advanced Packaging Tool）作为dpkg的前端诞生了。APT后来还被Conectiva改造用来管理rpm，并被其它Linux发行版本采用为它们的软件包管理工具。
+>
+> 虽然我们在使用dpkg时，已经解决掉了 软件安装过程中的大量问题，但是当依赖关系不满足时，仍然需要手动解决，而apt这个工具解决了这样的问题
+>
+> Linux命令—apt，也是其它用户前台程序的后端，如dselect 和aptitude。
+
+|     apt 命令     |              命令的功能              |
+| :--------------: | :----------------------------------: |
+|   apt install    |              安装软件包              |
+|    apt remove    |              移除软件包              |
+|     apt pur      |         移除软件包及配置文件         |
+|    apt update    |            刷新存储库索引            |
+|   apt upgrade    |        升级所有可升级的软件包        |
+|  apt autoremove  |          自动删除不需要的包          |
+| apt full-upgrade |    在升级软件包时自动处理依赖关系    |
+|    apt search    |             搜索应用程序             |
+|     apt show     |              显示装细节              |
+|     apt list     | 列出包含条件的包（已安装，可升级等） |
+| apt edit-sources |              编辑源列表              |
+
+| dpkg命令                             | 命令的功能                                   |
+| ------------------------------------ | -------------------------------------------- |
+| dpkg -i package-name.deb             | 安装软件包，必须是deb包的完整名称            |
+| dpkg - -unpack package-name.deb      | 解包：解开软件包到系统目录但不配置           |
+| dpkg - -configure package-name.deb   | 配置：配置软件包                             |
+| dpkg -c package-name.deb             | 列出deb包的内容                              |
+| dpkg -r package-name // - -remove    | 移除软件包，但保留其配置文件                 |
+| dpkg -P package-name // - -purge     | 清除软件包的所有文件                         |
+| dpkg -l package-name // - -list      | 查看系统中package-name软件包                 |
+| dpkg -L package-name // - -listfiles | 查看package-name对应的软件包安装的文件及目录 |
+| dpkg -s package-name // - -status    | 查看package-name对应的软件包信息             |
+| dpkg -S filename // - -search        | 查询系统中某个文件属于哪个软件包             |
+| dpkg --info package-name.deb         | 列出软件包解包后的包名称                     |
+
+### [APT工作原理](https://blog.csdn.net/dgreh/article/details/83655658)
+
+> APT是一个客户/服务器系统。在服务器上先复制所有DEB包（DEB是Debian软件包格式的文件扩展名），然后用APT的分析工具（genbasedir）根据每个DEB 包的包头（Header）信息对所有的DEB包进行分析，并将该分析结果记录在一个文件中，这个文件称为DEB 索引清单，APT服务器的DEB索引清单置于base文件夹内。一旦APT 服务器内的DEB有所变动，一定要使用genbasedir产生新的DEB索引清单。客户端在进行安装或升级时先要查询DEB索引清单，从而可以获知所有具有依赖关系的软件包，并一同下载到客户端以便安装。
+>
+> 当客户端需要安装、升级或删除某个软件包时，客户端计算机取得DEB索引清单压缩文件后，会将其解压置放于/var/state/apt/lists/，而客户端使用apt-get install或apt-get upgrade命令的时候，就会将这个文件夹内的数据和客户端计算机内的DEB数据库比对，知道哪些DEB已安装、未安装或是可以升级的
+>
+> 例：apt-get的更新过程
+> 1）执行apt-get update 
+> 2）程序分析/etc/apt/sources.list 
+> 3）自动连网寻找list中对应的Packages/Sources/Release列表文件，如果有更新则下载之，存入/var/lib/apt/lists/目录 
+> 4）然后 apt-get install 相应的包 ，下载并安装。
+
+### apt相关文件
+
+- `var/lib/dpkg/available` 文件的内容是软件包的描述信息, 该软件包括当前系统所使用的Debian 安装源中的所有软件包,其中包括当前系统中已安装的和未安装的软件包
+- `/etc/apt/sources.list` 记录软件源的地址（当你执行 sudo apt-get install xxx 时，Ubuntu 就去这些站点下载软件包到本地并执行安装）
+- `/var/cache/apt/archives` 已经下载到的软件包都放在这里（用 apt-get install 安装软件时，软件包的临时存放路径） 
+- `/var/lib/apt/lists` 使用apt-get update命令会从/etc/apt/sources.list中下载软件列表，并保存到该目录
+
+### 什么是软件源?
+
+> Ubuntu采用集中式的软件仓库机制，将各式各样的软件包分门别类地存放在软件仓库中，进行有效地组织和管理。然后，将软件仓库置于许许多多的镜像服务器中，并保持基本一致。这样，所有的Ubuntu用户随时都能获得最新版本的安装软件包。因此，对于用户，这些镜像服务器就是他们的软件源。
+> 然而，由于每位用户所处的网络环境不同，不可能随意地访问各镜像站点。为了能够有选择地访问，在Ubuntu系统中，使用软件源配置文件/etc/apt/sources.list列出最合适访问的镜像站点地址。
+
 ### [换源](https://www.cnblogs.com/liuzhenbo/p/11069285.html)
+
   - 查看Ubuntu系统的Codename
     ```shell
     lsb_release -a
@@ -91,21 +193,6 @@
   ```shell
   sudo apt-get update
   ```
-### apt是什么？
-  - Advanced Packaging Tool（apt）是Linux下的一款安装包管理工具
-
-  - APT由几个名字以“apt-”打头的程序组成。apt-get、apt-cache 和apt-cdrom是处理软件包的命令行工具
-
-  - 作为操作的一部分，APT使用一个文件列出可获得软件包的镜像站点地址，这个文件就是/etc/apt/sources.list
-
-  - APT作为dpkg的前端. Linux命令—apt，也是其它用户前台程序的后端，如dselect 和aptitude
-
-    | **命令**                 | **含义**               |
-    | :----------------------- | :--------------------- |
-    | sudo apt-get update      | 获得最新的软件包的列表 |
-    | sudo apt-get install xxx | 从源中安装xxx软件      |
-    | sudo apt-get remove xxx  | 删除xxx软件            |
-    | sudo apt-get clean       | 清理安装包             |
 
 ### 软件包安装
 
@@ -171,7 +258,7 @@
 - 移动文件
 
   ```shell
-  sudo -mv Typora.desktop /usr/share/applications
+  sudo mv Typora.desktop /usr/share/applications
   ```
 
 ### 安装Vim
@@ -289,6 +376,18 @@ sudo apt install vim
 
 #### 查看文件
 
+##### stat
+
+- 查看文件的具体存储细节和时间等信息
+- Linux系统中的文件包含3种时间状态，
+  - Access Time（内容最后一次被访问的时间，简称为Atime）
+  - Modify Time（内容最后一次被修改的时间，简称为Mtime）
+  - Change Time（文件属性最后一次被修改的时间，简称为Ctime）
+
+##### file
+
+- 查看文件的类型
+
 ##### cat
 
 - 将文件内容一次性输出到终端
@@ -386,7 +485,7 @@ sudo apt install vim
 
   - tar这个命令并没有压缩的功能，它只是一个打包的命令，但是在tar命令中增加一个选项(-z)可以调用gzip实现了一个压缩的功能，实行一个先打包后压缩的过程。
 
-    `tar cvzf 压缩包包名 文件1 文件2 ...`
+    `tar -cvzf 压缩包包名 文件1 文件2 ...`
 
 - gzip命令的用法：`gzip [选项] 被压缩文件`
 
@@ -489,8 +588,9 @@ sudo apt install vim
 
   - **数字法：**“rwx” 这些权限也可以用数字来代替
 
+    | rwx-    | 含义      |
+    | :--- | ----------------------------- |
     | r    | 读取权限，数字代号为 "4"      |
-    | :--- | :---------------------------- |
     | w    | 写入权限，数字代号为 "2"      |
     | x    | 执行权限，数字代号为 "1"      |
     | -    | 不具任何权限，数字t代号为 "0" |
@@ -555,6 +655,9 @@ sudo apt install vim
 - 说明：可使用rmdir命令删除一个目录。必须离开目录，并且目录必须为空目录，不然提示删除失败
 
 #### 更改目录权限
+
+- 用法：`chmod u/g/o/a +/-/= rwx 文件`
+- 说明：更多内容看上面的写的更改文件权限
 
 ### 软链接
 
@@ -747,6 +850,11 @@ sudo apt install vim
 
 - 命令：`newgrp 目标用户组`
 
+#### 查看所属用户组
+
+- 命令：`groups <user1> <user2> <user3>`
+- 说明：查看当前用户所属用户组时，可以不加user
+
 ## 进程与磁盘管理
 
 ### 创建进程
@@ -813,11 +921,46 @@ sudo apt install vim
 
 ### 查看系统相关信息
 
+- 命令：`uname [-a]`
+- 说明：
+  - 查看当前系统的内核名称、主机名、内核发行版本、节点名、压制时间、硬件名称、硬件平台、处理器类型以及操作系统名称等信息，英文全称为“unix name”
+  - 查看当前系统版本的详细信息 - `cat /etc/redhat-release`
+
 ### 查看网络
+
+- 命令：`ifconfig`
+
+- 说明：网卡名称、inet参数后面的IP地址、ether参数后面的网卡物理地址（又称为MAC地址），以及RX、TX的接收数据包与发送数据包的个数及累计流量（即下面加粗的信息内容）
+
+  > [root@linuxprobe ~]# ifconfig
+  > **ens160**: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+  >         inet **192.168.10.10**  netmask 255.255.255.0  broadcast 192.168.10.255
+  >         inet6 fe80::c8f8:f5c5:8251:aeaa  prefixlen 64  scopeid 0x20
+  >         ether **00:0c:29:7d:27:bf**  txqueuelen 1000  (Ethernet)
+  >         RX packets 304  bytes 33283 (**32.5 KiB**)
+  >         RX errors 0  dropped 0  overruns 0  frame 0
+  >         TX packets 91  bytes 11052 (**10.7 KiB**)
+  >         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+- 命令：`netstat [参数]`
+
+- 说明：显示如网络连接、路由表、接口状态等的网络相关信息，英文全称为“network status”
+
+  | 参数 | 作用                     |
+  | ---- | ------------------------ |
+  | -a   | 显示所有连接中的Socket   |
+  | -p   | 显示正在使用的Socket信息 |
+  | -t   | 显示TCP协议的连接状态    |
+  | -u   | 显示UDP协议的连接状态    |
+  | -n   | 使用IP地址，不使用域名   |
+  | -l   | 仅列出正在监听的服务状态 |
+  | -i   | 现在网卡列表信息         |
+  | -r   | 显示路由表信息           |
 
 ### 查看内存
 
-- `free -m`
+- 命令：`free -h`
+- 说明：显示当前系统中内存的使用量信息
 
 ### 查看网卡
 
@@ -867,8 +1010,6 @@ sudo apt install vim
 | lsscsi      | 列出像硬盘和光驱等 scsi/sata 设备的信息                      |
 | hdparm      | 显示像硬盘这样的 sata 设备的信息                             |
 
-
-
 ## Shell及vi/vim使用
 
 ### vi/vim简单使用
@@ -889,18 +1030,377 @@ sudo apt install vim
 - :set nu - 显示行号
 - :set nonu - 取消行号
 
-### Shell变量
+### Shell脚本编程
 
-### 运算符
+#### 变量
 
-### 分支
+- 命名规范：
 
-### 循环
+  - 命名只能使用英文字母，数字和下划线，首个字符不能以数字开头。
+  - 中间不能有空格，可以使用下划线 **_**。
+  - 不能使用标点符号。
+  - 不能使用bash里的关键字（可用help命令查看保留关键字）。
 
-### 传递参数
+- 变量类型：
 
-### 函数的使用
+  - **局部变量** 局部变量在脚本或命令中定义，仅在当前shell实例中有效，其他shell启动的程序不能访问局部变量。
+  - **环境变量** 所有的程序，包括shell启动的程序，都能访问环境变量，有些程序需要环境变量来保证其正常运行。必要的时候shell脚本也可以定义环境变量。
+  - **shell变量** shell变量是由shell程序设置的特殊变量。shell变量中有一部分是环境变量，有一部分是局部变量，这些变量保证了shell的正常运行
+
+- 示例
+
+  ```shell
+  your_name="qinjx"
+  echo $your_name
+  echo ${your_name} # 加花括号是为了帮助解释器识别变量的边界
+  
+  myUrl="https://www.google.com"
+  readonly myUrl
+  myUrl="https://www.runoob.com" # 错误
+  
+  myUrl="https://www.runoob.com"
+  unset myUrl # 变量被删除后不能再次使用。unset 命令不能删除只读变量
+  echo $myUrl
+  
+  str='this is a string'
+  # 单引号字符串的限制：
+  # 单引号里的任何字符都会原样输出，单引号字符串中的变量是无效的；
+  # 单引号字串中不能出现单独一个的单引号（对单引号使用转义符后也不行），但可成对出现，作为字符串拼接使用。
+  
+  your_name="runoob"
+  str="Hello, I know you are \"$your_name\"! \n"
+  echo -e $str
+  # 双引号的优点：
+  # 双引号里可以有变量
+  # 双引号里可以出现转义字符
+  
+  # 提取子字符串
+  string="runoob is a great site"
+  echo ${string:1:4} # 输出 unoo
+  
+  # 获取长度
+  string="abcd"
+  echo ${#string} #输出 4
+  
+  # 查找子字符串
+  string="runoob is a great site"
+  echo `expr index "$string" io`  # 输出 4
+  
+  # 定义数组 数组名=(值1 值2 ... 值n)
+  array_name=(value0 value1 value2 value3)
+  array_name[0]=value0
+  array_name[1]=value1
+  array_name[n]=valuen
+  
+  # 读取数组 ${数组名[下标]}
+  echo ${array_name[0]}
+  echo ${array_name[@]} # 获取数组中的所有元素
+  
+  # 获取数组长度
+  length=${#array_name[@]} # 取得数组元素的个数
+  length=${#array_name[*]} # 取得数组元素的个数
+  lengthn=${#array_name[n]} # 取得数组单个元素的长度
+  ```
+
+#### 运算符
+
+- 算数运算符
+
+  - 原生bash不支持简单的数学运算，但是可以通过其他命令来实现，例如 awk 和 expr，expr 最常用
+
+  - 示例：
+
+    ```shell
+    #!/bin/bash
+    # 表达式和运算符之间要有空格，例如 2+2 是不对的，必须写成 2 + 2
+    # 完整的表达式要被 ` ` 包含
+    val=`expr 2 + 2`
+    echo "两数之和为 : $val"
+    
+    val=`expr $a + $b`
+    echo "a + b : $val"
+    
+    val=`expr $a - $b`
+    echo "a - b : $val"
+    # 注意乘法
+    val=`expr $a \* $b`
+    echo "a * b : $val"
+    
+    val=`expr $b / $a`
+    echo "b / a : $val"
+    
+    val=`expr $b % $a`
+    echo "b % a : $val"
+    ```
+
+- 关系运算符
+
+  - 关系运算符只支持数字，不支持字符串，除非字符串的值是数字
+
+    | 运算符 | 说明                                                  |
+    | :----- | :---------------------------------------------------- |
+    | -eq    | 检测两个数是否相等，相等返回 true。                   |
+    | -ne    | 检测两个数是否不相等，不相等返回 true。               |
+    | -gt    | 检测左边的数是否大于右边的，如果是，则返回 true。     |
+    | -lt    | 检测左边的数是否小于右边的，如果是，则返回 true。     |
+    | -ge    | 检测左边的数是否大于等于右边的，如果是，则返回 true。 |
+    | -le    | 检测左边的数是否小于等于右边的，如果是，则返回 true。 |
+
+- 布尔运算符
+
+  | 运算符 | 说明                                                |
+  | :----- | :-------------------------------------------------- |
+  | !      | 非运算，表达式为 true 则返回 false，否则返回 true。 |
+  | -o     | 或运算，有一个表达式为 true 则返回 true。           |
+  | -a     | 与运算，两个表达式都为 true 才返回 true。           |
+
+- 逻辑运算符
+
+  | 运算符 | 说明       |
+  | :----- | :--------- |
+  | &&     | 逻辑的 AND |
+  | \|\|   | 逻辑的 OR  |
+
+- 字符串运算符
+
+  | 运算符 | 说明                                         |
+  | :----- | :------------------------------------------- |
+  | =      | 检测两个字符串是否相等，相等返回 true。      |
+  | !=     | 检测两个字符串是否不相等，不相等返回 true。  |
+  | -z     | 检测字符串长度是否为0，为0返回 true。        |
+  | -n     | 检测字符串长度是否不为 0，不为 0 返回 true。 |
+  | $      | 检测字符串是否为空，不为空返回 true。        |
+
+- 文件测试运算符
+
+  | 操作符  | 说明                                                         |
+  | :------ | :----------------------------------------------------------- |
+  | -b file | 检测文件是否是块设备文件，如果是，则返回 true。              |
+  | -c file | 检测文件是否是字符设备文件，如果是，则返回 true。            |
+  | -d file | 检测文件是否是目录，如果是，则返回 true。                    |
+  | -f file | 检测文件是否是普通文件（既不是目录，也不是设备文件），如果是，则返回 true。 |
+  | -g file | 检测文件是否设置了 SGID 位，如果是，则返回 true。            |
+  | -k file | 检测文件是否设置了粘着位(Sticky Bit)，如果是，则返回 true。  |
+  | -p file | 检测文件是否是有名管道，如果是，则返回 true。                |
+  | -u file | 检测文件是否设置了 SUID 位，如果是，则返回 true。            |
+
+#### 分支
+
+- if else
+
+  ```shell
+  if [ $(ps -ef | grep -c "ssh") -gt 1 ]; then echo "true"; fi
+  
+  num1=$[2*3]
+  num2=$[1+5]
+  if test $[num1] -eq $[num2]
+  then
+      echo '两个数字相等!'
+  else
+      echo '两个数字不相等!'
+  fi
+  ```
+
+- if else-if else
+
+  ```shell
+  a=10
+  b=20
+  if [ $a == $b ]
+  then
+     echo "a 等于 b"
+  elif [ $a -gt $b ]
+  then
+     echo "a 大于 b"
+  elif [ $a -lt $b ]
+  then
+     echo "a 小于 b"
+  else
+     echo "没有符合的条件"
+  fi
+  ```
+
+- case esac
+
+  ```shell
+  # 取值将检测匹配的每一个模式。一旦模式匹配，则执行完匹配模式相应命令后不再继续其他模式。# 如果无一匹配模式，使用星号 * 捕获该值，再执行后面的命令
+  echo '输入 1 到 4 之间的数字:'
+  echo '你输入的数字为:'
+  read aNum
+  case $aNum in
+      1)  echo '你选择了 1'
+      ;;
+      2)  echo '你选择了 2'
+      ;;
+      3)  echo '你选择了 3'
+      ;;
+      4)  echo '你选择了 4'
+      ;;
+      *)  echo '你没有输入 1 到 4 之间的数字'
+      ;;
+  esac
+  ```
+
+#### 循环
+
+- for
+
+  ```shell
+  for loop in 1 2 3 4 5
+  do
+      echo "The value is: $loop"
+  done
+  
+  for((i=1;i<=5;i++));do
+      echo "这是第 $i 次调用";
+  done;
+  ```
+
+- while
+
+  ```shell
+  #!/bin/bash
+  int=1
+  while(( $int<=5 ))
+  do
+      echo $int
+      let "int++"
+  done
+  ```
+
+- until
+
+  ```shell
+  #!/bin/bash
+  
+  a=0
+  
+  until [ ! $a -lt 10 ]
+  do
+     echo $a
+     a=`expr $a + 1`
+  done
+  ```
+
+#### 传递参数
+
+- 脚本内获取参数的格式为：**$n**。**n** 代表一个数字，1 为执行脚本的第一个参数，2 为执行脚本的第二个参数，以此类推……
+
+  | 参数处理 | 说明                                                         |
+  | :------- | :----------------------------------------------------------- |
+  | $#       | 传递到脚本的参数个数                                         |
+  | $*       | 以一个单字符串显示所有向脚本传递的参数。”\$*“  等价于  “ \$1 \$2 … $n”的形式 |
+  | $$       | 脚本运行的当前进程ID号                                       |
+  | $!       | 后台运行的最后一个进程的ID号                                 |
+  | $@       | “\$@”  等价于  ” \$1”，“ \$2” … “$n“的形式                   |
+  | $-       | 显示Shell使用的当前选项，与set命令功能相同。                 |
+  | $?       | 显示最后命令的退出状态。0表示没有错误，其他任何值表明有错误。 |
+
+- 示例：
+
+  ```shell
+  echo "Shell 传递参数实例！";
+  echo "执行的文件名：$0";
+  echo "第一个参数为：$1";
+  echo "第二个参数为：$2";
+  echo "第三个参数为：$3";
+  
+  # $ chmod +x test.sh 
+  # $ ./test.sh 1 2 3
+  # Shell 传递参数实例！
+  # 执行的文件名：./test.sh
+  # 第一个参数为：1
+  # 第二个参数为：2
+  # 第三个参数为：3
+  
+  echo "-- \$* 演示 ---"
+  for i in "$*"; do
+      echo $i
+  done
+  echo "-- \$@ 演示 ---"
+  for i in "$@"; do
+      echo $i
+  done
+  
+  # $ chmod +x test.sh 
+  # $ ./test.sh 1 2 3
+  # -- $* 演示 ---
+  # 1 2 3
+  # -- $@ 演示 ---
+  # 1
+  # 2
+  # 3
+  ```
+
+#### 函数
+
+- 定义：
+
+  ```shell
+  [ function ] funname [()]
+  {
+      action;
+      [return int;]
+  }
+  ```
+
+- 示例
+
+  ```shell
+  # 在函数体内部，通过 $n 的形式来获取参数的值，例如，$1表示第一个参数，$2表示第二个参数...
+  funWithParam(){
+      echo "第一个参数为 $1 !"
+      echo "第二个参数为 $2 !"
+      echo "第十个参数为 $10 !"
+      echo "第十个参数为 ${10} !"
+      echo "第十一个参数为 ${11} !"
+      echo "参数总数有 $# 个!"
+      echo "作为一个字符串输出所有参数 $* !"
+  }
+  funWithParam 1 2 3 4 5 6 7 8 9 34 73
+  
+  # 第一个参数为 1 !
+  # 第二个参数为 2 !
+  # 第十个参数为 10 !
+  # 第十个参数为 34 !
+  # 第十一个参数为 73 !
+  # 参数总数有 11 个!
+  # 作为一个字符串输出所有参数 1 2 3 4 5 6 7 8 9 34 73 !
+  ```
+
+#### 脚本编写与执行
+
+- **#!** 是一个约定的标记，它告诉系统这个脚本需要什么解释器来执行
+
+- 执行脚本
+
+  - 作为可执行程序
+
+    ```shell
+    chmod +x ./test.sh  #使脚本具有执行权限
+    ./test.sh  #执行脚本
+    ```
+
+  - 作为解释器参数
+
+    ```shell
+    /bin/sh test.sh
+    /bin/php test.php
+    ```
 
 ## 网络配置/路由器及防火墙设置
 
-### 配置网络和防火墙
+### [防火墙](https://www.linuxprobe.com/basic-learning-08.html)
+
+> iptables与firewalld都不是真正的防火墙，它们都只是用来定义防火墙策略的防火墙管理工具而已；或者说，它们只是一种服务。
+>
+> iptables服务会把配置好的防火墙策略交由内核层面的netfilter网络过滤器来处理，而firewalld服务则是把配置好的防火墙策略交由内核层面的nftables包过滤框架来处理。
+>
+> 换句话说，当前在Linux系统中其实存在多个防火墙管理工具，旨在方便运维人员管理Linux系统中的防火墙策略，我们只需要配置妥当其中的一个就足够了。
+
+#### Iptables
+
+- 
+
+#### Firewalld
+
