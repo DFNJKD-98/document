@@ -1061,6 +1061,36 @@ sudo apt install vim
 
 - 命令：`mount`
 
+- 创建空的磁盘镜像文件
+
+  ```shell
+  $ dd if=/dev/zero of=floppy.img bs=512 count=2880
+  ```
+
+- 将磁盘镜像文件虚拟成块设备
+
+  ```shell
+  losetup /dev/loop1 floppy.img
+  ```
+
+- 挂载块设备
+
+  ```shell
+  mount /dev/loop0 /tmp
+  ```
+
+- 卸载块设备
+
+  ```shell
+  umout /tmp
+  ```
+
+- 卸载loop设备
+
+  ```shell
+  losetup -d /dev/loop1
+  ```
+
 ## 日常管理与备份
 
 ### 查看系统相关信息
@@ -1098,8 +1128,16 @@ sudo apt install vim
   | -u   | 显示UDP协议的连接状态    |
   | -n   | 使用IP地址，不使用域名   |
   | -l   | 仅列出正在监听的服务状态 |
-  | -i   | 现在网卡列表信息         |
-  | -r   | 显示路由表信息           |
+  | -i   | 显示网卡列表信息         |
+  | -r   | 显示内核路由表信息       |
+  
+- 命令：`ping ipaddress`
+
+- 说明：可以测试网络的连通性
+
+- 命令：`traceroute x`
+
+- 说明：显示数据包到达目的主机所经过的路由
 
 ### 查看内存
 
@@ -1537,7 +1575,7 @@ sudo apt install vim
 
 ## 网络配置/路由器及防火墙设置
 
-### 网络配置
+### [网络配置](https://blog.csdn.net/u012377333/article/details/38513303)
 
 #### nmcli
 
@@ -1561,6 +1599,247 @@ sudo apt install vim
 - 配置连接的dns
   - `nmcli con modify static-ens192 ipv4.dns 10.0.13.214`
   - 重新激活连接：`nmcli con up static-ens192`
+
+#### ifconfig
+
+- 配置eht0的IP地址，同时激活设备
+
+  ```shell
+  ifconfig eth0 192.168.1.10 netmask 255.255.255.0 up
+  ```
+
+-  配置eth0别名设备eth0:1的IP地址，并添加路由
+
+  ```shell
+  ifconfig eth0 192.168.1.3
+  route add –host 192.168.1.3 dev eth0:1
+  ```
+
+- 激活设备
+
+  ```shell
+  ifconfig eth0 up
+  ```
+
+- 禁用设备
+
+  ```
+  ifconfig eth0 down
+  ```
+
+- 查看指定的网络接口的配置
+
+  ```shell
+  ifconfig eth0
+  ```
+
+- 查看所有的网络接口配置
+
+  ```shell
+  ifconfig
+  ```
+
+#### [route](https://blog.csdn.net/coolchenshan2009/article/details/7371693/)
+
+- 添加到主机的路由
+
+  ```shell
+  route add –host 192.168.1.2 dev eth0:0
+  route add –host 10.20.30.148 gw 10.20.30.40
+  ```
+
+- 添加到网络的路由
+
+  ```shell
+  route add –net 10.20.30.40 netmask 255.255.255.248 eth0
+  route add –net 10.20.30.48 netmask 255.255.255.248 gw 10.20.30.41
+  route add –net 192.168.1.0/24 eth1
+  ```
+
+- 添加默认网关
+
+  ```shell
+  route add default gw 192.168.1.1
+  ```
+
+- 查看内核路由表的配置
+
+  ```shell
+  route
+  ```
+
+- 删除路由
+
+  ```shell
+  route del –host 192.168.1.2 dev eth0:0
+  route del –host 10.20.30.148 gw 10.20.30.40
+  route del –net 10.20.30.40 netmask 255.255.255.248 eth0
+  route del –net 10.20.30.48 netmask 255.255.255.248 gw 10.20.30.41
+  route del –net 192.168.1.0/24 eth1
+  route del default gw 192.168.1.1
+  ```
+
+#### hostname
+
+- 更改主机名称
+
+  ```shell
+  hostname myhost
+  ```
+
+#### arp
+
+- 查看arp缓存
+
+  ```arp
+  arp
+  ```
+
+- 添加一个IP地址和MAC地址的对应记录
+
+  ```shell
+  arp –s 192.168.33.15 00:60:08:27:CE:B2
+  ```
+
+- 删除一个IP地址和MAC地址的对应缓存记录
+
+  ```shell
+  arp –d192.168.33.15
+  ```
+
+#### iwlist
+
+- 利用无线网卡进行无线AP的检测与取得相关的数据
+
+#### iwconfig
+
+#### 通过修改文件配置网络
+
+##### 主机名称
+
+- 查看当前主机名称
+
+  ```shell
+  sudo /bin/hostname
+  ```
+
+- 设置当前主机名称
+
+  ```shell
+  sudo /bin/hostname newname
+  ```
+
+##### 以DHCP方式配置网卡
+
+- 编辑文件`/etc/network/interfaces`
+
+  ```shell
+  sudo vim /etc/network/interfaces
+  ```
+
+  ```shell
+  # /etc/network/interfaces
+  
+  # The primary network interface, 
+  # use DHCP to find our address
+  auto eth0
+  iface eth0 inet dhcp
+  ```
+
+- 使网络设置生效
+
+  ```
+  sudo /etc/init.d/networking restart
+  ```
+
+- 获取地址
+
+  ```shell
+  sudo dhclient eth0
+  ```
+
+##### 为网卡设置静态ip地址
+
+- 编辑文件`/etc/network/interfaces`
+
+  ```shell
+  sudo vim /etc/network/interfaces
+  ```
+
+  ```shell
+  # /etc/network/interfaces
+  
+  # The primary network interface, 
+  # use Static to find our address
+  auto eth0
+  iface eth0 inet static
+  address 192.168.1.98            
+  gateway 192.168.1.1             
+  netmask 255.255.255.0           
+  network 192.168.1.0
+  broadcast 192.168.1.255
+  ```
+
+- 使网络设置生效
+
+  ```shell
+  sudo /etc/init.d/networking restart
+  ```
+
+- **生效后，还需要设置dns才可以上网** 也可以采用如下方法
+
+  ```shell
+  sudo ifconfig address 192.168.1.2 ##设置IP
+  
+  sudo ifconfig netmask 255.255.255.0##设置子网掩码
+  
+  sudo ifconfig gateway 192.158.1.1 ##设置网关
+  ```
+
+##### 配置本地dns
+
+- 编辑文件`/etc/hosts`
+
+  ```shell
+  vim /etc/hosts
+  ```
+
+  ```shell
+  # /etc/hosts
+  127.0.0.1	localhost
+  192.168.0.2 newhost
+  ```
+
+- 也可以编辑`/etc/resolv.conf`
+
+  ```shell
+  # 增加内容
+  nameserver xx.xx.xx.xx
+  ```
+
+##### 设置虚拟ip地址
+
+- 编辑文件`/etc/network/interfaces`
+
+  ```shell
+  sudo vim /etc/network/interfaces
+  ```
+
+  ```shell
+  auto eth0:1
+  iface eth0:1 inet static
+  address 192.168.1.60
+  netmask 255.255.255.0
+  network x.x.x.x
+  broadcast x.x.x.x
+  gateway x.x.x.x
+  ```
+
+- 使网络设置生效
+
+  ```shell
+  sudo /etc/init.d/networking restart
+  ```
 
 ### [防火墙](https://www.linuxprobe.com/basic-learning-08.html)
 
@@ -1651,3 +1930,25 @@ sudo apt install vim
   > 如果想让配置策略一直存在，就需要使用永久（Permanent）模式了，方法就是在用firewall-cmd命令正常设置防火墙策略时添加--permanent参数，这样配置的防火墙策略就可以永久生效了。
   >
   > 但是，永久生效模式有一个“不近人情”的特点，就是使用它设置的策略只有在系统重启之后才能自动生效。如果想让配置的策略立即生效，需要手动执行firewall-cmd --reload命令。
+
+#### ufw
+
+- 查看防火墙状态
+
+  ```shell
+  ufw status
+  ```
+
+- 打开防火墙
+
+  ```shell
+  ufw enable
+  ```
+
+- 关闭防火墙
+
+  ```
+  ufw disable
+  ```
+
+  
