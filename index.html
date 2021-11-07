@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>DFNJKD98文档记录</title>
-    <link rel="stylesheet" href="baseFile/vue.css">
-    <link rel="icon" href="yes_y.png">
-</head>
-<body>
+    <link rel="stylesheet" href="baseFile/vue.css" />
+    <link rel="icon" href="yes_y.png" />
+  </head>
+  <body>
     <nav>
-        <a href="https://www.baidu.com" target="_blank">百度搜索</a>
-        <a href="https://fanyi.baidu.com/?aldtype=16047#auto/zh" target="_blank">百度翻译</a>
-        <a href="https://www.bilibili.com" target="_blank">哔哩哔哩</a>
+      <a href="https://www.baidu.com" target="_blank">百度搜索</a>
+      <a href="https://fanyi.baidu.com/?aldtype=16047#auto/zh" target="_blank"
+        >百度翻译</a
+      >
+      <a href="https://www.bilibili.com" target="_blank">哔哩哔哩</a>
     </nav>
-    <div id="app">
-        Loading···
-    </div>
+    <div id="app">Loading···</div>
     <script>
-        window.$docsify = {
-            name: 'BACK INDEX',
-            coverpage: true,
-            loadSidebar: true,
-            subMaxLevel: 3,
-            count:{
-                countable:true,
-                fontsize:'0.9em',
-                color:'rgb(90,90,90)',
-                language:'chinese'
-            },
-            onlyCover: false
-        }
+      window.$docsify = {
+        name: "BACK INDEX", // 文档标题，显示在侧边栏顶部
+        coverpage: true, // 加载封面页，加载 _coverpage.md 文件
+        loadSidebar: true, // 添加侧边栏（目录）
+        subMaxLevel: 3, // 设置生成目录的最大层级
+        count: {
+          countable: true,
+          fontsize: "0.9em",
+          color: "rgb(90,90,90)",
+          language: "chinese",
+        },
+        onlyCover: false, // 只在访问主页时加载封面
+      };
     </script>
     <script src="baseFile/docsify.min.js"></script>
     <script src="baseFile/countable.js"></script>
     <script src="baseFile/docsify-copy-code"></script>
     <script src="baseFile/zoom-image.min.js"></script>
-</body>
+  </body>
 </html>
