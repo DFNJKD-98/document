@@ -17,6 +17,8 @@
   - `git add -A` 添加该文件夹下所有文件
   - `git add .`添加所有工作目录下的文件
 
+- `git checkout -- xxx` 从暂存区恢复工作区
+
 - `git commit`保存仓库的历史记录
 
   - 提交信息格式
@@ -136,7 +138,11 @@
 
 - ``` git branch -a ``` 添加 -a 参数可以同时显示本地仓库和远程仓库的分支信息。
 
+- `git branch -D xxx` 删除分支
+
 - ``` git checkout -b ``` 创建并切换到分支
+
+- `git checkout --track origin/xxx` 建立跟踪分支，不指定该追踪分支的名字，默认和远程仓库的分支名字一样
 
 - `git checkout -b xxx origin/xxx`
 
@@ -161,6 +167,7 @@
   > 默认信息中已经包含了是从 feature-A 分支合并过来的相关内容，所 以可不必做任何更改。
 
 - ``` git log --graph ``` 以图表形式查看分支
+
 - **想要将xxx分支合并到master主干分支，需要先回到master分支**
 
 ### 2.2 更改提交的操作
@@ -315,13 +322,30 @@ git init
     
   - **拉取远程仓库**(这个方法比较管用)
     
-    ```
+    ```shell
     git pull origin master --allow-unrelated-histories
-    // --allow-unrelated-histories 允许合并不相关历史
+    # --allow-unrelated-histories 允许合并不相关历史
     git add .
     git commit
     git push -u origin master
     ```
+  
+- 错误内容
+
+  ```shell
+  error: failed to push some refs to 'gitee.com:xxx/test-responsity.git'
+  # 这个问题是因为远程库与本地库不一致造成的，那么我们把远程库同步到本地库就可以了
+  ```
+
+- 解决办法
+
+  - `git pull --rebase origin master`
+
+    –rebase的作用是取消掉本地库中刚刚的commit，并把他们接到更新后的版本库之中
+
+  - 合并过程中有冲突时，解决冲突文件，然后提交冲突文件，再执行`git rebase --continue`
+
+  - 现在就可以推送至远程仓库了`git push origin master`
 
 ### 3.5 从远程仓库获取
 
