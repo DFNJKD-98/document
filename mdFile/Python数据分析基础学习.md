@@ -1,10 +1,8 @@
 <h1 align="center">Python数据分析基础学习</h1>
 
+## 一、matplotlib
 
-
-### 一、matplotlib
-
-#### 1.1 matplotlib的基础绘图
+### 1.1 matplotlib的基础绘图
 
 ```python
 # 导入pyplot
@@ -21,11 +19,11 @@ y = [15,13,14,5,17,20,25,26,26,24,22,18,15]
 plt.plot(x,y)
 # 保存图片,可以保存为svg矢量图格式，放大不会有锯齿
 plt.savefig("./sig_size.png")
-# 展示图形
+# 展示图形，必须防止在保存图片后面，因为show会释放图片内存，在show之后保存会得到空的图片
 plt.show()
 ```
 
-#### 1.2 X轴和Y轴的绘制
+### 1.2 X轴和Y轴的绘制
 
 ```python
 # 设置x轴的刻度
@@ -39,7 +37,7 @@ plt.xticks(xList[::3])
 plt.yticks(range(min(y), max(y)+1))
 ```
 
-#### 1.3 中文的显示
+### 1.3 中文的显示
 
 ```python
 # 使用字符串作为刻度
@@ -65,19 +63,19 @@ my_font = font_manager.FontProperties(fname="字体文件位置")
 plt.xticks(_x, _xtick_labels[::3], rotation=45,fontproperties=my_font)
 ```
 
-#### 1.4 单位和网格线的绘制
+### 1.4 单位和网格线的绘制
 
 ```python
 plt.xlabel("时间", fontproperties=my_font)
 plt.ylabel("温度 单位(℃)", fontproperties=my_font)
-plt.title("10点到12点每分钟的气温变化情况", fontproperties=my_font)
+plt.title("10点到12点每分钟的气温变化情况", fontproperties=my_font, fontszie=20)
 
 # 绘制网格
 # 参数alpha可以设置网格线的透明度
-plt.grid(alpha=0.4)
+plt.grid(True, linestyle='--', alpha=0.4)
 ```
 
-#### 1.5 多组数据的同时显示
+### 1.5 同一坐标系中多组数据的同时显示
 
 ```python
 # 多次绘制点即可在同一张表中绘制不同曲线
@@ -92,36 +90,149 @@ plt.legend(prop=my_font, loc="upper left")
 # 还可以做到在图片中添加文本注释、添加水印
 ```
 
-#### 1.6 绘制散点图
+| 线条风格 | 含义       |
+| -------- | ---------- |
+| -        | 实线       |
+| --       | 虚线       |
+| -.       | 点划线     |
+| ：       | 点虚线     |
+| ‘’       | 留空、空格 |
 
-#### 1.7 绘制条形图
+### 1.6 多个坐标系中多组数据得同时显示
 
-#### 1.8 绘制多次条形图
+```python
+# 1.准备数据
+x = range(60)
+y_shanghai = [random.uniform(15,18) for i in x]
+y_beijing = [random.uniform(1,5) for i in x]
 
-#### 1.9 绘制直方图
+# 2.创建画布
+fig, axes = plt.subplots(nrows=1,ncols=2,figsize=(20,8), dip=100)
 
-#### 1.10 更多绘图工具的了解
+# 3.绘制图像
+axes[0].plot(x,y_shanghai,label='上海')
+axes[1].plot(x,y_beijing,color='r',linestyle='--',label="北京")
 
-### 二、numpy
+# 4.添加x,y轴刻度
+x_ticks_label = ['11点{}分'.format(i) for i in x]
+y_ticks = range(40)
+axes[0].set_xticks(x[::5])
+axes[0].set_yticks(y_ticks[::5])
+axes[0].set_xticklabels(x_ticks_label[::5])
+axes[1].set_xticks(x[::5])
+axes[1].set_yticks(y_ticks[::5])
+axes[1].set_xticklabels(x_ticks_label[::5])
 
-#### 1.1 numpy数组
+# 5.显示网格背景
+axes[0].grid(True,linestyle='--',alpha=1)
+axes[1].grid(True,linestyle='--',alpha=1)
 
-##### 1.1.1 numpy数组的创建
+# 6.添加x轴，y轴信息；添加标题
+axes[0].set_xlabel("时间")
+axes[0].set_ylabel("温度")
+axes[0].set_title("中午11点-12点某城市温度变化图",fontsize=20)
+axes[1].set_xlabel("时间")
+axes[1].set_ylabel("温度")
+axes[1].set_title("中午11点-12点某城市温度变化图",fontsize=20)
+
+# 7.添加图例
+axes[0].legend(loc=0)
+axes[1].legend(loc=0)
+
+# 8.保存图片
+plt.savefig("./temp.png")
+
+# 9.显示图片
+plt.show()
+```
+
+### 1.6 绘制折线图
 
 ```python
 import numpy as np
+
+x = np.linspace(-10,10,1000)
+y = np.sin(x)
+
+plt.figure(figsize=(20,8), dpi=100)
+
+plt.plot(x,y)
+plt.grid()
+
+plt.show()
+```
+
+### 1.7 绘制散点图
+
+```python
+plt.scatter(x,y)
+```
+
+### 1.8 绘制柱状图
+
+```python
+# x: 需要传递得数据
+# width: 柱状图得宽度
+# align: 每个柱状图的对其方式
+# **kwargs: color：选择柱状图的颜色
+plt.bar(x,width,align='center',**kwargs)
+```
+
+### 1.9 绘制直方图
+
+```python
+# x: 需要传递得数据
+# bins: 组距
+matplotlib.pyplot.hist(x,bins=None)
+```
+
+### 1.10 绘制饼图
+
+```python
+# x: 数量，自动算百分比
+# labels: 每部分名称
+# autopct: 占比显示指定%1.2f%%
+# colors: 每部分颜色
+plt.pie(x,labels=,autopct=,colors)
+```
+
+### 1.11 更多内容
+
+https://matplotlib.org/index.html
+
+## 二、numpy
+
+> *Numpy(Numerical Python)是一个开源的Python科学计算库，**用于快速处理任意维度的数组**。*
+>
+> *Numpy**支持常见的数组和矩阵操作**。对于同样的数值计算任务，使用Numpy比直接使用Python要简洁的多。*
+>
+> *Numpy**使用ndarray对象来处理多维数组**，该对象是一个快速而灵活的大数据容器。*
+
+### 1.1 ndarry
+
+| 属性名字         | 属性解释                   |
+| ---------------- | -------------------------- |
+| ndarray.shape    | 数组的维度（返回元组）     |
+| ndarray.ndim     | 数组维数                   |
+| ndarray.size     | 数组中的元素数量           |
+| ndarray.itemsize | 一个数组元素的长度（字节） |
+| ndarray.dtype    | 数组元素的类型             |
+
+```python
+import numpy as np
+
 a = np.array([1,2,3,4,5])
 b = np.array(range(1,6))
 c = np.arange(1,6)
 # 上面a,b,c内容相同，注意arange和range的区别
 # np.arange的用法：arange([start,] stop[, step,], dtype=None)
 # 数组的类名--也就是a的类型：
-In [1]: a = np.array([1,2,3,4,5])
-In [2]: type(a)
-Out[2]: numpy.ndarray
+a = np.array([1,2,3,4,5])
+print(type(a))
+Out: numpy.ndarray
 # 数据的类型--也就是a中数据的类型：
-In [3]: a.dtype
-Out[3]: dtype('int64')
+print(a.dtype)
+Out: dtype('int64')
 ```
 
 
@@ -129,18 +240,152 @@ Out[3]: dtype('int64')
 # 指定创建的数组的数据类型
 a = np.array([1,0,1,0], dtype = np.bool)  # dtype = "float32"
 print(a)
-array([True, False, True, False], dtype = bool)
+Out: array([True, False, True, False], dtype = bool)
 # 修改数组的数据类型
 a.astype("i1") # 或者使用a.astype(np.int8)
 print(a)
-array([1, 0, 1, 0], dtype = int8)
+Out: array([1, 0, 1, 0], dtype = int8)
 # 修改浮点型的小数位数
 np.round(b, 2)
 print(b)
-array([0.05, 0.26, 0.7, 0.72, 0.36])
+Out: array([0.05, 0.26, 0.7, 0.72, 0.36])
 ```
 
-##### 1.1.2 矩阵的计算
+### 1.2 矩阵的生成
+
+#### 1.2.1 生成全0和全1的矩阵
+
+- np.ones(shape, dtype)
+
+  ```python
+  ones = np.ones([4,8])
+  print(ones)
+  
+  array ([[1., 1., 1., 1., 1., 1.，1.，1.],
+  		[1.，1.，1.，1.，1.，1.，1.，1.],
+          [1.，1., 1.,1., 1.，1.，1.，1.],
+          [1.，1., 1., 1., 1., 1.，1.,1.]])
+  ```
+
+- np.ones_like(a, dtype)
+
+- np.zeros(shape, dtype)
+
+- np.zeros_like(a, dtype)
+
+  ```python
+  zeros = np.zeros_like(ones)
+  print(zeros)
+  ```
+
+#### 1.2.1 根据一个矩阵生成另一个矩阵
+
+- np.array(ndarray, dtype)
+
+  ```python
+  # 深拷贝
+  a0 = np.array([[1,2,3], [4,5,6]])
+  a1 = np.array(a0)
+  a0[0,0] = 1000
+  print(a0)
+  Out: array([[1000,2,3], [4,5,6]])
+  print(a1)
+  Out: array([[1,2,3], [4,5,6]]) # 没有因为a0的变化而变化
+  ```
+
+- np.asarray(a, dtype)
+
+  ```python
+  # 浅拷贝
+  a0 = np.array([[1,2,3], [4,5,6]])
+  a1 = np.array(a0)
+  a0[0,0] = 1000
+  print(a0)
+  Out: array([[1000,2,3], [4,5,6]])
+  print(a1)
+  Out: array([[1000,2,3], [4,5,6]]) # 跟随着a0发生了改变
+  ```
+
+#### 1.2.3 生成等差或等比的矩阵
+
+- np.linspace(start, stop, num, endpoint) => 创建等差数组 - 指定数量
+
+  - start: 序列的起始值
+  - stop: 序列的终止值
+  - num: 要生成的等间隔样例数量
+  - endpoint: 序列中是否包含stop值，默认为true
+
+  ```python
+  a = np.linspace(0,100,11)
+  print(a)
+  Out: array([0,10,20,30,40,50,60,70,80,90,100])
+  ```
+
+- np.arange(start, stop, step, dtype) => 创建等差数组 - 指定步长
+
+  - step: 步长，默认值为1
+
+  ```python
+  a = np.arange(10,50,2)
+  ```
+
+- np.logspace(start, stop, num) => 创建等比数列
+
+  - num: 要生成的等比数列的length
+
+  ```python
+  # 生成10^x
+  a = np.logspace(0, 2, 3)
+  print(a)
+  Out: array([1,10,100])
+  ```
+
+#### 1.2.4 生成正态分布矩阵
+
+- np.random.randn(d0, d1, ..., dn)
+  - 从标准正态分布中返回一个或多个样本值
+- np.random.normal(loc=0.0, scale=1.0, size=None)
+  - loc: 此概率分布的均值
+  - scale: 此概率分布的标准差
+  - size: 输出的shape
+- np.random.standard.normal(size=None)
+  - 返回指定形状的标准正态分布的数据
+
+```python
+# 获取正态分布数据
+x = np.random.normal(1.75, 1, 100000000)
+# 创建画布
+fig = plt.figure(size=(20,8), dpi=100)
+# 绘制图像
+plt.hist(x, 1000)
+# 显示图像
+plt.show()
+```
+
+#### 1.2.5 生成均匀分布矩阵
+
+- np.random.rand(d0, d1, ..., dn)
+  - 返回`[0.0, 1.0)`内的一组均匀分布的数据
+- np.random.uniform(low=0.0, high=1.0, size=None)
+  - 从一个均匀分布`[low, high)`中随机采样
+    - low: 采样下界，float类型，默认为0
+    - high: 采样上界，float类型，默认为1
+    - size: 输出样本数目，为int或tuple类型
+- np.random.randint(low, high=None, size=None, dtype=‘l’)
+  - 从一个均匀分布中随机采样，生成一个整数或N为整数数组
+
+```python
+# 获取均匀分布数据
+x = np.random.uniform(-1, 1, 1000000)
+# 创建画布
+fig = plt.figure(size=(20,8), dpi=100)
+# 绘制图像
+plt.hist(x, 1000)
+# 显示图像
+plt.show()
+```
+
+### 1.3 矩阵的计算
 
 - 矩阵的形状----几行几列
 
@@ -180,9 +425,9 @@ array([0.05, 0.26, 0.7, 0.72, 0.36])
 
 - 行与列都不相同的矩阵无法直接进行计算
 
-#### 1.2 numpy读取本地数据和索引
+### 1.4 numpy读取本地数据和索引
 
-##### 1.2.1 读取CSV文件
+#### 1.4.1 读取CSV文件
 
 ```python
 np.loadtxt(frame, dtype=np.float, delimiter=",", skiprows=0, usecols=None, unpack=False)
@@ -197,13 +442,13 @@ np.loadtxt(frame, dtype=np.float, delimiter=",", skiprows=0, usecols=None, unpac
 | `usecols`   | 读取指定的列，索引，元组类型                                 |
 | `unpack`    | 如果True，每一列的数据会组成一行，原始数据有多少列，加载出来的数据就有多少行，相当于转置的效果，默认为False |
 
-##### 1.2.2 转置的三种方法
+#### 1.4.2 转置的三种方法
 
 - **t.transpose()**
 - **t.swapaxes(1, 0)**----通过交换轴来进行转置
 - **t.T**
 
-##### 1.2.3 索引和切片
+#### 1.4.3 索引和切片
 
 - **取矩阵中的行数据**
 
@@ -240,7 +485,7 @@ np.loadtxt(frame, dtype=np.float, delimiter=",", skiprows=0, usecols=None, unpac
   data3 = t2[[0,2],[0,1]]
   ```
 
-##### 1.2.4 更多的索引方式
+#### 1.4.4 更多的索引方式
 
 - **布尔索引**----修改矩阵中小于10的数字为3
 
@@ -268,9 +513,9 @@ np.loadtxt(frame, dtype=np.float, delimiter=",", skiprows=0, usecols=None, unpac
   t2[3,3] = np.nan
   ```
 
-#### 1.3 numpy中的nan和常用方法
+### 1.5 numpy中的nan和常用方法
 
-##### 1.3.1 矩阵的拼接
+#### 1.5.1 矩阵的拼接
 
 - **竖直拼接**----vertically
 
@@ -286,7 +531,7 @@ np.loadtxt(frame, dtype=np.float, delimiter=",", skiprows=0, usecols=None, unpac
 
 - **竖直分割和水平分割**
 
-##### 1.3.2 矩阵的行列交换
+#### 1.5.2 矩阵的行列交换
 
 - **行交换**
 
@@ -300,7 +545,7 @@ np.loadtxt(frame, dtype=np.float, delimiter=",", skiprows=0, usecols=None, unpac
   t[:,[0,2]] = t[:,[2,0]]
   ```
 
-##### 1.3.3 更多方法
+#### 1.5.3 更多方法
 
 - **获取最大值，最小值的位置**
   - np.argmax(t, axis=0)----取得每一行最大值的位置
@@ -320,7 +565,7 @@ np.loadtxt(frame, dtype=np.float, delimiter=",", skiprows=0, usecols=None, unpac
   - a = b[ : ]，**视图**的操作，一种切片，会**创建新的对象a，但是a的数据完全由b保管**，他们两个的数据变化是一致的
   - a = b.copy()，复制，a和b互不影响
 
-##### 1.3.4 numpy中的nan 和 inf
+#### 1.5.4 numpy中的nan 和 inf
 
 - **出现情况**
   - 当我们在读取本地的文件为float的时候，如果数据有缺失，就会出现nan
@@ -341,11 +586,11 @@ np.loadtxt(frame, dtype=np.float, delimiter=",", skiprows=0, usecols=None, unpac
   - 极值：np.ptp(t, axis=None)----最大值和最小值之差
   - 标准差：t.std(axis=None)
 
-### 三、pandas
+## 三、pandas
 
-#### 1.1 series 一维
+### 1.1 series 一维
 
-##### 1.1.1 series的创建
+#### 1.1.1 series的创建
 
 ```python
 t2 = pd.Series([1,23,2,4,5], index=list("abcde"))
@@ -360,16 +605,16 @@ e 5
 t3 = pd.Series(temp_dict)
 ```
 
-##### 1.1.2 series切片和索引
+#### 1.1.2 series切片和索引
 
 ![img](./Python数据分析基础学习shortcuts/Python数据分析基础学习_img1.png)
 
-##### 1.1.3 获取索引和值
+#### 1.1.3 获取索引和值
 
 - 获取索引——`t.index` ——索引可遍历、可转换为列表
 - 获取值——`t.values`
 
-##### 1.1.4 读取外部数据
+#### 1.1.4 读取外部数据
 
 - 读取mysql
 
@@ -390,14 +635,14 @@ t3 = pd.Series(temp_dict)
   print(t1)
   ```
 
-#### 1.2 DataFrame 二维
+### 1.2 DataFrame 二维
 
-##### 1.2.1 DataFrame对象
+#### 1.2.1 DataFrame对象
 
 - 行索引，表明不同行，横向索引，叫做index，0轴，axis=0
 - 列索引，表明不同列，纵向索引，叫做columns，1轴，axis=1
 
-##### 1.2.2 DataFrame对象的创建
+#### 1.2.2 DataFrame对象的创建
 
 ```python
 t1 = pd.DataFrame(np.arange(12).reshape(3,4), index=list("abc"), columns=list("WXYZ"))
@@ -407,7 +652,7 @@ d2 = {"name": "xiaoming", "age": 20, "tel": "10086"}
 t2 = pd.DataFrame(d1)
 ```
 
-##### 1.2.3 DataFrame常用操作方法
+#### 1.2.3 DataFrame常用操作方法
 
 ![](./Python数据分析基础学习shortcuts/Python数据分析基础学习_img2.png)
 
@@ -418,7 +663,7 @@ t2 = pd.DataFrame(d1)
 - **df.loc 通过标签索引获取行数据**——冒号在loc里面是闭合的，即会选择到冒号后面的数据
 - **df.iloc 通过位置获取行数据**——`t3.iloc[[0,2],[2,1]]`
 
-##### 1.2.4 DataFrame缺失数据的处理
+#### 1.2.4 DataFrame缺失数据的处理
 
 - **判断是否为NaN**
 
