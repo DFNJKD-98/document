@@ -393,6 +393,7 @@ plt.show()
   a = np.array([[3,4,5,6,7,8], [4,5,6,7,8,9]])
   print(a.shape)
   Out: (2, 6)
+  
   # 修改数组的形状
   # 并不会对数组进行更改，需要变量来进行接受
   a.reshape((3,4))			      |
@@ -402,8 +403,30 @@ plt.show()
   	      [6,7,8,9]])			  |
   print(a.shape)     <---------------
   Out: (2, 6)
+  a.reshape([-1,10]) # -1表示不关心行数，要求列数为10列
+  # 会对数组本身进行修改
+  a.resize([5,4]) # ndarray.resize(new_shape)
+  
   # 展开成一维数组
   t5.flatten()
+  ```
+
+- 类型修改
+
+  - ndarray.astype(type)
+
+    ```python
+    a.astype(np.int32)
+    ```
+
+  - ndarray.tostring([order]) / ndarray.tobytes([order])
+
+- 数组去重
+
+  ```python
+  a = array([[1,2,3,4],[3,4,5,6]])
+  np.unique(a)
+  print(a)
   ```
 
 - 加、减、乘、除一个常数----对矩阵中的每个数字都会进行操作

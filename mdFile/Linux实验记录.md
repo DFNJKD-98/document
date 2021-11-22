@@ -1577,7 +1577,7 @@ sudo apt install vim
 
 ### [网络配置](https://blog.csdn.net/u012377333/article/details/38513303)
 
-#### nmcli
+#### [nmcli](https://www.cnblogs.com/pipci/p/12570592.html)
 
 - 查看接口信息
   - 显示简略信息：`nmcli device status`

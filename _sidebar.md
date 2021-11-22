@@ -16,6 +16,7 @@
 - [MySQL存储引擎](mdFile/MySQL存储引擎.md)
 - [MySQL学习记录](mdFile/MySQL学习记录.md)
 - [Nodejs学习记录](mdFile/Nodejs学习记录.md)
+- [OpenEuler](mdFile/OpenEuler.md)
 - [Python包及其定义和引用详解](mdFile/Python包及其定义和引用详解.md)
 - [Python数据分析基础学习](mdFile/Python数据分析基础学习.md)
 - [QQMusicAPI文档](mdFile/QQMusicAPI文档.md)
