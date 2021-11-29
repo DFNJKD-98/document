@@ -98,7 +98,7 @@ plt.legend(prop=my_font, loc="upper left")
 | ：       | 点虚线     |
 | ‘’       | 留空、空格 |
 
-### 1.6 多个坐标系中多组数据得同时显示
+### 1.6 多个坐标系中多组数据的同时显示
 
 ```python
 # 1.准备数据
@@ -208,7 +208,7 @@ https://matplotlib.org/index.html
 >
 > *Numpy**使用ndarray对象来处理多维数组**，该对象是一个快速而灵活的大数据容器。*
 
-### 1.1 ndarry
+### 2.1 ndarry
 
 | 属性名字         | 属性解释                   |
 | ---------------- | -------------------------- |
@@ -217,6 +217,8 @@ https://matplotlib.org/index.html
 | ndarray.size     | 数组中的元素数量           |
 | ndarray.itemsize | 一个数组元素的长度（字节） |
 | ndarray.dtype    | 数组元素的类型             |
+
+#### 2.1.1 基本认识
 
 ```python
 import numpy as np
@@ -235,6 +237,31 @@ print(a.dtype)
 Out: dtype('int64')
 ```
 
+#### 2.1.2 形状的修改
+
+```python
+a = np.array([[3,4,5,6,7,8], [4,5,6,7,8,9]])
+print(a.shape)
+Out: (2, 6)
+
+# 修改数组的形状
+# 并不会对数组进行更改，需要变量来进行接受
+a.reshape((3,4))			      |
+print(a)						  |
+Out:array([[3,4,5,6],			  |
+	      [7,8,4,5],			  |
+	      [6,7,8,9]])			  |
+print(a.shape)     <---------------
+Out: (2, 6)
+a.reshape([-1,10]) # -1表示不关心行数，要求列数为10列
+# 会对数组本身进行修改
+a.resize([5,4]) # ndarray.resize(new_shape)
+
+# 展开成一维数组
+t5.flatten()
+```
+
+#### 2.1.3 数据类型的修改
 
 ```python
 # 指定创建的数组的数据类型
@@ -245,15 +272,27 @@ Out: array([True, False, True, False], dtype = bool)
 a.astype("i1") # 或者使用a.astype(np.int8)
 print(a)
 Out: array([1, 0, 1, 0], dtype = int8)
+# 修改为字符串
+ndarray.tostring([order])
+# 修改为字节类型
+ndarray.tobytes([order])
 # 修改浮点型的小数位数
 np.round(b, 2)
 print(b)
 Out: array([0.05, 0.26, 0.7, 0.72, 0.36])
 ```
 
-### 1.2 矩阵的生成
+#### 2.1.4 数据去重
 
-#### 1.2.1 生成全0和全1的矩阵
+```python
+a = array([[1,2,3,4],[3,4,5,6]])
+np.unique(a)
+print(a)
+```
+
+### 2.2 矩阵的生成
+
+#### 2.2.1 生成全0和全1的矩阵
 
 - np.ones(shape, dtype)
 
@@ -278,7 +317,7 @@ Out: array([0.05, 0.26, 0.7, 0.72, 0.36])
   print(zeros)
   ```
 
-#### 1.2.1 根据一个矩阵生成另一个矩阵
+#### 2.2.1 根据一个矩阵生成另一个矩阵
 
 - np.array(ndarray, dtype)
 
@@ -306,7 +345,7 @@ Out: array([0.05, 0.26, 0.7, 0.72, 0.36])
   Out: array([[1000,2,3], [4,5,6]]) # 跟随着a0发生了改变
   ```
 
-#### 1.2.3 生成等差或等比的矩阵
+#### 2.2.3 生成等差或等比的矩阵
 
 - np.linspace(start, stop, num, endpoint) => 创建等差数组 - 指定数量
 
@@ -340,7 +379,7 @@ Out: array([0.05, 0.26, 0.7, 0.72, 0.36])
   Out: array([1,10,100])
   ```
 
-#### 1.2.4 生成正态分布矩阵
+#### 2.2.4 生成正态分布矩阵
 
 - np.random.randn(d0, d1, ..., dn)
   - 从标准正态分布中返回一个或多个样本值
@@ -362,7 +401,7 @@ plt.hist(x, 1000)
 plt.show()
 ```
 
-#### 1.2.5 生成均匀分布矩阵
+#### 2.2.5 生成均匀分布矩阵
 
 - np.random.rand(d0, d1, ..., dn)
   - 返回`[0.0, 1.0)`内的一组均匀分布的数据
@@ -385,72 +424,99 @@ plt.hist(x, 1000)
 plt.show()
 ```
 
-### 1.3 矩阵的计算
+### 2.3 矩阵的计算
 
-- 矩阵的形状----几行几列
+#### 2.3.1 逻辑运算
 
-  ```python
-  a = np.array([[3,4,5,6,7,8], [4,5,6,7,8,9]])
-  print(a.shape)
-  Out: (2, 6)
-  
-  # 修改数组的形状
-  # 并不会对数组进行更改，需要变量来进行接受
-  a.reshape((3,4))			      |
-  print(a)						  |
-  Out:array([[3,4,5,6],			  |
-  	      [7,8,4,5],			  |
-  	      [6,7,8,9]])			  |
-  print(a.shape)     <---------------
-  Out: (2, 6)
-  a.reshape([-1,10]) # -1表示不关心行数，要求列数为10列
-  # 会对数组本身进行修改
-  a.resize([5,4]) # ndarray.resize(new_shape)
-  
-  # 展开成一维数组
-  t5.flatten()
-  ```
+```python
+# 生成10名同学，5门功课的数据
+score = np.random.randint(40,100,(10,5)) # 10行5列，取值40-100
+# 取出最后4名同学的成绩，用于逻辑判断
+test_score = score[6:, 0:5]
+# 如果成绩大于60就标记为True，否则为False
+test_score > 60
+Out: array([[True, True, True, False, True],
+            [True, True, True, False, True],
+           	[True, True, False,False, True],
+           	[False,True, True, True,  True]])
+test_score[test_score > 60] = 1
+test_score
+Out: array([[1, 1, 1, 52, 1],
+           	[1, 1, 1, 59, 1],
+           	[1, 1, 44,44, 1],
+           	[59, 1, 1, 1, 1]])
+```
 
-- 类型修改
+#### 2.3.2 通用判断函数
 
-  - ndarray.astype(type)
-
-    ```python
-    a.astype(np.int32)
-    ```
-
-  - ndarray.tostring([order]) / ndarray.tobytes([order])
-
-- 数组去重
+- np.all()
 
   ```python
-  a = array([[1,2,3,4],[3,4,5,6]])
-  np.unique(a)
-  print(a)
+  # 判断前两名同学的成绩是否全及格
+  np.all(score[0:2, :] > 60)
+  False
   ```
 
-- 加、减、乘、除一个常数----对矩阵中的每个数字都会进行操作
+- np.any()
 
   ```python
-  t1 = np.array([[1,2,3,4], [5,6,7,8]])
-  print(t1 + 2)
-  array([[3,4,5,6], [7,8,9,10]])
+  # 判断前两名同学的成绩，是否有大于90分的
+  np.any(score[0:2, :] > 80)
+  True
   ```
 
+#### 2.3.3 三元运算和复合运算
+
+- np.where()
+
+  ```python
+  # 判断前四名学生中，前四门课程中，成绩中大于60的置为1，否则为0
+  temp = score[:4, :4]
+  np.where(temp>60, 1, 0)
+  ```
+
+- 复合逻辑需要结合np.logical_and 和 np.logical_or 使用
+
+  ```python
+  # 判断前四名学生的前四门课程中，成绩中大于60且小于90的，置为1，否则为0
+  np.where(np.logical_and(temp > 60, temp < 90), 1, 0)
+  # 判断前四名学生的前四门课程中，成绩中大于90或小于60的，置为1，否则为0
+  np.where(np.logical_or(temp > 90, temp < 60), 1, 0)
+  ```
+
+#### 2.3.4 统计运算
+
+- min(a, axis) 最小值(a为矩阵；axis为0或1，表示行或列，不传该值时，求取整个矩阵的最小值)
+- max(a, axis) 最大值
+- median(a, axis)
+- mean(a, axis, dtype)
+- std(a, axis, dtype) 标准差
+- var(a, axis, dtype)
+- np.argmax(a, axis) 最大值的索引
+- np.argmin(a, axis) 最小值的索引
+
+#### 2.3.5 矩阵与数的运算
+
+```python
+# 加、减、乘、除一个常数----对矩阵中的每个数字都会进行操作
+t1 = np.array([[1,2,3,4], [5,6,7,8]])
+print(t1 + 2)
+array([[3,4,5,6], [7,8,9,10]])
+```
+
+#### 2.3.6 矩阵与矩阵的运算
+
+- 行与列都相同的矩阵的加减乘除法，就是对两个矩阵中对应的数字进行加减乘除，**和平常的矩阵运算有所区别**
+- 行与列有一个相同的矩阵的加减乘除法，就是沿维度相同的方向逐一计算，遵守的是**广播原则**
+- 行与列都不相同的矩阵无法直接进行计算
 - nan 和 inf
 
   - nan是 0 除以 0 的结果，表示不是一个数字
-  - inf是 非0数字 除以 0 的结果，表示无尽、无穷
+  - inf是非0数字除以 0 的结果，表示无尽、无穷
 
-- 行与列都相同的矩阵的加减乘除法，就是对两个矩阵中对应的数字进行加减乘除，**和平常的矩阵运算有所区别**
+### 2.4 numpy读取本地数据和索引
 
-- 行与列有一个相同的矩阵的加减乘除法，就是沿维度相同的方向逐一计算，遵守的是**广播原则**
-
-- 行与列都不相同的矩阵无法直接进行计算
-
-### 1.4 numpy读取本地数据和索引
-
-#### 1.4.1 读取CSV文件
+#### 2.4.1 读取CSV文件
 
 ```python
 np.loadtxt(frame, dtype=np.float, delimiter=",", skiprows=0, usecols=None, unpack=False)
@@ -465,13 +531,13 @@ np.loadtxt(frame, dtype=np.float, delimiter=",", skiprows=0, usecols=None, unpac
 | `usecols`   | 读取指定的列，索引，元组类型                                 |
 | `unpack`    | 如果True，每一列的数据会组成一行，原始数据有多少列，加载出来的数据就有多少行，相当于转置的效果，默认为False |
 
-#### 1.4.2 转置的三种方法
+#### 2.4.2 转置的三种方法
 
 - **t.transpose()**
 - **t.swapaxes(1, 0)**----通过交换轴来进行转置
 - **t.T**
 
-#### 1.4.3 索引和切片
+#### 2.4.3 索引和切片
 
 - **取矩阵中的行数据**
 
@@ -508,7 +574,7 @@ np.loadtxt(frame, dtype=np.float, delimiter=",", skiprows=0, usecols=None, unpac
   data3 = t2[[0,2],[0,1]]
   ```
 
-#### 1.4.4 更多的索引方式
+#### 2.4.4 更多的索引方式
 
 - **布尔索引**----修改矩阵中小于10的数字为3
 
@@ -536,7 +602,7 @@ np.loadtxt(frame, dtype=np.float, delimiter=",", skiprows=0, usecols=None, unpac
   t2[3,3] = np.nan
   ```
 
-### 1.5 numpy中的nan和常用方法
+### 2.5 numpy中的nan和常用方法
 
 #### 1.5.1 矩阵的拼接
 
@@ -554,7 +620,7 @@ np.loadtxt(frame, dtype=np.float, delimiter=",", skiprows=0, usecols=None, unpac
 
 - **竖直分割和水平分割**
 
-#### 1.5.2 矩阵的行列交换
+#### 2.5.2 矩阵的行列交换
 
 - **行交换**
 
@@ -568,7 +634,7 @@ np.loadtxt(frame, dtype=np.float, delimiter=",", skiprows=0, usecols=None, unpac
   t[:,[0,2]] = t[:,[2,0]]
   ```
 
-#### 1.5.3 更多方法
+#### 2.5.3 更多方法
 
 - **获取最大值，最小值的位置**
   - np.argmax(t, axis=0)----取得每一行最大值的位置
@@ -588,7 +654,7 @@ np.loadtxt(frame, dtype=np.float, delimiter=",", skiprows=0, usecols=None, unpac
   - a = b[ : ]，**视图**的操作，一种切片，会**创建新的对象a，但是a的数据完全由b保管**，他们两个的数据变化是一致的
   - a = b.copy()，复制，a和b互不影响
 
-#### 1.5.4 numpy中的nan 和 inf
+#### 2.5.4 numpy中的nan 和 inf
 
 - **出现情况**
   - 当我们在读取本地的文件为float的时候，如果数据有缺失，就会出现nan
@@ -611,9 +677,21 @@ np.loadtxt(frame, dtype=np.float, delimiter=",", skiprows=0, usecols=None, unpac
 
 ## 三、pandas
 
-### 1.1 series 一维
+> *2008 年WesMcKinney开发出的库*
+>
+> *专门用于数据挖掘的开源python库*
+>
+> *以Numpy为基础，借力Numpy模块在计算方面性能高的优势*
+>
+> *基于matplotlib，能够简便画图*
+>
+> *独特的数据结构*
 
-#### 1.1.1 series的创建
+![image-20211129214117941](Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0.assets/image-20211129214117941.png)
+
+### 3.1 series 一维
+
+#### 3.1.1 series的创建
 
 ```python
 t2 = pd.Series([1,23,2,4,5], index=list("abcde"))
@@ -628,16 +706,16 @@ e 5
 t3 = pd.Series(temp_dict)
 ```
 
-#### 1.1.2 series切片和索引
+#### 3.1.2 series切片和索引
 
-![img](./Python数据分析基础学习shortcuts/Python数据分析基础学习_img1.png)
+![img](./Python数据分析基础学习.assets/Python数据分析基础学习_img1.png)
 
-#### 1.1.3 获取索引和值
+#### 3.1.3 获取索引和值
 
 - 获取索引——`t.index` ——索引可遍历、可转换为列表
 - 获取值——`t.values`
 
-#### 1.1.4 读取外部数据
+#### 3.1.4 读取外部数据
 
 - 读取mysql
 
@@ -658,14 +736,14 @@ t3 = pd.Series(temp_dict)
   print(t1)
   ```
 
-### 1.2 DataFrame 二维
+### 3.2 DataFrame 二维
 
-#### 1.2.1 DataFrame对象
+#### 3.2.1 DataFrame对象
 
 - 行索引，表明不同行，横向索引，叫做index，0轴，axis=0
 - 列索引，表明不同列，纵向索引，叫做columns，1轴，axis=1
 
-#### 1.2.2 DataFrame对象的创建
+#### 3.2.2 DataFrame对象的创建
 
 ```python
 t1 = pd.DataFrame(np.arange(12).reshape(3,4), index=list("abc"), columns=list("WXYZ"))
@@ -675,18 +753,30 @@ d2 = {"name": "xiaoming", "age": 20, "tel": "10086"}
 t2 = pd.DataFrame(d1)
 ```
 
-#### 1.2.3 DataFrame常用操作方法
+#### 3.2.3 DataFrame常用操作方法
 
-![](./Python数据分析基础学习shortcuts/Python数据分析基础学习_img2.png)
+![](./Python数据分析基础学习.assets/Python数据分析基础学习_img2.png)
 
 - **排序方法**——`df.sort_values(by="age", ascending=False)`
 
 - **取行和取列**——方括号写数字，表示取行；方括号写字符串，表示取列
 
 - **df.loc 通过标签索引获取行数据**——冒号在loc里面是闭合的，即会选择到冒号后面的数据
+
 - **df.iloc 通过位置获取行数据**——`t3.iloc[[0,2],[2,1]]`
 
-#### 1.2.4 DataFrame缺失数据的处理
+- **重置索引**——`df.reset_index(drop=false)`，drop是否删除原来的索引
+
+- **以某列的值作为索引**——`df.set_index(keys, drop=True)`
+
+  ```python
+  # 设置单个索引
+  df.set_index("year")
+  # 可以设置多个索引
+  df.set_index(["year", "month"])
+  ```
+
+#### 3.2.4 DataFrame缺失数据的处理
 
 - **判断是否为NaN**
 
@@ -697,15 +787,186 @@ t2 = pd.DataFrame(d1)
 
   ```python
   # inplace参数表示原地进行修改，即改变t的内容
+  # any表示每一行只要有nan，就删除该行
+  # all表示每一行都是nan，才会删除
   t.dropna(axis=0, how="any", inplace=False)
   ```
 
 - **处理方式二**  ——> 填充数据
 
   ```python
-  t.fillna(t.mean())
-  t.fillna(t.median())
+  t.fillna(t.mean()) # 以均值填充
+  t.fillna(t.median()) # 以
   t.fillna(0)
   ```
 
 - **处理为0的数据：** `t[t==0] = np.nan`
+
+### 3.3 MultiIndex 三维
+
+#### 3.3.1 MultiIndex的介绍
+
+- **MultiIndex就是有多级索引的数据结构**。可以在Series、DataFrame对象上拥有2个以及2个以上的索引
+
+- `df.index`
+
+  ```python
+  # levels 就是 索引列 的 域
+  # names 就是 索引列 的 字段名
+  # labels 就是 域 到 实际索引 的映射顺序
+  MultiIndex(levels=[[2012, 2013, 2014], [1, 4, 7, 10]],
+             labels=[[0, 2, 1, 2], [0, 1, 2, 3]],
+             names=['year', 'month'])
+  
+  # year month sale
+  # 2012   1    55
+  # 2014   4    40
+  # 2013   7    84
+  # 2014   10   31
+  df.index.names
+  # FrozenList(['year', 'month'])
+  df.index.levels
+  # FrozenList([[1, 2], [1, 4, 7, 10]])
+  ```
+
+#### 3.3.2 MultiIndex的创建
+
+```python
+arrays = [[1, 1, 2, 2], ['red', 'blue', 'red', 'blue']]
+pd.MultiIndex.from_arrays(arrays, names=('number', 'color'))
+
+# 结果
+MultiIndex(levels=[[1, 2], ['blue', 'red']],
+           codes=[[0, 0, 1, 1], [1, 0, 1, 0]],
+           names=['number', 'color'])
+```
+
+### 3.4 基本数据操作
+
+#### 3.4.1 索引操作
+
+- **直接索引时，只能先去列，然后再取行**
+
+- 先行后列，拿取数据
+
+  - `data.loc[“a”: “d”, “x” : “y”]` —— 使用字段名索引
+
+    ```python
+    data.loc[data.index[0:5], "x" : "y"]
+    ```
+
+  - `data.iloc[:5, :3]` —— 使用数字索引
+
+    ```python
+    data.iloc[0:5, data.columns.get_indexer(["open", "close"])]
+    ```
+
+  - `data.ix[“a”: “d”, :3]` —— 使用数字和字段名索引
+
+#### 3.4.2 排序操作
+
+- `df.sort_values(by=, ascending=)` —— 值排序
+
+  - 单个键或者多个键进行排序
+  - by：指定排序参考的键
+  - ascending：默认升序
+    - ascending=False： 降序
+    - ascendig=True： 升序
+
+  ```python
+  df.sort_values(by=['column1','column2']).head()
+  ```
+
+- `df.sort_index()` —— 索引排序
+
+#### 3.4.3 算法运算
+
+- add(other)
+
+  ```python
+  data['column1'].add(1)
+  ```
+
+- sub(other)
+
+#### 3.4.4 逻辑运算
+
+- 运算符号
+
+  ```python
+  data[(data["open"] > 23) & (data["open"] < 24)].head()
+  ```
+
+- 运算函数
+
+  ```python
+  data.query('open<24 & open>23').head()
+  data[data["open"]].isin([23.53, 23.85])
+  ```
+
+#### 3.4.5 统计函数
+
+- data.describe()
+- data.sum()
+- data.mean()
+- data.median() 中位数
+- data.min()
+- data.max()
+- data.mode()
+- data.abs()
+- data.prod()
+- data.std() 标准差
+- data.var() 方差
+- data.idxmax() 最大值索引
+- data.idxmin() 最小值索引
+- data[‘column1’].cumsum() 计算前1/2/3.../n个数的和
+- data[‘column1’].cummax() 计算前1/2/3.../n个数的最大值
+- data[‘column1’].cummin() 计算前1/2/3.../n个数的最小值
+- data[‘column1’].cumprod() 计算前1/2/3.../n个数的积
+
+#### 3.4.6 自定义运算
+
+- apply(func, axis=0)
+
+  - func: 自定义函数
+  - axis=0: 默认是列， axis=1为行进行运算
+
+- 定义一个对列，最大值-最小值的函数
+
+  ```python
+  data[['open', 'close']].apply(lambda x: x.max() - x.min(), axis=0)
+  
+  open 22.74
+  close 22.85
+  dtype: float64
+  ```
+
+### 3.5 文件读取和存储
+
+<img src="Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0.assets/image-20211129235728894.png" alt="image-20211129235728894" style="zoom: 80%;" />
+
+#### 3.5.1 CSV文件
+
+- `read_csv(filepath_or_buffer, sep=‘,’)`
+
+  - filepath_or_buffer: 文件路径
+  - usecols: 指定读取的列名，列表形式
+
+  ```python
+  data = pd.read_csv("./data/xxx.csv", usecols=['open','close'])
+  ```
+
+- `DataFrame.to_csv(path_or_buf=None, sep=‘,’, columns=None, header=True, index=True, mode=‘w’, encoding=None)`
+
+  - path_or_buf: 文件路径
+  - sep: 分隔符，默认为逗号
+  - columns： 选择需要的列
+  - header: boolean or list of string, default True, 是否写列索引名
+  - index: 是否写行索引名
+  - mode: ‘w' 重写， ’a'追加
+
+  ```python
+  data[:10].to_csv("./data/xxx.csv", columns=['open'])
+  ```
+
+  
