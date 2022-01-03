@@ -19,6 +19,8 @@
 
 - `git checkout -- xxx` 从暂存区恢复工作区
 
+- `git checkout .` 取消所有文件的修改
+
 - `git commit`保存仓库的历史记录
 
   - 提交信息格式

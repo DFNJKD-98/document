@@ -689,9 +689,9 @@ np.loadtxt(frame, dtype=np.float, delimiter=",", skiprows=0, usecols=None, unpac
 
 ![image-20211129214117941](Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0.assets/image-20211129214117941.png)
 
-### 3.1 series 一维
+### 3.1 Series 一维
 
-#### 3.1.1 series的创建
+#### 3.1.1 Series的创建
 
 ```python
 t2 = pd.Series([1,23,2,4,5], index=list("abcde"))
@@ -706,7 +706,7 @@ e 5
 t3 = pd.Series(temp_dict)
 ```
 
-#### 3.1.2 series切片和索引
+#### 3.1.2 Series切片和索引
 
 ![img](./Python数据分析基础学习.assets/Python数据分析基础学习_img1.png)
 
@@ -782,6 +782,8 @@ t2 = pd.DataFrame(d1)
 
   - `pd.isnull(df)`
   - `pd.notnull(df)`
+  - `np.all(np.notnull(df))`
+  - `np.any(np.isnull(df))`
 
 - **处理方式一**  ——>  删除NaN所在的行列
 
@@ -795,12 +797,15 @@ t2 = pd.DataFrame(d1)
 - **处理方式二**  ——> 填充数据
 
   ```python
+  # DataFrame.fillna(value, inplace=True)
   t.fillna(t.mean()) # 以均值填充
   t.fillna(t.median()) # 以
   t.fillna(0)
   ```
 
 - **处理为0的数据：** `t[t==0] = np.nan`
+
+- 处理为`？`的数据：`t.replace(to_replace=‘?’,  value=np.nan)`
 
 ### 3.3 MultiIndex 三维
 
@@ -904,7 +909,7 @@ MultiIndex(levels=[[1, 2], ['blue', 'red']],
   data[data["open"]].isin([23.53, 23.85])
   ```
 
-#### 3.4.5 统计函数
+#### 3.4.5 统计函数/聚合函数
 
 - data.describe()
 - data.sum()
@@ -967,6 +972,103 @@ MultiIndex(levels=[[1, 2], ['blue', 'red']],
 
   ```python
   data[:10].to_csv("./data/xxx.csv", columns=['open'])
+  ```
+
+
+### 3.6 数据离散化
+
+- pd.qcut(df, count)
+
+  ```python
+  # 自动分成差不多数量的类别
+  qcut = pd.qcut(p_change, 10)
+  qcut.value_counts()
+  ```
+
+- pd.cut(df, bins)
+
+  ```python
+  # 指定分组区间
+  bins = [-100, -7, -5, -3, 0, 3, 5, 7, 100]
+  p_count = pd.cut(p_change, bins)
+  p_count.value_counts()
+  ```
+
+- ont-hot 编码
+
+  - pandas.get_dummies(data, prefix=None)
+
+    - data: array-like, Series, or DataFrame
+    - prefix: 分组名字
+
+    ```python
+    # 得出one-hot编码矩阵
+    dummies = pd.get_dummies(p_counts, prefix="rise")
+    ```
+
+### 3.7 数据合并
+
+- pd.concat([data1, data2], axis=1)
+
+  - 按照行或列进行合并，axis=0为列索引，axis=1为行索引
+
+- pd.merge(left, right, how=‘inner’, on=None)
+
+  - 可以指定按照两组数据的共同键值对合并或者左右各自
+
+  - left: DataFrame
+
+  - right: DataFrame
+
+  - on: 指定共同的键
+
+  - how: 按照什么方式连接
+
+    | Merge method | SQL Join Name    | Description                               |
+    | ------------ | ---------------- | ----------------------------------------- |
+    | left         | LEFT OUTER JOIN  | Use keys from left frame only             |
+    | right        | RIGHT OUTER JOIN | Use keys from right frame only            |
+    | outer        | FULL OUTER JOIN  | Use union of keys from both frames        |
+    | inner        | INNER JOIN       | Use intersection of keys from both frames |
+
+  ```python
+  # 默认内连接
+  result = pd.merge(left, right, on=['key1', 'key2'])
+  ```
+
+### 3.8 交叉表和透视表
+
+#### 3.8.1 交叉表
+
+- 定义：交叉表用于计算一列数据对于另外一列数据的分组个数（用于统计分组频率的特殊透视表）
+- pd.crosstab(value1, value2)
+  - value1的值作为行索引，value2的值作为列索引
+
+#### 3.8.2 透视表
+
+- 定义：透视表是将原有的DataFrame的列分别作为行索引和列索引，然后对指定的列应用聚集函数
+- data.pivot_table()
+- DataFrame.pivot_table([], index=[])
+  - index就是value1， []就是value2
+
+### 3.9 分组聚合
+
+![image-20211201203057941](Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0.assets/image-20211201203057941.png)
+
+- 分组
+
+  - DataFrame.groupby(key, as_index=False)
+    - key: 分组的列数据，可以多个
+
+- 聚合：最大值，最小值····
+
+- 案列：不同颜色的不同笔的价格数据
+
+  ```python
+  # col - DataFrame 二维
+  col.groupby(["color"])["price1"].mean()
+  # col["price1"] - Series 一维
+  col["price1"].groupby(col["color"]).mean()
   ```
 
   

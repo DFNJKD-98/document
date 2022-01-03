@@ -73,9 +73,9 @@ sudo systemctl restart docker
     | 容器端口                              |                                    |
     | -P（大P）                             | 随机指定端口                       |
 
-- 列出所有运行的容器
+- 查看容器
 
-  - `docker ps`
+  - `docker ps` - 查看正在运行的容器
   - `docker ps -a`  - 列出所有容器
   - `docker ps -n=?`  - 显示最近创建的n个容器 
 
