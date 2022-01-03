@@ -6,7 +6,7 @@
 
 - 镜像版本：openEuler-21.09-x86_64-dvd.iso
 
-<img src="OpenEuler.assets/1-第一章/1-%E5%88%9B%E5%BB%BAOpenEuler.jpg" alt="1-创建OpenEuler" style="zoom:67%;" />
+<img src="./OpenEuler.assets/1-第一章/1-%E5%88%9B%E5%BB%BAOpenEuler.jpg" alt="1-创建OpenEuler" style="zoom:67%;" />
 
 ![](OpenEuler.assets/1-第一章/2-2%E5%AE%89%E8%A3%85OpenEuler.jpg)
 
@@ -134,7 +134,7 @@ wget https://gitee.com/openeuler/kernel/repository/archive/5.10.0-4.25.0?format=
 
 ![](OpenEuler.assets/1-第一章/5-%E5%AE%89%E8%A3%85tar%E5%91%BD%E4%BB%A4.jpg)
 
-<img src="OpenEuler.assets/1-第一章/6-%E8%A7%A3%E5%8E%8B%E6%BA%90%E7%A0%81%E5%8E%8B%E7%BC%A9%E5%8C%85.jpg" style="zoom:67%;" />
+<img src="./OpenEuler.assets/1-第一章/6-%E8%A7%A3%E5%8E%8B%E6%BA%90%E7%A0%81%E5%8E%8B%E7%BC%A9%E5%8C%85.jpg" style="zoom:67%;" />
 
 #### 生成内核配置文件.config
 
@@ -242,7 +242,7 @@ grub2-set-default 5.10.0
 
 #### 编译模块
 
-<img src="OpenEuler.assets/1-第一章/33-make%E7%BC%96%E8%AF%91%E6%A8%A1%E5%9D%97.png" style="zoom:80%;" />
+<img src="./OpenEuler.assets/1-第一章/33-make%E7%BC%96%E8%AF%91%E6%A8%A1%E5%9D%97.png" style="zoom:80%;" />
 
 #### 加载与卸载模块
 
@@ -254,7 +254,7 @@ grub2-set-default 5.10.0
 
 #### 编写源文件
 
-<img src="OpenEuler.assets/2-第二章/1-kmalloc%E6%BA%90%E7%A0%81.jpg" style="zoom:80%;" />
+<img src="./OpenEuler.assets/2-第二章/1-kmalloc%E6%BA%90%E7%A0%81.jpg" style="zoom:80%;" />
 
 #### 编写Makefile文件
 
@@ -268,7 +268,7 @@ grub2-set-default 5.10.0
 
 #### 编写源文件
 
-<img src="OpenEuler.assets/2-第二章/4-vmalloc%E6%BA%90%E7%A0%81.png" style="zoom:80%;" />
+<img src="./OpenEuler.assets/2-第二章/4-vmalloc%E6%BA%90%E7%A0%81.png" style="zoom:80%;" />
 
 #### 编写Makefile文件
 
@@ -276,7 +276,7 @@ grub2-set-default 5.10.0
 
 #### 加载模块与卸载模块
 
-<img src="OpenEuler.assets/2-第二章/6-vmalloc%E7%9A%84%E5%8A%A0%E8%BD%BD%E4%B8%8E%E5%8D%B8%E8%BD%BD.jpg" style="zoom:80%;" />
+<img src="./OpenEuler.assets/2-第二章/6-vmalloc%E7%9A%84%E5%8A%A0%E8%BD%BD%E4%B8%8E%E5%8D%B8%E8%BD%BD.jpg" style="zoom:80%;" />
 
 ### 研讨
 
@@ -387,11 +387,11 @@ cgroups是control groups的缩写，是Linux内核提供的一种可以限制，
 
 - 同一个hierarchy能够附加一个或多个subsystem。例如cpu和memory subsystems(或者任意多个subsystems)附加到同一个hierarchy
 
-  <img src="OpenEuler.assets/1070925-20201124165227961-1151966146.png" alt="img" style="zoom: 25%;" />
+  <img src="./OpenEuler.assets/1070925-20201124165227961-1151966146.png" alt="img" style="zoom: 25%;" />
 
 - cpu subsystem已经附加到了hierarchy A，并且memory subsystem已经附加到了hierarchy B，此时cpu subsystem不能在附加到hierarchy B
 
-  <img src="OpenEuler.assets/1070925-20201124165350137-215436245.png" alt="img" style="zoom:25%;" />
+  <img src="./OpenEuler.assets/1070925-20201124165350137-215436245.png" alt="img" style="zoom:25%;" />
 
 - 一个task不能存在于同一个hierarchy的不同cgroup，但可以存在在不同hierarchy中的多个cgroup
 
@@ -431,21 +431,21 @@ Swap:         1.6Gi        44Mi       1.6Gi
 
 #### 限制使用cpu的核数
 
-<img src="OpenEuler.assets/3-第三章/6-%E9%99%90%E5%88%B6%E4%BD%BF%E7%94%A8cpu%E6%A0%B8%E6%95%B0.jpg" style="zoom: 80%;" />
+<img src="./OpenEuler.assets/3-第三章/6-%E9%99%90%E5%88%B6%E4%BD%BF%E7%94%A8cpu%E6%A0%B8%E6%95%B0.jpg" style="zoom: 80%;" />
 
 #### 编译运行while_long
 
-<img src="OpenEuler.assets/3-第三章/7-%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8Cwhile_long.jpg" style="zoom:67%;" />
+<img src="./OpenEuler.assets/3-第三章/7-%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8Cwhile_long.jpg" style="zoom:67%;" />
 
 #### 查看while_long的运行情况
 
-<img src="OpenEuler.assets/3-第三章/9-%E6%9F%A5%E7%9C%8Bwhile_long%E7%9A%84%E8%BF%90%E8%A1%8C%E6%83%85%E5%86%B5.jpg" style="zoom: 67%;" />
+<img src="./OpenEuler.assets/3-第三章/9-%E6%9F%A5%E7%9C%8Bwhile_long%E7%9A%84%E8%BF%90%E8%A1%8C%E6%83%85%E5%86%B5.jpg" style="zoom: 67%;" />
 
 ### cgroup禁止访问U盘
 
 #### 查看U盘盘符
 
-<img src="OpenEuler.assets/3-第三章/10-%E8%8E%B7%E5%8F%96U%E7%9B%98%E7%9B%98%E7%AC%A6.jpg" style="zoom: 67%;" />
+<img src="./OpenEuler.assets/3-第三章/10-%E8%8E%B7%E5%8F%96U%E7%9B%98%E7%9B%98%E7%AC%A6.jpg" style="zoom: 67%;" />
 
 #### 获取设备号
 
@@ -461,7 +461,7 @@ Swap:         1.6Gi        44Mi       1.6Gi
 
 #### 创建cgroup前后对比
 
-<img src="OpenEuler.assets/3-第三章/14-%E5%88%9B%E5%BB%BAcgroup%E5%89%8D%E5%90%8E%E5%AF%B9%E6%AF%94.jpg" style="zoom:80%;" />
+<img src="./OpenEuler.assets/3-第三章/14-%E5%88%9B%E5%BB%BAcgroup%E5%89%8D%E5%90%8E%E5%AF%B9%E6%AF%94.jpg" style="zoom:80%;" />
 
 #### 测试访问U盘
 
@@ -481,7 +481,7 @@ Swap:         1.6Gi        44Mi       1.6Gi
 
 #### 捕获信号
 
-<img src="OpenEuler.assets/4-第四章/3-%E6%8D%95%E8%8E%B7%E4%BF%A1%E5%8F%B7.jpg" style="zoom:80%;" />
+<img src="./OpenEuler.assets/4-第四章/3-%E6%8D%95%E8%8E%B7%E4%BF%A1%E5%8F%B7.jpg" style="zoom:80%;" />
 
 ## 五、内核时间管理
 
@@ -570,23 +570,23 @@ Swap:         1.6Gi        44Mi       1.6Gi
 
 #### 查看是否支持扩展属性
 
-<img src="OpenEuler.assets/7-第七章/1-%E6%9F%A5%E7%9C%8B%E6%98%AF%E5%90%A6%E6%94%AF%E6%8C%81%E6%89%A9%E5%B1%95%E5%B1%9E%E6%80%A7.jpg" style="zoom:67%;" />
+<img src="./OpenEuler.assets/7-第七章/1-%E6%9F%A5%E7%9C%8B%E6%98%AF%E5%90%A6%E6%94%AF%E6%8C%81%E6%89%A9%E5%B1%95%E5%B1%9E%E6%80%A7.jpg" style="zoom:67%;" />
 
 #### 设置文本属性值
 
-<img src="OpenEuler.assets/7-第七章/2-%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E5%B1%9E%E6%80%A7%E5%80%BC.jpg" style="zoom:80%;" />
+<img src="./OpenEuler.assets/7-第七章/2-%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E5%B1%9E%E6%80%A7%E5%80%BC.jpg" style="zoom:80%;" />
 
 #### 设置十六进制属性值和base64编码
 
-<img src="OpenEuler.assets/7-第七章/3-%E8%AE%BE%E7%BD%AE%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E5%B1%9E%E6%80%A7%E5%80%BC%E5%92%8Cbase64%E7%BC%96%E7%A0%81.jpg" style="zoom:67%;" />
+<img src="./OpenEuler.assets/7-第七章/3-%E8%AE%BE%E7%BD%AE%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E5%B1%9E%E6%80%A7%E5%80%BC%E5%92%8Cbase64%E7%BC%96%E7%A0%81.jpg" style="zoom:67%;" />
 
 #### text编码设置
 
-<img src="OpenEuler.assets/7-第七章/4-text%E7%BC%96%E7%A0%81%E8%AE%BE%E7%BD%AE.jpg" style="zoom:67%;" />
+<img src="./OpenEuler.assets/7-第七章/4-text%E7%BC%96%E7%A0%81%E8%AE%BE%E7%BD%AE.jpg" style="zoom:67%;" />
 
 #### hex编码和base64编码
 
-<img src="OpenEuler.assets/7-第七章/5-hex%E7%BC%96%E7%A0%81%E5%92%8Cbase64%E7%BC%96%E7%A0%81.jpg" style="zoom:80%;" />
+<img src="./OpenEuler.assets/7-第七章/5-hex%E7%BC%96%E7%A0%81%E5%92%8Cbase64%E7%BC%96%E7%A0%81.jpg" style="zoom:80%;" />
 
 ### 注册自定义文件系统类型
 
@@ -705,7 +705,7 @@ sysfs提供一种机制，使得可以显式地描述内核对象、对象属性
 
 #### 查看网络配置
 
-<img src="OpenEuler.assets/9-第九章/7-%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE.jpg" style="zoom:80%;" />
+<img src="./OpenEuler.assets/9-第九章/7-%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE.jpg" style="zoom:80%;" />
 
 #### 安装引导固件
 
@@ -729,11 +729,11 @@ yum install -y edk2-ovmf
 
 #### 创建虚拟机
 
-<img src="OpenEuler.assets/9-第九章/14-%E6%88%90%E5%8A%9F%E5%AE%9A%E4%B9%89%E8%99%9A%E6%8B%9F%E6%9C%BA.jpg" style="zoom:80%;" />
+<img src="./OpenEuler.assets/9-第九章/14-%E6%88%90%E5%8A%9F%E5%AE%9A%E4%B9%89%E8%99%9A%E6%8B%9F%E6%9C%BA.jpg" style="zoom:80%;" />
 
 #### 运行虚拟机
 
-<img src="OpenEuler.assets/9-第九章/15-%E8%BF%90%E8%A1%8C%E8%99%9A%E6%8B%9F%E6%9C%BA.jpg" style="zoom: 67%;" />
+<img src="./OpenEuler.assets/9-第九章/15-%E8%BF%90%E8%A1%8C%E8%99%9A%E6%8B%9F%E6%9C%BA.jpg" style="zoom: 67%;" />
 
 #### 安装tigervnc
 
@@ -741,11 +741,11 @@ yum install -y edk2-ovmf
 
 #### 查看网络信息
 
-<img src="OpenEuler.assets/9-第九章/17-%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF.jpg" style="zoom:80%;" />
+<img src="./OpenEuler.assets/9-第九章/17-%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF.jpg" style="zoom:80%;" />
 
 #### 填写VNC-Server地址
 
-<img src="OpenEuler.assets/9-第九章/18-%E5%A1%AB%E5%86%99VNCServer%E5%9C%B0%E5%9D%80.jpg" style="zoom:80%;" />
+<img src="./OpenEuler.assets/9-第九章/18-%E5%A1%AB%E5%86%99VNCServer%E5%9C%B0%E5%9D%80.jpg" style="zoom:80%;" />
 
 #### 输入密码
 
@@ -775,13 +775,13 @@ yum install -y edk2-ovmf
 </disk>
 ```
 
-<img src="OpenEuler.assets/9-第九章/20-%E8%BF%9E%E6%8E%A5%E6%8A%A5%E9%94%99.jpg" style="zoom:50%;" />
+<img src="./OpenEuler.assets/9-第九章/20-%E8%BF%9E%E6%8E%A5%E6%8A%A5%E9%94%99.jpg" style="zoom:50%;" />
 
 #### 安装虚拟机
 
-<img src="OpenEuler.assets/9-第九章/21-%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA.jpg" style="zoom:50%;" />
+<img src="./OpenEuler.assets/9-第九章/21-%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA.jpg" style="zoom:50%;" />
 
-<img src="OpenEuler.assets/9-第九章/22-2安装界面.jpg" style="zoom: 50%;" />
+<img src="./OpenEuler.assets/9-第九章/22-2安装界面.jpg" style="zoom: 50%;" />
 
 ![](OpenEuler.assets/9-第九章/22-3%E5%AE%89%E8%A3%85%E4%B8%AD.jpg)
 
