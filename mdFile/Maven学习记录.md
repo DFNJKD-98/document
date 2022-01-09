@@ -87,5 +87,32 @@ Maven 能够帮助开发者完成以下工作：
   </mirror>
   ```
 
-  
 
+## 三、Spring、SpringMVC、SpringBoot
+
+> Spring 最初利用“工厂模式”（DI）和“代理模式”（AOP）解耦应用组件。
+>
+> 大家觉得挺好用，于是按照这种模式搞了一个 MVC框架（一些用Spring 解耦的组件），用开发 web 应用（ SpringMVC ）。
+>
+> 然后又发现每次开发都写很多样板代码，为了简化工作流程，于是开发出了一些“懒人整合包”（starter），这套就是 Spring Boot。
+>
+> 用最简练的语言概括就是：
+>
+> Spring 是一个“引擎”；
+>
+> Spring MVC 是基于Spring的一个 MVC 框架 ；
+>
+> Spring Boot 是基于Spring4的条件注册的一套快速开发整合包。
+
+### Spring
+
+- 一个轻量级控制反转(IOC)和面向切面(AOP)的容器框架
+
+### SpringMVC
+
+- **Spring MVC是Spring的一部分**，Spring 出来以后，大家觉得很好用，于是按照这种模式设计了一个MVC框架（一些用Spring解耦的组件），主要用于开发WEB应用和网络接口，**它是Spring的一个模块**，通过DispatcherServlet, ModelAndView 和View Resolver，让应用开发变得很容易。
+
+### SpringBoot
+
+- SpringBoot是一套整合了框架的框架
+- 它的初衷：解决Spring框架配置文件的繁琐、搭建服务的复杂性

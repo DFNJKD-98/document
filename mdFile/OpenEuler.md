@@ -252,6 +252,8 @@ grub2-set-default 5.10.0
 
 ### kmalloc
 
+> kmalloc用于内核的内存分配，需要注意的是：**kmalloc一般用于小内存的分配**，kmalloc最大只能开辟128k-16，16个字节是被页描述符结构占用了。另外，很多硬件需要一块比较大的连续内存用作DMA传送。这块内存需要一直驻留在内存，不能被交换到文件中去。但是kmalloc最多只能开辟大小为32*PAGE_SIZE的内存，一般的PAGE_SIZE=4KB，也就是128KB的大小的内存。
+
 #### 编写源文件
 
 <img src="./OpenEuler.assets/2-第二章/1-kmalloc%E6%BA%90%E7%A0%81.jpg" style="zoom:80%;" />
@@ -265,6 +267,10 @@ grub2-set-default 5.10.0
 ![](OpenEuler.assets/2-第二章/3-kmalloc%E7%9A%84%E5%8A%A0%E8%BD%BD%E4%B8%8E%E5%8D%B8%E8%BD%BD.jpg)
 
 ### vmalloc
+
+> vmalloc函数的工作方式类似于kmalloc，只不过前者分配的内存虚拟地址是连续的，而物理地址则无需连续。它通过分配非连续的物理内存块，再修改页表，把内存映射到逻辑地址空间的连续区域中。通过vmalloc获得的页必须一个一个地进行映射，效率不高，因此，只在不得已（一般是为了获得大块内存）时使用。vmalloc函数返回一个指针，指向逻辑上连续的一块内存区，其大小至少为size。在发生错误时，函数返回NULL。vmalloc可能睡眠，因此，不能从中断上下文中进行调用，也不能从其它不允许阻塞的情况下调用。
+>
+> **kmalloc能分配的大小有限，vmalloc能分配的大小相对较大，但是vmalloc比kmalloc速度要慢。**
 
 #### 编写源文件
 
@@ -471,6 +477,40 @@ Swap:         1.6Gi        44Mi       1.6Gi
 
 ## 四、终端和异常管理
 
+### [软中断、tasklet、工作队列和进程上下文](https://blog.csdn.net/godleading/article/details/52971179)
+
+![执行绪关系](OpenEuler.assets/20161030104807713.bmp)
+
+#### 上半部和下半部
+
+- 上半部指的是中断处理程序，下半部则指的是一些虽然与中断有相关性但是可以延后执行的任务。
+- 举个例子：在网络传输中，网卡接收到数据包这个事件不一定需要马上被处理，适合用下半部去实现；但是用户敲击键盘这样的事件就必须马上被响应，应该用中断实现。
+- 两者的主要区别在于：中断不能被相同类型的中断打断，而下半部依然可以被中断打断；中断对于时间非常敏感，而下半部基本上都是一些可以延迟的工作。
+
+#### 软中断
+
+- 软中断作为下半部机制的代表，是随着SMP（share memory processor）的出现应运而生的，**它也是tasklet实现的基础（tasklet实际上只是在软中断的基础上添加了一定的机制）**。
+
+- 软中断一般是“可延迟函数”的总称，有时候也包括了tasklet（请读者在遇到的时候根据上下文推断是否包含tasklet）。
+
+- **它的出现就是因为要满足上面所提出的上半部和下半部的区别**，使得对时间不敏感的任务延后执行，而且可以在多个CPU上并行执行，使得总的系统效率可以更高。
+
+#### tasklet
+
+由于软中断必须使用可重入函数，这就导致设计上的复杂度变高，作为设备驱动程序的开发者来说，增加了负担。而如果某种应用并不需要在多个CPU上并行执行，那么软中断其实是没有必要的。因此诞生了弥补以上两个要求的tasklet。它具有以下特性：
+
+- 一种特定类型的tasklet只能运行在一个CPU上，不能并行，只能串行执行。
+- 多个不同类型的tasklet可以并行在多个CPU上。
+- 软中断是静态分配的，在内核编译好之后，就不能改变。但tasklet就灵活许多，可以在运行时改变（比如添加模块时）。
+
+tasklet是在两种软中断类型的基础上实现的，**因此如果不需要软中断的并行特性，tasklet就是最好的选择。**也就是说tasklet是软中断的一种特殊用法，即延迟情况下的串行执行。
+
+#### 工作队列
+
+工作队列(work queue)是另外一种将工作推后执行的形式。
+
+工作队列可以把工作推后，交由一个内核线程去执行—这个下半部分总是会在进程上下文执行，但由于是内核线程，其不能访问用户空间。最重要特点的就是**工作队列允许重新调度甚至是睡眠**。
+
 ### tasklet输出helloworld
 
 ![](OpenEuler.assets/4-第四章/1-tasklet%E8%BE%93%E5%87%BAhelloworld.jpg)
@@ -484,6 +524,20 @@ Swap:         1.6Gi        44Mi       1.6Gi
 <img src="./OpenEuler.assets/4-第四章/3-%E6%8D%95%E8%8E%B7%E4%BF%A1%E5%8F%B7.jpg" style="zoom:80%;" />
 
 ## 五、内核时间管理
+
+> **注意：**
+>
+> 5.x版本的内核已经将do_gettimeofday()函数移除，可以通过如下方法解决。4.x版本的内核不需要更改。
+>
+> 将do_gettimeofday()更换为ktime_get_ts64()
+> 将rtc_time_to_tm()更换为rtc_time64_to_tm()
+>
+> ```c
+>  struct timespec64 {
+>     time64_t    tv_sec;         // seconds 
+>     long        tv_nsec;        // nanoseconds
+>  }; 
+> ```
 
 ### 打印当前时间
 
@@ -565,6 +619,12 @@ Swap:         1.6Gi        44Mi       1.6Gi
   ![](OpenEuler.assets/6-第六章/11-测试结果.jpg)
 
 ## 七、文件系统
+
+> **文件扩展属性介绍**
+>
+> 扩展属性名称的格式是namespace.attribute，名称空间namespace是用来定义不同的扩展属性的类。目前有security，system，trusted，user四种扩展属性类。
+>
+> 扩展的用户属性被分配给文件和目录用来存储任意的附加信息，比如mime type、字符集或是文件的编码。用户属性的权限由文件权限位来定义。对于普通文件和目录，文件权限位定义文件内容的访问，对于设备文件来说，它们定义对设备的访问。扩展的用户属性只被用于普通的文件和目录，对用户属性的访问被限定于属主和那些对目录有sticky位设置的用户。
 
 ### 为Ext4文件系统添加扩展属性
 
@@ -678,6 +738,13 @@ sysfs提供一种机制，使得可以显式地描述内核对象、对象属性
 ## 九、内核虚拟化
 
 ### 搭建OpenEuler系统的虚拟机
+
+> 经过亲自实验，在本地VMware安装的OpenEuler操作系统内可以完成本实验，主要需要注意以下几点：
+>
+> - OpenEuler版本最好选择20.03(LTS)，即内核版本要为4.x
+> - 编译内核时，需要勾选虚拟化的支持，具体操作见：一、操作系统安装与内核编译
+> - 配置虚拟机的xml文件，需要结合官方文档和实验指导书两方面的示例
+> - 生成虚拟机的镜像时，经过实验发现不能按照官方文档里面只分配4G，至少分个6G比较合适
 
 #### 安装qemu
 
@@ -797,6 +864,14 @@ yum install -y edk2-ovmf
 
 ### Docker
 
+#### docker架构图
+
+![](./OpenEuler.assets/docker架构图.jpg)
+
+#### 容器的生命周期
+
+![](./OpenEuler.assets/容器生命周期图.jpg)
+
 #### 安装docker
 
 ![](OpenEuler.assets/docker/1-%E5%AE%89%E8%A3%85docker.jpg)
@@ -894,6 +969,38 @@ isula images
 isula create ubuntu:14.04
 ```
 
+#### 查询所有容器
+
+```shell
+isula ps -a
+```
+
+#### 启动容器
+
+```shell
+isula start container_name
+```
+
+#### 运行容器
+
+```shell
+isula run -d ubuntu:14.04 /bin/sh -c "while true;do echo hello world; sleep 1; done"
+```
+
+#### 删除容器
+
+```shell
+isula rm container_ID
+```
+
+#### 接入容器
+
+```shell
+isula attach container_ID
+```
+
+#### 综合实验结果
+
 ![](OpenEuler.assets/iSula/5-创建-查看-删除-接入容器.jpg)
 
 ### CNI网络
@@ -903,7 +1010,7 @@ isula create ubuntu:14.04
 > [【kubernetes/k8s概念】CNI详解](https://blog.csdn.net/zhonglinzhang/article/details/82697524)
 > [kubernetes cni网络详解](https://blog.csdn.net/liukuan73/article/details/78883847)
 
-#### 为什么CNI
+#### CNI的由来
 CNI是Container Network Interface的是一个标准的，通用的接口。现在容器平台：docker，kubernetes，mesos，容器网络解决方案：flannel，calico，weave。**只要提供一个标准的接口，就能为同样满足该协议的所有容器平台提供网络功能，而CNI正是这样的一个标准接口协议。**
 
 一直以来，kubernetes 并没有专门的网络模块负责网络配置，它需要用户在主机上已经配置好网络。
@@ -912,10 +1019,31 @@ kubernetes 对网络的要求是：
 - 容器之间（包括同一台主机上的容器，和不同主机的容器）可以互相通信
 - 容器和集群中所有的节点也能直接通信
 
-kubernetes 网络的发展方向是希望通过插件的方式来集成不同的网络方案， CNI 就是这一努力的结果。CNI只专注解决容器网络连接和容器销毁时的资源释放，提供一套框架，所以CNI可以支持大量不同的网络模式，并且容易实现。
+**kubernetes 网络的发展方向是希望通过插件的方式来集成不同的网络方案， CNI 就是这一努力的结果。**CNI只专注解决容器网络连接和容器销毁时的资源释放，提供一套框架，所以CNI可以支持大量不同的网络模式，并且容易实现。
 
-#### 什么CNI
+#### 什么是CNI
    **CNI用于连接容器管理系统和网络插件**。提供一个容器所在的network namespace，将network interface插入该network namespace中（比如veth的一端），并且在宿主机做一些必要的配置（例如将veth的另一端加入bridge中），最后对namespace中的interface进行IP和路由的配置。
 
   CNI的工作是从容器管理系统处获取运行时信息，包括**network namespace的路径，容器ID以及network interface** name，再从容器网络的配置文件中加载网络配置信息，再将这些信息传递给对应的插件，由插件进行具体的网络配置工作，并将配置的结果再返回到容器管理系统中。
 
+## A-Tune
+
+### 安装与配置
+
+#### 安装
+
+![](./OpenEuler.assets/Atune/1-安装atune.jpg)
+
+![](./OpenEuler.assets/Atune/2-查看安装是否成功.jpg)
+
+### 启动Atune
+
+![](./OpenEuler.assets/Atune/3-启动atune.jpg)
+
+### 查看负载类型
+
+![](./OpenEuler.assets/Atune/4-查询负载类型.jpg)
+
+---
+
+因为当时服务器买的是**按需付费**的，然后买的配置还挺好的，结果现在200块钱的优惠卷用完了，还**欠费**了3块钱:grimacing:。又因为A-Tune依赖于鲲鹏处理器，本地也做不了了。所以只能做到这里了:sob:
