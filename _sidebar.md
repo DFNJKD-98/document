@@ -20,6 +20,7 @@
 - [Python包及其定义和引用详解](mdFile/Python包及其定义和引用详解.md)
 - [Python数据分析基础学习](mdFile/Python数据分析基础学习.md)
 - [QQMusicAPI文档](mdFile/QQMusicAPI文档.md)
+- [Rust学习记录](mdFile/Rust学习记录.md)
 - [Spring学习记录](mdFile/Spring学习记录.md)
 - [TypeScript](mdFile/TypeScript.md)
 - [Vue3学习记录](mdFile/Vue3学习记录.md)

@@ -1,17 +1,45 @@
 <h1 align="center" id="index">C++学习记录</h1>
 
+## GCC、MinGW、MinGW-w64、TDM-GCC 区别与联系
 
+### GCC
+
+GCC（**GNU Compiler Collection，GNU编译器套件**）是由GNU开发的编程语言译器。GNU编译器套件包括C、C++、 Objective-C、 Fortran、Java、Ada和Go语言前端，也包括了这些语言的库（如libstdc++，libgcj等。）
+
+### MinGW
+
+MinGW (**Minimalist GNU For Windows**) 是一套 GNU 工具集合。开发 MinGW 是为了那些不喜欢工作在 Linux(FreeBSD) 操作系统而留在 Windows 的人提供一套符合 GNU 的 GNU 工作环境。
+
+MinGW包含GNU自由软件集合中的GCC
+
+#### 组成
+
+- 编译器 (支持 C、C++、ADA 和 Fortran )
+- GNU 工具
+- mingw-get (用于 Windows 平台安装和部署 MinGW 和 MSYS 的命令行安装器)
+- mingw-get-inst (用于 GUI 打包)
+
+### MinGW-w64
+
+MinGW-w64 是衍生自 MinGW 的项目。编译目标兼容32位应用程序与64位应用程序
+
+### TDM-GCC
+
+衍生自 MinGW 和 MinGW-w64 的项目，分为 32 位与 64 位两个版本，32 位版本的编译目标仅兼容 32 位应用程序，64位版本的编译目标兼容 32 位应用程序和 64 位应用程序。
 
 ## 头文件和源文件
 
-C++程序在构建的时候，有两个主要的时期
+### 头文件如何来关联源文件?
 
-compile-time
-linkage-time
+这个问题实际上是说，已知头文件`"a.h"`声明了一系列函数(仅有函数原型,没有函数实现)，`"b.cpp"`中实现了这些函数，那么如果我想在`"c.cpp"`中使用`"a.h"`中声明的这些在`"b.cpp"`中实现的函数，通常都是在`"c.cpp"`中使用`#include "a.h"`,那么`c.cpp`是怎样找到`b.cpp`中的实现呢?其实`.cpp`和`.h`文件名称没有任何直接关系，很多编译器都可以接受其他扩展名。
+谭浩强老师的《C程序设计》一书中提到，编泽器预处理时，要对`#include`命令进行"文件包含处理"：将`headfile.h`的全部内容复制到`#include headfile.h"`处。这也正说明了，为什么很多编译器并不care到底这个文件的后缀名是什么----因为`#include`预处理就是完成了一个"复制并插入代码”的工作。
 
-在compile-time，编译是以编译单元进行的——每一个cpp源文件就是一个编译单元，compiler会逐cpp进行编译，每一个cpp中的h头文件都包含进这个单元进行编译（编译时需要，函数声明，不然无法进行语法检查），一个编译单元只要保证所有要用到的符号都可以查找到就可以了。这产生一个obj目标文件，该cpp中所有定义的符号都在里面。
+**程序编译的时候，并不会去找` b.cpp`文件中的函数实现，只有在link的时候才进行这个工作**。我们在 `b.cpp`或`c.cpp` 中用`#include "a.h"`实际上是引入相关声明，使得编译可以通过，程序并不关心实现是在哪里，是怎么实现的。源文件编译后生成了目标文件（.o或.obj文件〉，目标文件中，这些函数和变量就视作一个个符号。在link的时候，需要在 `makefile`里面说明需要连接哪个.o或.cbj文件(在这里是b.cpp生成的.o或.obj文件〕，此时，连接器会去这个.o或.obj文件中找在 `b.cpp`中实现的函数，再把他们 build到 `makefile`中指定的那个可以执行文件中。
+在VC中，一帮情况下不需要自己写`makefile`，只需要将需要的文件都包括在project中，VC会自动帮你把makefile写好。
+通常，编译器会在每个.o或.obj文件中都去找一下所需要的符号，而不是只在某个文件中找或者说找到一个就不找了。因此，如果在几个不同文件中实现了同一个函数，或者定义了同一个全局变量，链接的时候就会提示`"redefined"`.
 
-在linkage-time所有被编译好的obj文件被linker进行符号链接以产生最终文件，但符号定义必须保证存在和唯一
+---
+参考链接：[C语言中,头文件和源文件的关系](https://wenku.baidu.com/view/2a120b16a45177232f60a2bd.html)
 
 ## typedef 和 #define
 
