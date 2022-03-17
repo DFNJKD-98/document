@@ -47,9 +47,18 @@
 
 ## git tag
 
+> 只要在打标签时添加-m”xxxx”，都可以添加标签说明，并在git show 显示的信息中显示打标签者、打标签日期和标签说明。而git tag -a应该只是声明要打一个含附注的标签，你可以用-m添加，又或者是使用它跳转的文本编辑软件添加，总之加上-a的标签必须要有标签说明，而git tag不会强制要求。当使用git tag -m时，效果其实和git tag -a -m是一样的
+>
+> - 轻量级tag：直接使用`git tag <tagname>`命令，不会记录和此次tag相关的更多信息
+> - 附注tag：当使用git show查看一个附注tag时，除了显示打标签的commit信息外，还会显示tag本身的信息，包括：tag名称、打tag的人、打tag的时间
+>   - -a：标注一个含附注的标签
+>   - -m：直接在命令行中添加附注信息
+
 | 命令                                   | 含义                                        |
 | -------------------------------------- | ------------------------------------------- |
 | git tag [-m] [\<message\>] \<tagname\> | 打标签，引用commit ID以保存当前版本库的状态 |
+| git tag                                | 查看所有标签                                |
+| git tag -d \<tagname\>                 |                                             |
 
 ## git stash
 
@@ -101,6 +110,19 @@
 
 ## git push
 
+> Git中`push.default`可以指定在没有明确指定远程分支的情况下，默认push的远程分支，其取值可以是：
+>
+> - **nothing** - push操作无效，除非显式指定远程分支（想让push变得简单的就不要用这个）
+> - **current** - push当前分支到远程同名分支，如果远程同名分支不存在则自动创建同名分支（central 和 non-central workflows都适用）
+> - **upstream** - push当前分支到它的upstream分支上（通常用于central workflow）
+> - **simple** - simple和upstream是相似的（通常用于central workflow），只有一点不同，simple必须保证本地分支和它的远程 upstream分支同名，否则会拒绝push操作
+> - **matching** - push所有本地和远程两端都存在的同名分支
+>
+> central / non-central workflows 是Git的两种常见工作流场景：
+>
+> - central workflows - 集中式工作流，一个分支的push和pull都是同一个远程仓库
+> - non-central workflows - 非集中式工作流，一个分支的push和pull可能分别都有不同的远程仓库
+
 | 命令                                            | 含义                                                         |
 | ----------------------------------------------- | ------------------------------------------------------------ |
 | git push <远程主机名> <本地分支名>:<远程分支名> | 推送本地分支到远程主机的远程分支上<br />（适用于两个分支名称不一样） |
@@ -111,6 +133,7 @@
 | git push --all <远程主机名>                     | 不管是否存在对应的远程分支，都将本地的所有分支都推送到远程主机 |
 | git push <远程主机名> :<远程分支名>             | 删除远程仓库中的某个分支，相当于推送了一个空的分支           |
 | git push  <远程主机名> - -delete <远程分支名>   | 删除远程仓库中的某个分支                                     |
+| git push <远程主机名> --tags                    | 推送所有标签到远程仓库                                       |
 
 ## git pull
 
