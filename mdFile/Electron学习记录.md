@@ -1,30 +1,50 @@
-# Electron
+<h1 align="center" id="index">Electron学习记录</h1>
 
-## 开发环境搭建
+## 安装Electron包
 
-- NodeJs(nodejs.org)
+- 设置淘宝镜像
 
-  ```
-  node -v
-  npm -v
-  ```
-
-- electron
-
-  ```
-  npm init
-  npm install electron --save-dev
-  npm install --arch=ia32 --platform=win32 electron
-  npx electron -v
+  ```sh
+  npm config set registry=http://registry.npmmirror.com/
   ```
   
-- 加速安装技巧
+- 安装electron包
 
-  ```
-  ELECTRON_MIRROR=https://cdn.npm.taobao.org/dist/electron/ npm install electron --save-dev
+  ```sh
+  npm install electron --save-dev
   ```
 
-- vue-cli3 中 electron 环境搭建
+- 问题解决
+
+  > Electron failed to install correctly, please delete node_modules/electron and try installing again
+
+  - 手动下载electron压缩包，如：`electron-v13.5.1-win32-x64.zip`。
+    **注意**：别的版本在创建无边框窗口时可能存在bug，这里跟随vscode中electron的版本
+  
+  - 终端进入到`node_modules/electron`目录，编辑器打开`install.js`
+  
+  - 修改`install.js`文件如下内容：
+  
+    ```js
+    // downloads if not cached
+    // downloadArtifact({
+    //   version,
+    //   artifactName: 'electron',
+    //   force: process.env.force_no_cache === 'true',
+    //   cacheRoot: process.env.electron_config_cache,
+    //   checksums: process.env.electron_use_remote_checksums ? undefined : require('./checksums.json'),
+    //   platform,
+    //   arch
+    // }).then(extractFile).catch(err => {
+    //   console.error(err.stack);
+    //   process.exit(1);
+    // });
+    extractFile('./electron-v13.5.1-win32-x64.zip')
+    ```
+  
+  - 终端执行`node install.js`即可解决问题
+
+## vue-cli3 中 electron 环境搭建
 
   - 创建项目
 
@@ -50,42 +70,6 @@
     npm run electron:build
     ```
     
-  - 错误解决
-  
-    - 手动下载所需文件
-      第一步下载 [https://cdn.npm.taobao.org/dist/electron/7.1.7/electron-v7.1.7-win32-x64.zip ](https://cdn.npm.taobao.org/dist/electron/7.1.7/electron-v7.1.7-win32-x64.zip)拷贝到electron的目录下
-  
-    - 第二步编辑install.js文件找到extractFile函数添加`extractFile('./electron-v7.1.7-win32-x64.zip')`这行代码
-  
-      ```js
-      // downloads if not cached
-      downloadArtifact({
-        version,
-        artifactName: 'electron',
-        force: process.env.force_no_cache === 'true',
-        cacheRoot: process.env.electron_config_cache,
-        platform: process.env.npm_config_platform || process.platform,
-        arch: process.env.npm_config_arch || process.arch
-      }).then((zipPath) => extractFile(zipPath)).catch((err) => onerror(err))
-      // 插入这段代码引入文件
-      extractFile('./electron-v7.1.7-win32-x64.zip')
-      // unzips and makes path.txt point at the correct executable
-      function extractFile (zipPath) {
-        extract(zipPath, { dir: path.join(__dirname, 'dist') }, function (err) {
-          if (err) return onerror(err)
-          fs.writeFile(path.join(__dirname, 'path.txt'), platformPath, function (err) {
-            if (err) return onerror(err)
-          })
-        })
-      }
-      
-      ```
-  
-    - 打开命令行切换到electron根路径用node编译install文件
-  
-      ```
-      node install.js
-      ```
 
 ## Hello World
 
