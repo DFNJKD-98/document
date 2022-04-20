@@ -324,3 +324,13 @@ git config --global gui.encoding utf-8
 - `ssh-keygen -t rsa -C “your_email@example.com”`
 - `cat ~/.ssh/id_rsa.pub`
 
+## 代码托管平台账户、Git配置用户、SSH邮箱
+
+- 产生ssh密钥对时，`ssh-keygen -t rsa -C "myname@email.com"`，里面输入的email与Git设定的用户名，与GitHub等代码托管网站的用户名毫无关联。仅仅是为了方便辨别每个密钥的作用
+
+- 这里需要注意的是代码托管网站对本地设定的账户是如何处理的。代码托管网站，主要看email，用email地址来匹配自己的账户名的邮件地址，如果相同，代码托管网站就认为此操作是账户所有者的操作。比如：
+
+  如果本地设定的`user.email`值是：`personal@126.com`，由于在GitHub上的账户的邮件地址也是`personal@126.com`，如果从这台电脑push的话，GitHub会认定这次这个push是账户拥有者自己做的，跟直接登录到GitHub，从网站上修改，是相同的，修改人是一样，就是账户拥有者。
+
+  如果本地设定的`user.email`值是：`company@company.cn`，也能push到GitHub，GitHub会记录这次的修改是另一个人（用户名是company）做的。
+
