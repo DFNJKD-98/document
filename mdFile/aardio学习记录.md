@@ -1,3 +1,7 @@
+---
+title: aardio学习记录
+---
+
 <h1 align="center" id="index">aardio学习记录</h1>
 
 ## aardio包的使用

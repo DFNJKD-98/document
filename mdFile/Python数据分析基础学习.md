@@ -1,3 +1,7 @@
+---
+title: Python数据分析基础学习
+---
+
 <h1 align="center">Python数据分析基础学习</h1>
 
 ## 一、matplotlib
@@ -687,7 +691,7 @@ np.loadtxt(frame, dtype=np.float, delimiter=",", skiprows=0, usecols=None, unpac
 >
 > *独特的数据结构*
 
-![image-20211129214117941](Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0.assets/image-20211129214117941.png)
+![image-20211129214117941](Python数据分析基础学习/image-20211129214117941.png)
 
 ### 3.1 Series 一维
 
@@ -708,7 +712,7 @@ t3 = pd.Series(temp_dict)
 
 #### 3.1.2 Series切片和索引
 
-![img](./Python数据分析基础学习.assets/Python数据分析基础学习_img1.png)
+![img](./Python数据分析基础学习/Python数据分析基础学习_img1.png)
 
 #### 3.1.3 获取索引和值
 
@@ -755,7 +759,7 @@ t2 = pd.DataFrame(d1)
 
 #### 3.2.3 DataFrame常用操作方法
 
-![](./Python数据分析基础学习.assets/Python数据分析基础学习_img2.png)
+![](./Python数据分析基础学习/Python数据分析基础学习_img2.png)
 
 - **排序方法**——`df.sort_values(by="age", ascending=False)`
 
@@ -948,7 +952,7 @@ MultiIndex(levels=[[1, 2], ['blue', 'red']],
 
 ### 3.5 文件读取和存储
 
-<img src="Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0.assets/image-20211129235728894.png" alt="image-20211129235728894" style="zoom: 80%;" />
+<img src="Python数据分析基础学习/image-20211129235728894.png" alt="image-20211129235728894" style="zoom: 80%;" />
 
 #### 3.5.1 CSV文件
 
@@ -1053,7 +1057,7 @@ MultiIndex(levels=[[1, 2], ['blue', 'red']],
 
 ### 3.9 分组聚合
 
-![image-20211201203057941](Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0.assets/image-20211201203057941.png)
+![image-20211201203057941](Python数据分析基础学习/image-20211201203057941.png)
 
 - 分组
 

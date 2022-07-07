@@ -1,3 +1,7 @@
+---
+title: Django学习记录
+---
+
 <h2 align="center">Django学习记录</h2>
 
 > **数据库的操作**

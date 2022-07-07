@@ -1,3 +1,7 @@
+---
+title: DNS介绍
+---
+
 <h2 align="center">DNS介绍</h2>
 
 

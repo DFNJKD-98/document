@@ -1,3 +1,7 @@
+---
+title: Pytorch学习记录
+---
+
 <h1 align="center" id="index">Pytorch学习记录</h1>
 
 ## torch.unsqueeze

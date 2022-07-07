@@ -1,3 +1,7 @@
+---
+title: TypeScript学习记录
+---
+
 ## TypeScript
 
 ### 安装

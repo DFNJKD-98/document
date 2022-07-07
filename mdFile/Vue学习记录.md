@@ -1,3 +1,7 @@
+---
+title: Vue学习记录
+---
+
 <h2 align="center">Vue学习记录</h2>
 
 #### Vue.js安装

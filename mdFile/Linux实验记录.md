@@ -12,11 +12,11 @@ description: 相关Linux文件、用户、进程、磁盘、shell和网络的知
 
 ### GNU 是什么，和 LInux 是什么关系
 
-![image-20211007112302300](./Linux实验记录.assets/image-20211007112302300.png)
+![image-20211007112302300](./Linux实验记录/image-20211007112302300.png)
 
 ### [gcc、make、makefile、cmake、qmake](https://www.zhihu.com/question/27455963)
 
-![image-20211007122110642](./Linux实验记录.assets/image-20211007122110642.png)
+![image-20211007122110642](./Linux实验记录/image-20211007122110642.png)
 
 ## 配置深色主题
 
@@ -245,35 +245,35 @@ description: 相关Linux文件、用户、进程、磁盘、shell和网络的知
 
 - 执行`./configure`
 
-  ![执行configure](./Linux实验记录.assets/执行configure.png)
+  ![执行configure](./Linux实验记录/执行configure.png)
 
 - **出现错误**
 
-  ![执行configure出现错误](./Linux实验记录.assets/执行configure出现错误.png)
+  ![执行configure出现错误](./Linux实验记录/执行configure出现错误.png)
 
 - 解决错误 - 修改 CMakeLists 文本文件
 
-  ![修改CMakeLists文本文件](./Linux实验记录.assets/修改CMakeLists文本文件.png)
+  ![修改CMakeLists文本文件](./Linux实验记录/修改CMakeLists文本文件.png)
 
 - 重新执行`./configure`
 
-  ![执行configure成功](./Linux实验记录.assets/执行configure成功.png)
+  ![执行configure成功](./Linux实验记录/执行configure成功.png)
 
 - 编译源码
 
-  ![编译cmake源码](./Linux实验记录.assets/编译cmake源码.png)
+  ![编译cmake源码](./Linux实验记录/编译cmake源码.png)
 
 - 编译成功
 
-  ![编译cmake源码成功](./Linux实验记录.assets/Linux实验要求.png)
+  ![编译cmake源码成功](./Linux实验记录/Linux实验要求.png)
 
 - 安装 cmake
 
-  ![安装cmake](./Linux实验记录.assets/安装cmake.png)
+  ![安装cmake](./Linux实验记录/安装cmake.png)
 
 - 安装 cmake 成功
 
-  ![安装cmake成功](./Linux实验记录.assets/安装cmake成功.png)
+  ![安装cmake成功](./Linux实验记录/安装cmake成功.png)
 
 ### 安装 flameshot
 
@@ -1246,7 +1246,7 @@ sudo apt install vim
 
 - LVM 是在硬盘分区之上建立一个逻辑层，这个逻辑层让多个硬盘或分区看起来像一块逻辑硬盘，然后将这块逻辑硬盘分成逻辑卷之后使用，从而大大提高了分区的灵活性。我们把真实的物理硬盘或分区称作物理卷（PV）；由多个物理卷组成一块大的逻辑硬盘，叫作卷组（VG）；将卷组划分成多个可以使用的分区，叫作逻辑卷（LV）。而在 LVM 中最小的存储单位不再是 block，而是物理扩展块（Physical Extend，PE）。
 
-  ![img](./Linux实验记录.assets/2-1Q0161050242Q.jpg)
+  ![img](./Linux实验记录/2-1Q0161050242Q.jpg)
 
   - 物理卷（Physical Volume，PV）：就是真正的物理硬盘或分区。
   - 卷组（Volume Group，VG）：将多个物理卷合起来就组成了卷组。组成同一个卷组的物理卷可以是同一块硬盘的不同分区，也可以是不同硬盘上的不同分区。我们可以把卷组想象为一块逻辑硬盘。

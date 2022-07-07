@@ -1,3 +1,7 @@
+---
+title: Electron学习记录
+---
+
 <h1 align="center" id="index">Electron学习记录</h1>
 
 ## 安装Electron包

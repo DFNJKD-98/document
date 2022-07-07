@@ -1,3 +1,7 @@
+---
+title: Rust学习记录
+---
+
 <h1 align='center' id="index">Rust学习记录</h1>
 
 > Rust 代码中的函数和变量名使用 *snake case* 规范风格。
@@ -183,7 +187,7 @@ Rust 有四种基本的标量类型：整型、浮点型、布尔类型和字符
 
 - String 由三部分组成，如图左侧所示：一个指向存放字符串内容内存的指针，一个长度，和一个容量。这一组数据存储在栈上。右侧则是堆上存放内容的内存部分。
 
-  ![image-20220207103714751](Rust%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95.assets/image-20220207103714751.png)
+  ![image-20220207103714751](Rust学习记录/image-20220207103714751.png)
 
 ### 克隆
 
@@ -257,7 +261,7 @@ Rust 有四种基本的标量类型：整型、浮点型、布尔类型和字符
 
 ### 引用
 
-![image-20220207103333282](Rust%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95.assets/image-20220207103333282.png)
+![image-20220207103333282](Rust学习记录/image-20220207103333282.png)
 
 - & 符号就是 **引用**，它们**允许你使用值但不获取其所有权**。避免像String类型的数据在函数传递时，所有权不停的发生转移
 
@@ -337,7 +341,7 @@ Rust 有四种基本的标量类型：整型、浮点型、布尔类型和字符
 
 - 可以使用一个由中括号中的 `[starting_index..ending_index]` 指定的 range 创建一个 slice，其中 `starting_index` 是 slice 的第一个位置，`ending_index` 则是 slice 最后一个位置的后一个值。在其内部，slice 的数据结构存储了 slice 的开始位置和长度，长度对应于 `ending_index` 减去 `starting_index` 的值。
 
-  ![image-20220207105426509](Rust%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95.assets/image-20220207105426509.png)
+  ![image-20220207105426509](Rust学习记录/image-20220207105426509.png)
   
 - ###### **字符串字面值就是 slice**
 

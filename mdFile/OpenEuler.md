@@ -1,3 +1,7 @@
+---
+title: OpenEuler学习记录
+---
+
 <h1 align="center" id="index">OpenEuler 实验记录</h1>
 
 ## 一、操作系统安装与内核编译
@@ -6,13 +10,13 @@
 
 - 镜像版本：openEuler-21.09-x86_64-dvd.iso
 
-<img src="./OpenEuler.assets/1-第一章/1-%E5%88%9B%E5%BB%BAOpenEuler.jpg" alt="1-创建OpenEuler" style="zoom:67%;" />
+<img src="./OpenEuler/1-第一章/1-%E5%88%9B%E5%BB%BAOpenEuler.jpg" alt="1-创建OpenEuler" style="zoom:67%;" />
 
-![](OpenEuler.assets/1-第一章/2-2%E5%AE%89%E8%A3%85OpenEuler.jpg)
+![](OpenEuler/1-第一章/2-2%E5%AE%89%E8%A3%85OpenEuler.jpg)
 
 - 安装中。。。
 
-![](OpenEuler.assets/1-第一章/2-%E5%AE%89%E8%A3%85OpenEuler%E4%B8%AD.jpg)
+![](OpenEuler/1-第一章/2-%E5%AE%89%E8%A3%85OpenEuler%E4%B8%AD.jpg)
 
 #### 连接网络
 
@@ -34,7 +38,7 @@
   nmcli device status
   ```
 
-  ![image-20211122211530722](OpenEuler.assets/image-20211122211530722.png)
+  ![image-20211122211530722](OpenEuler/image-20211122211530722.png)
 
   | 参数       | 释义                                                         |
   | ---------- | ------------------------------------------------------------ |
@@ -49,7 +53,7 @@
   nmcli connection show
   ```
 
-  ![image-20211122211724413](OpenEuler.assets/image-20211122211724413.png)
+  ![image-20211122211724413](OpenEuler/image-20211122211724413.png)
 
 - 启用连接
 
@@ -59,7 +63,7 @@
   # nmcli c up ens33
   ```
 
-  ![image-20211122211928375](OpenEuler.assets/image-20211122211928375.png)
+  ![image-20211122211928375](OpenEuler/image-20211122211928375.png)
 
 - 断开连接
 
@@ -102,7 +106,7 @@
   nmcli connection modify ens33 connection.autoconnect on
   ```
   
-  ![](OpenEuler.assets/1-第一章/3-%E6%88%90%E5%8A%9F%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%BB%9C.jpg)
+  ![](OpenEuler/1-第一章/3-%E6%88%90%E5%8A%9F%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%BB%9C.jpg)
 
 #### [配置Xshell](https://www.cnblogs.com/shireenlee4testing/p/9469650.html)
 
@@ -130,11 +134,11 @@
 wget https://gitee.com/openeuler/kernel/repository/archive/5.10.0-4.25.0?format=tar.gz
 ```
 
-![](OpenEuler.assets/1-第一章/4-2%E4%B8%8B%E8%BD%BD%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81.jpg)
+![](OpenEuler/1-第一章/4-2%E4%B8%8B%E8%BD%BD%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81.jpg)
 
-![](OpenEuler.assets/1-第一章/5-%E5%AE%89%E8%A3%85tar%E5%91%BD%E4%BB%A4.jpg)
+![](OpenEuler/1-第一章/5-%E5%AE%89%E8%A3%85tar%E5%91%BD%E4%BB%A4.jpg)
 
-<img src="./OpenEuler.assets/1-第一章/6-%E8%A7%A3%E5%8E%8B%E6%BA%90%E7%A0%81%E5%8E%8B%E7%BC%A9%E5%8C%85.jpg" style="zoom:67%;" />
+<img src="./OpenEuler/1-第一章/6-%E8%A7%A3%E5%8E%8B%E6%BA%90%E7%A0%81%E5%8E%8B%E7%BC%A9%E5%8C%85.jpg" style="zoom:67%;" />
 
 #### 生成内核配置文件.config
 
@@ -150,7 +154,7 @@ make menuconfig
 # 添加KVM支持 - http://blog.chinaunix.net/uid-31410005-id-5776786.html
 ```
 
-![](OpenEuler.assets/1-第一章/12-menuconfig.jpg)
+![](OpenEuler/1-第一章/12-menuconfig.jpg)
 
 #### [安装一些依赖](https://blog.csdn.net/qq_52688128/article/details/114905052)
 
@@ -163,17 +167,17 @@ yum install elfutils-libelf-devel
 yum install bc
 ```
 
-![](OpenEuler.assets/1-第一章/8-%E5%AE%89%E8%A3%85openssl.jpg)
+![](OpenEuler/1-第一章/8-%E5%AE%89%E8%A3%85openssl.jpg)
 
-![](OpenEuler.assets/1-第一章/9-%E5%AE%89%E8%A3%85ncurses-devel.jpg)
+![](OpenEuler/1-第一章/9-%E5%AE%89%E8%A3%85ncurses-devel.jpg)
 
-![](OpenEuler.assets/1-第一章/10-%E5%AE%89%E8%A3%85flex%E5%91%BD%E4%BB%A4.jpg)
+![](OpenEuler/1-第一章/10-%E5%AE%89%E8%A3%85flex%E5%91%BD%E4%BB%A4.jpg)
 
-![](OpenEuler.assets/1-第一章/11-%E5%AE%89%E8%A3%85bison%E5%91%BD%E4%BB%A4.jpg)
+![](OpenEuler/1-第一章/11-%E5%AE%89%E8%A3%85bison%E5%91%BD%E4%BB%A4.jpg)
 
-![](OpenEuler.assets/1-第一章/15-%E5%AE%89%E8%A3%85bc%E4%BE%9D%E8%B5%96.jpg)
+![](OpenEuler/1-第一章/15-%E5%AE%89%E8%A3%85bc%E4%BE%9D%E8%B5%96.jpg)
 
-![](OpenEuler.assets/1-第一章/16-%E5%AE%89%E8%A3%85elfutils-libelf-devel%E4%BE%9D%E8%B5%96.jpg)
+![](OpenEuler/1-第一章/16-%E5%AE%89%E8%A3%85elfutils-libelf-devel%E4%BE%9D%E8%B5%96.jpg)
 
 #### 编译，安装模块，安装内核
 
@@ -183,15 +187,15 @@ make modules_install
 make install
 ```
 
-![](OpenEuler.assets/1-第一章/17-2%E6%89%A7%E8%A1%8Cmake.jpg)
+![](OpenEuler/1-第一章/17-2%E6%89%A7%E8%A1%8Cmake.jpg)
 
 - 执行`make modules_install`
 
-![](OpenEuler.assets/1-第一章/19-%E6%89%A7%E8%A1%8Cmake_modules_install.jpg)
+![](OpenEuler/1-第一章/19-%E6%89%A7%E8%A1%8Cmake_modules_install.jpg)
 
 - 执行`make install`
 
-![](OpenEuler.assets/1-第一章/21-%E5%BC%80%E5%A7%8Bmake_install.jpg)
+![](OpenEuler/1-第一章/21-%E5%BC%80%E5%A7%8Bmake_install.jpg)
 
 #### 更新引导
 
@@ -199,9 +203,9 @@ make install
 grub2-mkconfig -o /boot/grub2/grub.cfg
 ```
 
-![](OpenEuler.assets/1-第一章/23-%E4%BF%AE%E6%94%B9%E5%90%AF%E5%8A%A8%E6%96%87%E4%BB%B6.jpg)
+![](OpenEuler/1-第一章/23-%E4%BF%AE%E6%94%B9%E5%90%AF%E5%8A%A8%E6%96%87%E4%BB%B6.jpg)
 
-![](OpenEuler.assets/1-第一章/29-%E5%90%AF%E5%8A%A8%E7%95%8C%E9%9D%A2-new.jpg)
+![](OpenEuler/1-第一章/29-%E5%90%AF%E5%8A%A8%E7%95%8C%E9%9D%A2-new.jpg)
 
 #### 查看所有可用内核
 
@@ -268,7 +272,7 @@ grub2-set-default 5.10.0
 
 - MBR 也就是主引导记录，位于硬盘的 0 磁道、0 柱面、1 扇区中，主要记录了启动引导程序和磁盘的分区表。MBR 共占用了一个扇区，也就是 512 Byte。其中 446 Byte 安装了启动引导程序，其后 64 Byte 描述分区表，最后的 2  Byte 是结束标记。
 
-  ![img](OpenEuler.assets/2-1Q0221G321149.jpg)
+  ![img](OpenEuler/2-1Q0221G321149.jpg)
 
 - 我们已经知道，每块硬盘只能划分 4 个主分区，原因就是在 MBR 中描述分区表的空间只有 64  Byte。其中每个分区必须占用 16 Byte，那么 64 Byte 就只能划分 4 个主分区。每个分区的 16 字节的规划如下表所示。
 
@@ -335,19 +339,19 @@ CentOS 6.x 中使用 initramfs 虚拟文件系统取代了 CentOS 5.x 中的 ini
 
 #### 编写helloworld模块
 
-![](OpenEuler.assets/1-第一章/31-%E7%BC%96%E5%86%99%E6%A8%A1%E5%9D%97helloworld.jpg)
+![](OpenEuler/1-第一章/31-%E7%BC%96%E5%86%99%E6%A8%A1%E5%9D%97helloworld.jpg)
 
 #### 编写Makefile文件
 
-![](OpenEuler.assets/1-第一章/32-%E7%BC%96%E5%86%99Makefile.jpg)
+![](OpenEuler/1-第一章/32-%E7%BC%96%E5%86%99Makefile.jpg)
 
 #### 编译模块
 
-<img src="./OpenEuler.assets/1-第一章/33-make%E7%BC%96%E8%AF%91%E6%A8%A1%E5%9D%97.png" style="zoom:80%;" />
+<img src="./OpenEuler/1-第一章/33-make%E7%BC%96%E8%AF%91%E6%A8%A1%E5%9D%97.png" style="zoom:80%;" />
 
 #### 加载与卸载模块
 
-![](OpenEuler.assets/1-第一章/33-%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%9D%97%E4%B8%8E%E5%8D%B8%E8%BD%BD%E6%A8%A1%E5%9D%97.jpg)
+![](OpenEuler/1-第一章/33-%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%9D%97%E4%B8%8E%E5%8D%B8%E8%BD%BD%E6%A8%A1%E5%9D%97.jpg)
 
 ## 二、内存管理
 
@@ -357,15 +361,15 @@ CentOS 6.x 中使用 initramfs 虚拟文件系统取代了 CentOS 5.x 中的 ini
 
 #### 编写源文件
 
-<img src="./OpenEuler.assets/2-第二章/1-kmalloc%E6%BA%90%E7%A0%81.jpg" style="zoom:80%;" />
+<img src="./OpenEuler/2-第二章/1-kmalloc%E6%BA%90%E7%A0%81.jpg" style="zoom:80%;" />
 
 #### 编写Makefile文件
 
-![](OpenEuler.assets/2-第二章/2-kmalloc-Makefile.jpg)
+![](OpenEuler/2-第二章/2-kmalloc-Makefile.jpg)
 
 #### 加载模块与卸载模块
 
-![](OpenEuler.assets/2-第二章/3-kmalloc%E7%9A%84%E5%8A%A0%E8%BD%BD%E4%B8%8E%E5%8D%B8%E8%BD%BD.jpg)
+![](OpenEuler/2-第二章/3-kmalloc%E7%9A%84%E5%8A%A0%E8%BD%BD%E4%B8%8E%E5%8D%B8%E8%BD%BD.jpg)
 
 ### vmalloc
 
@@ -375,15 +379,15 @@ CentOS 6.x 中使用 initramfs 虚拟文件系统取代了 CentOS 5.x 中的 ini
 
 #### 编写源文件
 
-<img src="./OpenEuler.assets/2-第二章/4-vmalloc%E6%BA%90%E7%A0%81.png" style="zoom:80%;" />
+<img src="./OpenEuler/2-第二章/4-vmalloc%E6%BA%90%E7%A0%81.png" style="zoom:80%;" />
 
 #### 编写Makefile文件
 
-![](OpenEuler.assets/2-第二章/5-vmalloc-Makefile.jpg)
+![](OpenEuler/2-第二章/5-vmalloc-Makefile.jpg)
 
 #### 加载模块与卸载模块
 
-<img src="./OpenEuler.assets/2-第二章/6-vmalloc%E7%9A%84%E5%8A%A0%E8%BD%BD%E4%B8%8E%E5%8D%B8%E8%BD%BD.jpg" style="zoom:80%;" />
+<img src="./OpenEuler/2-第二章/6-vmalloc%E7%9A%84%E5%8A%A0%E8%BD%BD%E4%B8%8E%E5%8D%B8%E8%BD%BD.jpg" style="zoom:80%;" />
 
 ### 研讨
 
@@ -427,7 +431,7 @@ CentOS 6.x 中使用 initramfs 虚拟文件系统取代了 CentOS 5.x 中的 ini
 
 #### 运行结果
 
-![](OpenEuler.assets/3-第三章/1-%E5%86%85%E6%A0%B8%E7%BA%BF%E7%A8%8B.jpg)
+![](OpenEuler/3-第三章/1-%E5%86%85%E6%A0%B8%E7%BA%BF%E7%A8%8B.jpg)
 
 ### 打印输出CPU负载情况
 
@@ -455,13 +459,13 @@ CentOS 6.x 中使用 initramfs 虚拟文件系统取代了 CentOS 5.x 中的 ini
 
 #### 运行结果
 
-![](OpenEuler.assets/3-第三章/2-%E8%8E%B7%E5%BE%97CPU%E8%B4%9F%E8%BD%BD.jpg)
+![](OpenEuler/3-第三章/2-%E8%8E%B7%E5%BE%97CPU%E8%B4%9F%E8%BD%BD.jpg)
 
 ### 打印输出运行进程的PID和名字
 
 #### 运行结果
 
-![](OpenEuler.assets/3-第三章/3-%E8%8E%B7%E5%8F%96%E8%BF%90%E8%A1%8C%E8%BF%9B%E7%A8%8B%E7%9A%84PID%E5%92%8Cname.jpg)
+![](OpenEuler/3-第三章/3-%E8%8E%B7%E5%8F%96%E8%BF%90%E8%A1%8C%E8%BF%9B%E7%A8%8B%E7%9A%84PID%E5%92%8Cname.jpg)
 
 ### cgroups
 
@@ -494,11 +498,11 @@ cgroups是control groups的缩写，是Linux内核提供的一种可以限制，
 
 - 同一个hierarchy能够附加一个或多个subsystem。例如cpu和memory subsystems(或者任意多个subsystems)附加到同一个hierarchy
 
-  <img src="./OpenEuler.assets/1070925-20201124165227961-1151966146.png" alt="img" style="zoom: 25%;" />
+  <img src="./OpenEuler/1070925-20201124165227961-1151966146.png" alt="img" style="zoom: 25%;" />
 
 - cpu subsystem已经附加到了hierarchy A，并且memory subsystem已经附加到了hierarchy B，此时cpu subsystem不能在附加到hierarchy B
 
-  <img src="./OpenEuler.assets/1070925-20201124165350137-215436245.png" alt="img" style="zoom:25%;" />
+  <img src="./OpenEuler/1070925-20201124165350137-215436245.png" alt="img" style="zoom:25%;" />
 
 - 一个task不能存在于同一个hierarchy的不同cgroup，但可以存在在不同hierarchy中的多个cgroup
 
@@ -526,11 +530,11 @@ Swap:         1.6Gi        44Mi       1.6Gi
 
 #### 安装libcgroup
 
-![](OpenEuler.assets/3-第三章/4-%E6%8C%89%E7%85%A7libcgroup.jpg)
+![](OpenEuler/3-第三章/4-%E6%8C%89%E7%85%A7libcgroup.jpg)
 
 #### 挂载tmpfs格式的cgroup文件夹
 
-![](OpenEuler.assets/3-第三章/5-%E5%88%9B%E5%BB%BAmycpuset.jpg)
+![](OpenEuler/3-第三章/5-%E5%88%9B%E5%BB%BAmycpuset.jpg)
 
 #### 挂载cpuset管理子系统
 
@@ -538,49 +542,49 @@ Swap:         1.6Gi        44Mi       1.6Gi
 
 #### 限制使用cpu的核数
 
-<img src="./OpenEuler.assets/3-第三章/6-%E9%99%90%E5%88%B6%E4%BD%BF%E7%94%A8cpu%E6%A0%B8%E6%95%B0.jpg" style="zoom: 80%;" />
+<img src="./OpenEuler/3-第三章/6-%E9%99%90%E5%88%B6%E4%BD%BF%E7%94%A8cpu%E6%A0%B8%E6%95%B0.jpg" style="zoom: 80%;" />
 
 #### 编译运行while_long
 
-<img src="./OpenEuler.assets/3-第三章/7-%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8Cwhile_long.jpg" style="zoom:67%;" />
+<img src="./OpenEuler/3-第三章/7-%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8Cwhile_long.jpg" style="zoom:67%;" />
 
 #### 查看while_long的运行情况
 
-<img src="./OpenEuler.assets/3-第三章/9-%E6%9F%A5%E7%9C%8Bwhile_long%E7%9A%84%E8%BF%90%E8%A1%8C%E6%83%85%E5%86%B5.jpg" style="zoom: 67%;" />
+<img src="./OpenEuler/3-第三章/9-%E6%9F%A5%E7%9C%8Bwhile_long%E7%9A%84%E8%BF%90%E8%A1%8C%E6%83%85%E5%86%B5.jpg" style="zoom: 67%;" />
 
 ### cgroup禁止访问U盘
 
 #### 查看U盘盘符
 
-<img src="./OpenEuler.assets/3-第三章/10-%E8%8E%B7%E5%8F%96U%E7%9B%98%E7%9B%98%E7%AC%A6.jpg" style="zoom: 67%;" />
+<img src="./OpenEuler/3-第三章/10-%E8%8E%B7%E5%8F%96U%E7%9B%98%E7%9B%98%E7%AC%A6.jpg" style="zoom: 67%;" />
 
 #### 获取设备号
 
-![](OpenEuler.assets/3-第三章/11-%E8%8E%B7%E5%8F%96U%E7%9B%98%E8%AE%BE%E5%A4%87%E5%8F%B7.jpg)
+![](OpenEuler/3-第三章/11-%E8%8E%B7%E5%8F%96U%E7%9B%98%E8%AE%BE%E5%A4%87%E5%8F%B7.jpg)
 
 #### 挂载U盘到当前系统
 
-![](OpenEuler.assets/3-第三章/12-%E6%8C%82%E8%BD%BDU%E7%9B%98%E5%88%B0%E5%BD%93%E5%89%8D%E7%B3%BB%E7%BB%9F.jpg)
+![](OpenEuler/3-第三章/12-%E6%8C%82%E8%BD%BDU%E7%9B%98%E5%88%B0%E5%BD%93%E5%89%8D%E7%B3%BB%E7%BB%9F.jpg)
 
 #### 挂载设备管理devices子系统
 
-![](OpenEuler.assets/3-第三章/13-%E6%8C%82%E8%BD%BDdevices%E5%AD%90%E7%B3%BB%E7%BB%9F.jpg)
+![](OpenEuler/3-第三章/13-%E6%8C%82%E8%BD%BDdevices%E5%AD%90%E7%B3%BB%E7%BB%9F.jpg)
 
 #### 创建cgroup前后对比
 
-<img src="./OpenEuler.assets/3-第三章/14-%E5%88%9B%E5%BB%BAcgroup%E5%89%8D%E5%90%8E%E5%AF%B9%E6%AF%94.jpg" style="zoom:80%;" />
+<img src="./OpenEuler/3-第三章/14-%E5%88%9B%E5%BB%BAcgroup%E5%89%8D%E5%90%8E%E5%AF%B9%E6%AF%94.jpg" style="zoom:80%;" />
 
 #### 测试访问U盘
 
-![](OpenEuler.assets/3-第三章/15-%E6%B5%8B%E8%AF%95%E8%AE%BF%E9%97%AEU%E7%9B%98.jpg)
+![](OpenEuler/3-第三章/15-%E6%B5%8B%E8%AF%95%E8%AE%BF%E9%97%AEU%E7%9B%98.jpg)
 
-![](OpenEuler.assets/3-第三章/16-%E6%8B%92%E7%BB%9D%E5%92%8C%E5%85%81%E8%AE%B8%E8%AE%BF%E9%97%AEU%E7%9B%98.jpg)
+![](OpenEuler/3-第三章/16-%E6%8B%92%E7%BB%9D%E5%92%8C%E5%85%81%E8%AE%B8%E8%AE%BF%E9%97%AEU%E7%9B%98.jpg)
 
 ## 四、终端和异常管理
 
 ### [软中断、tasklet、工作队列和进程上下文](https://blog.csdn.net/godleading/article/details/52971179)
 
-![执行绪关系](OpenEuler.assets/20161030104807713.bmp)
+![执行绪关系](OpenEuler/20161030104807713.bmp)
 
 #### 上半部和下半部
 
@@ -614,15 +618,15 @@ tasklet是在两种软中断类型的基础上实现的，**因此如果不需�
 
 ### tasklet输出helloworld
 
-![](OpenEuler.assets/4-第四章/1-tasklet%E8%BE%93%E5%87%BAhelloworld.jpg)
+![](OpenEuler/4-第四章/1-tasklet%E8%BE%93%E5%87%BAhelloworld.jpg)
 
 ### 周期性打印helloworld
 
-![](OpenEuler.assets/4-第四章/2-%E5%91%A8%E6%9C%9F%E6%80%A7%E6%89%93%E5%8D%B0helloworld.jpg)
+![](OpenEuler/4-第四章/2-%E5%91%A8%E6%9C%9F%E6%80%A7%E6%89%93%E5%8D%B0helloworld.jpg)
 
 #### 捕获信号
 
-<img src="./OpenEuler.assets/4-第四章/3-%E6%8D%95%E8%8E%B7%E4%BF%A1%E5%8F%B7.jpg" style="zoom:80%;" />
+<img src="./OpenEuler/4-第四章/3-%E6%8D%95%E8%8E%B7%E4%BF%A1%E5%8F%B7.jpg" style="zoom:80%;" />
 
 ## 五、内核时间管理
 
@@ -642,15 +646,15 @@ tasklet是在两种软中断类型的基础上实现的，**因此如果不需�
 
 ### 打印当前时间
 
-![](OpenEuler.assets/5-第五章/1-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E6%97%B6%E9%97%B4.jpg)
+![](OpenEuler/5-第五章/1-%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E6%97%B6%E9%97%B4.jpg)
 
 ### 定时打印helloworld
 
-![](OpenEuler.assets/5-第五章/2-%E5%AE%9A%E6%97%B6%E5%99%A8.jpg)
+![](OpenEuler/5-第五章/2-%E5%AE%9A%E6%97%B6%E5%99%A8.jpg)
 
 ### 累加计算代码的运行时间
 
-![](OpenEuler.assets/5-第五章/3-计算运行时间.jpg)
+![](OpenEuler/5-第五章/3-计算运行时间.jpg)
 
 ## 六、设备管理
 
@@ -658,37 +662,37 @@ tasklet是在两种软中断类型的基础上实现的，**因此如果不需�
 
 #### 安装usbutils
 
-![](OpenEuler.assets/6-第六章/1-%E5%AE%89%E8%A3%85usbutils.jpg)
+![](OpenEuler/6-第六章/1-%E5%AE%89%E8%A3%85usbutils.jpg)
 
 #### 查看usb的设备号和厂商号
 
-![](OpenEuler.assets/6-第六章/2-%E6%9F%A5%E7%9C%8Busb%E7%9A%84%E8%AE%BE%E5%A4%87%E5%8F%B7%E5%92%8C%E5%8E%82%E5%95%86%E5%8F%B7.jpg)
+![](OpenEuler/6-第六章/2-%E6%9F%A5%E7%9C%8Busb%E7%9A%84%E8%AE%BE%E5%A4%87%E5%8F%B7%E5%92%8C%E5%8E%82%E5%95%86%E5%8F%B7.jpg)
 
 #### 安装usb检测模块
 
-![](OpenEuler.assets/6-第六章/3-%E5%AE%89%E8%A3%85usb%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9D%97.jpg)
+![](OpenEuler/6-第六章/3-%E5%AE%89%E8%A3%85usb%E6%A3%80%E6%B5%8B%E6%A8%A1%E5%9D%97.jpg)
 
 #### 插入U盘查看模块输出
 
-![](OpenEuler.assets/6-第六章/4-%E6%8F%92%E5%85%A5u%E7%9B%98%E6%9F%A5%E7%9C%8B%E6%A8%A1%E5%9D%97%E8%BE%93%E5%87%BA.jpg)
+![](OpenEuler/6-第六章/4-%E6%8F%92%E5%85%A5u%E7%9B%98%E6%9F%A5%E7%9C%8B%E6%A8%A1%E5%9D%97%E8%BE%93%E5%87%BA.jpg)
 
 #### 拔出U盘查看模块输出
 
-![](OpenEuler.assets/6-第六章/5-%E6%8B%94%E5%87%BAu%E7%9B%98%E6%9F%A5%E7%9C%8B%E6%A8%A1%E5%9D%97%E8%BE%93%E5%87%BA.jpg)
+![](OpenEuler/6-第六章/5-%E6%8B%94%E5%87%BAu%E7%9B%98%E6%9F%A5%E7%9C%8B%E6%A8%A1%E5%9D%97%E8%BE%93%E5%87%BA.jpg)
 
 #### 卸载模块
 
-![](OpenEuler.assets/6-第六章/6-%E5%8D%B8%E8%BD%BD%E6%A8%A1%E5%9D%97.jpg)
+![](OpenEuler/6-第六章/6-%E5%8D%B8%E8%BD%BD%E6%A8%A1%E5%9D%97.jpg)
 
 ### 测试硬盘读写速率
 
 #### 测试硬盘写速率
 
-![](OpenEuler.assets/6-第六章/7-%E6%B5%8B%E8%AF%95%E7%A1%AC%E7%9B%98%E5%86%99%E9%80%9F%E7%8E%87.jpg)
+![](OpenEuler/6-第六章/7-%E6%B5%8B%E8%AF%95%E7%A1%AC%E7%9B%98%E5%86%99%E9%80%9F%E7%8E%87.jpg)
 
 #### 测试硬盘读速率
 
-![](OpenEuler.assets/6-第六章/8-%E6%B5%8B%E8%AF%95%E7%A1%AC%E7%9B%98%E8%AF%BB%E9%80%9F%E7%8E%87.jpg)
+![](OpenEuler/6-第六章/8-%E6%B5%8B%E8%AF%95%E7%A1%AC%E7%9B%98%E8%AF%BB%E9%80%9F%E7%8E%87.jpg)
 
 #### iozone测试读写速率
 
@@ -707,7 +711,7 @@ tasklet是在两种软中断类型的基础上实现的，**因此如果不需�
   # ./iozone -h
   ```
 
-  ![](OpenEuler.assets/6-第六章/9-编译iozone.jpg)
+  ![](OpenEuler/6-第六章/9-编译iozone.jpg)
 
 - 测试读写速率
 
@@ -715,9 +719,9 @@ tasklet是在两种软中断类型的基础上实现的，**因此如果不需�
   ./iozone -Raz -n 512m -g 8g -r 1k -i 0 -i 1 -b /home/iozone.xls
   ```
   
-  ![](OpenEuler.assets/6-第六章/10-iozone测试中.jpg)
+  ![](OpenEuler/6-第六章/10-iozone测试中.jpg)
   
-  ![](OpenEuler.assets/6-第六章/11-测试结果.jpg)
+  ![](OpenEuler/6-第六章/11-测试结果.jpg)
 
 ## 七、文件系统
 
@@ -731,31 +735,31 @@ tasklet是在两种软中断类型的基础上实现的，**因此如果不需�
 
 #### 查看是否支持扩展属性
 
-<img src="./OpenEuler.assets/7-第七章/1-%E6%9F%A5%E7%9C%8B%E6%98%AF%E5%90%A6%E6%94%AF%E6%8C%81%E6%89%A9%E5%B1%95%E5%B1%9E%E6%80%A7.jpg" style="zoom:67%;" />
+<img src="./OpenEuler/7-第七章/1-%E6%9F%A5%E7%9C%8B%E6%98%AF%E5%90%A6%E6%94%AF%E6%8C%81%E6%89%A9%E5%B1%95%E5%B1%9E%E6%80%A7.jpg" style="zoom:67%;" />
 
 #### 设置文本属性值
 
-<img src="./OpenEuler.assets/7-第七章/2-%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E5%B1%9E%E6%80%A7%E5%80%BC.jpg" style="zoom:80%;" />
+<img src="./OpenEuler/7-第七章/2-%E8%AE%BE%E7%BD%AE%E6%96%87%E6%9C%AC%E5%B1%9E%E6%80%A7%E5%80%BC.jpg" style="zoom:80%;" />
 
 #### 设置十六进制属性值和base64编码
 
-<img src="./OpenEuler.assets/7-第七章/3-%E8%AE%BE%E7%BD%AE%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E5%B1%9E%E6%80%A7%E5%80%BC%E5%92%8Cbase64%E7%BC%96%E7%A0%81.jpg" style="zoom:67%;" />
+<img src="./OpenEuler/7-第七章/3-%E8%AE%BE%E7%BD%AE%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E5%B1%9E%E6%80%A7%E5%80%BC%E5%92%8Cbase64%E7%BC%96%E7%A0%81.jpg" style="zoom:67%;" />
 
 #### text编码设置
 
-<img src="./OpenEuler.assets/7-第七章/4-text%E7%BC%96%E7%A0%81%E8%AE%BE%E7%BD%AE.jpg" style="zoom:67%;" />
+<img src="./OpenEuler/7-第七章/4-text%E7%BC%96%E7%A0%81%E8%AE%BE%E7%BD%AE.jpg" style="zoom:67%;" />
 
 #### hex编码和base64编码
 
-<img src="./OpenEuler.assets/7-第七章/5-hex%E7%BC%96%E7%A0%81%E5%92%8Cbase64%E7%BC%96%E7%A0%81.jpg" style="zoom:80%;" />
+<img src="./OpenEuler/7-第七章/5-hex%E7%BC%96%E7%A0%81%E5%92%8Cbase64%E7%BC%96%E7%A0%81.jpg" style="zoom:80%;" />
 
 ### 注册自定义文件系统类型
 
-![](OpenEuler.assets/7-第七章/6-%E6%B3%A8%E5%86%8C%E6%96%B0%E7%9A%84%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%B1%BB%E5%9E%8B.jpg)
+![](OpenEuler/7-第七章/6-%E6%B3%A8%E5%86%8C%E6%96%B0%E7%9A%84%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%B1%BB%E5%9E%8B.jpg)
 
 ### 在/proc下创建目录
 
-![](OpenEuler.assets/7-第七章/7-proc%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95.jpg)
+![](OpenEuler/7-第七章/7-proc%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95.jpg)
 
 ### 使用sysfs文件系统传递内核模块参数
 
@@ -782,11 +786,11 @@ sysfs提供一种机制，使得可以显式地描述内核对象、对象属性
 
 #### 编译与装载sysfs_exam模块
 
-![](OpenEuler.assets/7-第七章/8-%E7%BC%96%E8%AF%91%E4%B8%8E%E8%A3%85%E8%BD%BDsysfs_exam%E6%A8%A1%E5%9D%97.jpg)
+![](OpenEuler/7-第七章/8-%E7%BC%96%E8%AF%91%E4%B8%8E%E8%A3%85%E8%BD%BDsysfs_exam%E6%A8%A1%E5%9D%97.jpg)
 
 #### 修改模块参数和卸载模块
 
-![](OpenEuler.assets/7-第七章/9-%E4%BF%AE%E6%94%B9%E6%A8%A1%E5%9D%97%E5%8F%82%E6%95%B0%E5%92%8C%E5%8D%B8%E8%BD%BD%E6%A8%A1%E5%9D%97.jpg)
+![](OpenEuler/7-第七章/9-%E4%BF%AE%E6%94%B9%E6%A8%A1%E5%9D%97%E5%8F%82%E6%95%B0%E5%92%8C%E5%8D%B8%E8%BD%BD%E6%A8%A1%E5%9D%97.jpg)
 
 ## 八、网络管理
 
@@ -794,47 +798,47 @@ sysfs提供一种机制，使得可以显式地描述内核对象、对象属性
 
 #### 编译udp_socket并发送数据
 
-![](OpenEuler.assets/8-第八章/1-%E7%BC%96%E8%AF%91udp_socket%E5%B9%B6%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE.jpg)
+![](OpenEuler/8-第八章/1-%E7%BC%96%E8%AF%91udp_socket%E5%B9%B6%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE.jpg)
 
 #### 启动服务端并接收数据
 
-![](OpenEuler.assets/8-第八章/2-%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%B9%B6%E6%8E%A5%E6%94%B6%E6%95%B0%E6%8D%AE.jpg)
+![](OpenEuler/8-第八章/2-%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%B9%B6%E6%8E%A5%E6%94%B6%E6%95%B0%E6%8D%AE.jpg)
 
 ### tshark抓包
 
 #### 安装WireShark
 
-![](OpenEuler.assets/8-第八章/3-%E5%AE%89%E8%A3%85wireshark.jpg)
+![](OpenEuler/8-第八章/3-%E5%AE%89%E8%A3%85wireshark.jpg)
 
 #### client发送数据
 
-![](OpenEuler.assets/8-第八章/4-client%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE.jpg)
+![](OpenEuler/8-第八章/4-client%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE.jpg)
 
 #### server接收数据
 
-![](OpenEuler.assets/8-第八章/5-server%E6%8E%A5%E6%94%B6%E6%95%B0%E6%8D%AE.jpg)
+![](OpenEuler/8-第八章/5-server%E6%8E%A5%E6%94%B6%E6%95%B0%E6%8D%AE.jpg)
 
 #### tshark抓取数据
 
-![](OpenEuler.assets/8-第八章/6-tshark%E6%8A%93%E5%8F%96%E6%95%B0%E6%8D%AE.jpg)
+![](OpenEuler/8-第八章/6-tshark%E6%8A%93%E5%8F%96%E6%95%B0%E6%8D%AE.jpg)
 
 ### 使用 setsockopt 发送记录路由选项
 
 #### 发送三次数据
 
-![](OpenEuler.assets/8-第八章/7-%E5%8F%91%E9%80%81%E4%B8%89%E6%AC%A1%E6%95%B0%E6%8D%AE.jpg)
+![](OpenEuler/8-第八章/7-%E5%8F%91%E9%80%81%E4%B8%89%E6%AC%A1%E6%95%B0%E6%8D%AE.jpg)
 
 #### 接收到三次数据
 
-![](OpenEuler.assets/8-第八章/8-%E6%8E%A5%E6%94%B6%E5%88%B0%E4%B8%89%E6%AC%A1%E6%95%B0%E6%8D%AE.jpg)
+![](OpenEuler/8-第八章/8-%E6%8E%A5%E6%94%B6%E5%88%B0%E4%B8%89%E6%AC%A1%E6%95%B0%E6%8D%AE.jpg)
 
 #### 输出记录到xml文件
 
-![](OpenEuler.assets/8-第八章/9-%E8%BE%93%E5%87%BA%E8%AE%B0%E5%BD%95%E5%88%B0xml%E6%96%87%E4%BB%B6.jpg)
+![](OpenEuler/8-第八章/9-%E8%BE%93%E5%87%BA%E8%AE%B0%E5%BD%95%E5%88%B0xml%E6%96%87%E4%BB%B6.jpg)
 
 #### 查看记录
 
-![](OpenEuler.assets/8-第八章/10-setsockopt-xml%E6%96%87%E4%BB%B6.jpg)
+![](OpenEuler/8-第八章/10-setsockopt-xml%E6%96%87%E4%BB%B6.jpg)
 
 ## 九、内核虚拟化
 
@@ -849,31 +853,31 @@ sysfs提供一种机制，使得可以显式地描述内核对象、对象属性
 
 #### 安装qemu
 
-![](OpenEuler.assets/9-第九章/1-%E5%AE%89%E8%A3%85qemu.jpg)
+![](OpenEuler/9-第九章/1-%E5%AE%89%E8%A3%85qemu.jpg)
 
 #### 安装libvirt
 
-![](OpenEuler.assets/9-第九章/2-%E5%AE%89%E8%A3%85libvirt.jpg)
+![](OpenEuler/9-第九章/2-%E5%AE%89%E8%A3%85libvirt.jpg)
 
 #### 查看内核是否支持虚拟化
 
-![](OpenEuler.assets/9-第九章/3-%E6%9F%A5%E7%9C%8B%E5%86%85%E6%A0%B8%E6%98%AF%E5%90%A6%E6%94%AF%E6%8C%81%E8%99%9A%E6%8B%9F%E5%8C%96.jpg)
+![](OpenEuler/9-第九章/3-%E6%9F%A5%E7%9C%8B%E5%86%85%E6%A0%B8%E6%98%AF%E5%90%A6%E6%94%AF%E6%8C%81%E8%99%9A%E6%8B%9F%E5%8C%96.jpg)
 
 #### 查看qemu是否安装成功
 
-![](OpenEuler.assets/9-第九章/4-%E6%9F%A5%E7%9C%8Bqemu%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F.jpg)
+![](OpenEuler/9-第九章/4-%E6%9F%A5%E7%9C%8Bqemu%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F.jpg)
 
 #### 查看libvirt是否安装成功
 
-![](OpenEuler.assets/9-第九章/5-%E6%9F%A5%E7%9C%8Blibvirt%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F.jpg)
+![](OpenEuler/9-第九章/5-%E6%9F%A5%E7%9C%8Blibvirt%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F.jpg)
 
 #### 启动libvirtd服务
 
-![](OpenEuler.assets/9-第九章/6-%E5%90%AF%E5%8A%A8libvirtd%E6%9C%8D%E5%8A%A1.jpg)
+![](OpenEuler/9-第九章/6-%E5%90%AF%E5%8A%A8libvirtd%E6%9C%8D%E5%8A%A1.jpg)
 
 #### 查看网络配置
 
-<img src="./OpenEuler.assets/9-第九章/7-%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE.jpg" style="zoom:80%;" />
+<img src="./OpenEuler/9-第九章/7-%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE.jpg" style="zoom:80%;" />
 
 #### 安装引导固件
 
@@ -885,7 +889,7 @@ sysfs提供一种机制，使得可以显式地描述内核对象、对象属性
 yum install -y edk2-ovmf
 ```
 
-![](OpenEuler.assets/9-第九章/8-%E5%AE%89%E8%A3%85%E5%BC%95%E5%AF%BC%E5%9B%BA%E4%BB%B6.jpg)
+![](OpenEuler/9-第九章/8-%E5%AE%89%E8%A3%85%E5%BC%95%E5%AF%BC%E5%9B%BA%E4%BB%B6.jpg)
 
 #### 准备虚拟机镜像
 
@@ -893,27 +897,27 @@ yum install -y edk2-ovmf
 >
 > 后续安装操作系统进行分区时，要求不少于5.xxG(具体记不得了)，所以这里**最少得6G**
 
-![](OpenEuler.assets/9-第九章/10%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%95%9C%E5%83%8F.jpg)
+![](OpenEuler/9-第九章/10%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%95%9C%E5%83%8F.jpg)
 
 #### 创建虚拟机
 
-<img src="./OpenEuler.assets/9-第九章/14-%E6%88%90%E5%8A%9F%E5%AE%9A%E4%B9%89%E8%99%9A%E6%8B%9F%E6%9C%BA.jpg" style="zoom:80%;" />
+<img src="./OpenEuler/9-第九章/14-%E6%88%90%E5%8A%9F%E5%AE%9A%E4%B9%89%E8%99%9A%E6%8B%9F%E6%9C%BA.jpg" style="zoom:80%;" />
 
 #### 运行虚拟机
 
-<img src="./OpenEuler.assets/9-第九章/15-%E8%BF%90%E8%A1%8C%E8%99%9A%E6%8B%9F%E6%9C%BA.jpg" style="zoom: 67%;" />
+<img src="./OpenEuler/9-第九章/15-%E8%BF%90%E8%A1%8C%E8%99%9A%E6%8B%9F%E6%9C%BA.jpg" style="zoom: 67%;" />
 
 #### 安装tigervnc
 
-![](OpenEuler.assets/9-第九章/16-%E5%AE%89%E8%A3%85tigervnc.jpg)
+![](OpenEuler/9-第九章/16-%E5%AE%89%E8%A3%85tigervnc.jpg)
 
 #### 查看网络信息
 
-<img src="./OpenEuler.assets/9-第九章/17-%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF.jpg" style="zoom:80%;" />
+<img src="./OpenEuler/9-第九章/17-%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF.jpg" style="zoom:80%;" />
 
 #### 填写VNC-Server地址
 
-<img src="./OpenEuler.assets/9-第九章/18-%E5%A1%AB%E5%86%99VNCServer%E5%9C%B0%E5%9D%80.jpg" style="zoom:80%;" />
+<img src="./OpenEuler/9-第九章/18-%E5%A1%AB%E5%86%99VNCServer%E5%9C%B0%E5%9D%80.jpg" style="zoom:80%;" />
 
 #### 输入密码
 
@@ -925,7 +929,7 @@ yum install -y edk2-ovmf
 </graphics>
 ```
 
-![](OpenEuler.assets/9-第九章/19-%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81.jpg)
+![](OpenEuler/9-第九章/19-%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81.jpg)
 
 #### 连接报错
 
@@ -943,65 +947,65 @@ yum install -y edk2-ovmf
 </disk>
 ```
 
-<img src="./OpenEuler.assets/9-第九章/20-%E8%BF%9E%E6%8E%A5%E6%8A%A5%E9%94%99.jpg" style="zoom:50%;" />
+<img src="./OpenEuler/9-第九章/20-%E8%BF%9E%E6%8E%A5%E6%8A%A5%E9%94%99.jpg" style="zoom:50%;" />
 
 #### 安装虚拟机
 
-<img src="./OpenEuler.assets/9-第九章/21-%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA.jpg" style="zoom:50%;" />
+<img src="./OpenEuler/9-第九章/21-%E5%AE%89%E8%A3%85%E8%99%9A%E6%8B%9F%E6%9C%BA.jpg" style="zoom:50%;" />
 
-<img src="./OpenEuler.assets/9-第九章/22-2安装界面.jpg" style="zoom: 50%;" />
+<img src="./OpenEuler/9-第九章/22-2安装界面.jpg" style="zoom: 50%;" />
 
-![](OpenEuler.assets/9-第九章/22-3%E5%AE%89%E8%A3%85%E4%B8%AD.jpg)
+![](OpenEuler/9-第九章/22-3%E5%AE%89%E8%A3%85%E4%B8%AD.jpg)
 
-![](OpenEuler.assets/9-第九章/22-4%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90.jpg)
+![](OpenEuler/9-第九章/22-4%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90.jpg)
 
 #### 登录虚拟机
 
-![](OpenEuler.assets/9-第九章/23-%E7%99%BB%E5%BD%95%E6%88%90%E5%8A%9F.jpg)
+![](OpenEuler/9-第九章/23-%E7%99%BB%E5%BD%95%E6%88%90%E5%8A%9F.jpg)
 
 #### 关闭虚拟机
 
-![](OpenEuler.assets/9-第九章/24-%E5%85%B3%E9%97%AD%E8%99%9A%E6%8B%9F%E6%9C%BA.jpg)
+![](OpenEuler/9-第九章/24-%E5%85%B3%E9%97%AD%E8%99%9A%E6%8B%9F%E6%9C%BA.jpg)
 
 ### Docker
 
 #### docker架构图
 
-![](./OpenEuler.assets/docker架构图.jpg)
+![](./OpenEuler/docker架构图.jpg)
 
 #### 容器的生命周期
 
-![](./OpenEuler.assets/容器生命周期图.jpg)
+![](./OpenEuler/容器生命周期图.jpg)
 
 #### 安装docker
 
-![](OpenEuler.assets/docker/1-%E5%AE%89%E8%A3%85docker.jpg)
+![](OpenEuler/docker/1-%E5%AE%89%E8%A3%85docker.jpg)
 
 #### 拉取镜像
 
-![](OpenEuler.assets/docker/2-%E6%8B%89%E5%8F%96%E9%95%9C%E5%83%8F.jpg)
+![](OpenEuler/docker/2-%E6%8B%89%E5%8F%96%E9%95%9C%E5%83%8F.jpg)
 
 #### 新建容器并启动
 
-![](OpenEuler.assets/docker/3-%E6%96%B0%E5%BB%BA%E5%AE%B9%E5%99%A8%E5%B9%B6%E5%90%AF%E5%8A%A8.jpg)
+![](OpenEuler/docker/3-%E6%96%B0%E5%BB%BA%E5%AE%B9%E5%99%A8%E5%B9%B6%E5%90%AF%E5%8A%A8.jpg)
 
 #### 创建容器并后台运行
 
-![](OpenEuler.assets/docker/4-%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8%E5%B9%B6%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C.jpg)
+![](OpenEuler/docker/4-%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8%E5%B9%B6%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C.jpg)
 
 #### 容器的终止与删除
 
-![](OpenEuler.assets/docker/5-%E5%AE%B9%E5%99%A8%E7%9A%84%E7%BB%88%E6%AD%A2%E4%B8%8E%E5%88%A0%E9%99%A4.jpg)
+![](OpenEuler/docker/5-%E5%AE%B9%E5%99%A8%E7%9A%84%E7%BB%88%E6%AD%A2%E4%B8%8E%E5%88%A0%E9%99%A4.jpg)
 
 #### 创建镜像并验证可用性
 
-![](OpenEuler.assets/docker/6-%E5%88%9B%E5%BB%BA%E9%95%9C%E5%83%8F%E5%B9%B6%E9%AA%8C%E8%AF%81%E5%8F%AF%E7%94%A8%E6%80%A7.jpg)
+![](OpenEuler/docker/6-%E5%88%9B%E5%BB%BA%E9%95%9C%E5%83%8F%E5%B9%B6%E9%AA%8C%E8%AF%81%E5%8F%AF%E7%94%A8%E6%80%A7.jpg)
 
 ## iSula容器引擎
 
 > iSula通用容器引擎相比Docker，是一种新的容器解决方案，提供统一的架构设计来满足CT和IT领域的不同需求。相比Golang编写的Docker，轻量级容器使用C/C++实现，具有轻、灵、巧、快的特点，不受硬件规格和架构的限制，底噪开销更小，可应用领域更为广泛。
 >
-> ![img](OpenEuler.assets/zh-cn_image_0183048952.png)
+> ![img](OpenEuler/zh-cn_image_0183048952.png)
 
 ### [安装与配置](https://docs.openeuler.org/zh/docs/20.03_LTS/docs/Container/%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE.html)
 
@@ -1011,7 +1015,7 @@ yum install -y edk2-ovmf
 sudo yum install -y iSulad
 ```
 
-![](OpenEuler.assets/iSula/2-%E5%AE%89%E8%A3%85iSulad.jpg)
+![](OpenEuler/iSula/2-%E5%AE%89%E8%A3%85iSulad.jpg)
 
 #### 配置
 
@@ -1054,7 +1058,7 @@ sudo yum install -y iSulad
 isula pull ubuntu:14.04
 ```
 
-![](OpenEuler.assets/iSula/4-拉取镜像.jpg)
+![](OpenEuler/iSula/4-拉取镜像.jpg)
 
 #### 查看镜像
 
@@ -1102,7 +1106,7 @@ isula attach container_ID
 
 #### 综合实验结果
 
-![](OpenEuler.assets/iSula/5-创建-查看-删除-接入容器.jpg)
+![](OpenEuler/iSula/5-创建-查看-删除-接入容器.jpg)
 
 ### CNI网络
 
@@ -1133,17 +1137,17 @@ kubernetes 对网络的要求是：
 
 #### 安装
 
-![](./OpenEuler.assets/Atune/1-安装atune.jpg)
+![](./OpenEuler/Atune/1-安装atune.jpg)
 
-![](./OpenEuler.assets/Atune/2-查看安装是否成功.jpg)
+![](./OpenEuler/Atune/2-查看安装是否成功.jpg)
 
 ### 启动Atune
 
-![](./OpenEuler.assets/Atune/3-启动atune.jpg)
+![](./OpenEuler/Atune/3-启动atune.jpg)
 
 ### 查看负载类型
 
-![](./OpenEuler.assets/Atune/4-查询负载类型.jpg)
+![](./OpenEuler/Atune/4-查询负载类型.jpg)
 
 ---
 

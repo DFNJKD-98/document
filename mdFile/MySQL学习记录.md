@@ -1,3 +1,7 @@
+---
+title: MySQL学习记录
+---
+
 <h1 align="center">MySQL学习记录</h1>
 
 

@@ -1,3 +1,7 @@
+---
+title: Windows配置
+---
+
 <h1 align="center" id="index">Windows配置</h1>
 
 ## 环境
@@ -77,6 +81,7 @@
 |ProcessMonitor|见阿里云盘|
 |Fish|见阿里云盘|
 |ECMenu|见阿里云盘|
+|SpaceSniffer|见阿里云盘|
 
 ## 字体
 

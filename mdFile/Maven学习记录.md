@@ -1,3 +1,7 @@
+---
+title: Maven学习记录
+---
+
 <h1 align="center" id="index">Maven 学习记录</h1>
 
 ## 一、了解Maven
